@@ -13,6 +13,7 @@
     "jest": true
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
     // Make prettier code formatting suggestions more verbose.
     "prettier/prettier": ["warn"],
     // Disable <Fragment> => <> replacement. Feel free to change
