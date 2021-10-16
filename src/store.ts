@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { CounterReducer } from './features/counter'
+import { reducer } from 'shared/store'
 
 /* Create root reducer, containing all features of the application */
 const rootReducer = combineReducers({
-  count: CounterReducer,
+  ...reducer,
 })
 
 const store = configureStore(
