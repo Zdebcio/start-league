@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { LoadingStatus } from 'shared/types'
-import { doSomethingAsync } from './actions'
+import { doSomethingAsync, login } from './actions'
 
 interface State {
   something: string
@@ -16,20 +16,13 @@ const initialState: State = {
 
 export default createReducer(initialState, (builder) =>
   builder
-    .addCase(doSomethingAsync.pending, (state) => ({
+    .addCase(login.pending, (state) => ({
       ...state,
-      loading: LoadingStatus.Pending,
-      error: null,
     }))
-    .addCase(doSomethingAsync.fulfilled, (state, action) => ({
+    .addCase(login.fulfilled, (state, action) => ({
       ...state,
-      something: action.payload,
-      loading: LoadingStatus.Succeeded,
-      error: null,
     }))
-    .addCase(doSomethingAsync.rejected, (state, action) => ({
+    .addCase(login.rejected, (state, action) => ({
       ...state,
-      loading: LoadingStatus.Failed,
-      error: action.error.message,
     }))
 )

@@ -15,13 +15,13 @@ const PrivateRoute: React.FC<IPrivateRoute> = ({
   const isDesktopView = useCheckDesktopScreen()
   const isAuthenticated = localStorage.getItem('authKey')
 
-  const redirectPage = isDesktopView ? '/sign-in' : '/login'
+  // const redirectPage = isDesktopView ? '/sign-in' : '/login'
   return (
     <Route
       path={path}
       exact={exact}
       render={() =>
-        isAuthenticated ? <Component /> : <Redirect to={redirectPage} />
+        isAuthenticated ? <Component /> : <Redirect to="/login" />
       }
     />
   )
