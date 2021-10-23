@@ -2,12 +2,14 @@ import { indigo, lightBlue } from '@mui/material/colors'
 import createPalette, {
   PaletteOptions,
 } from '@mui/material/styles/createPalette'
+import { colors } from 'config'
 
 const palette: PaletteOptions = {
   primary: {
     light: '#534bae',
     main: indigo[900],
     dark: '#000051',
+    contrastText: '',
   },
   secondary: {
     light: '#58a5f0',

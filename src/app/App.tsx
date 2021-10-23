@@ -3,11 +3,16 @@ import { BrowserRouter, Switch } from 'react-router-dom'
 import { publicRoutes, privateRoutes } from 'shared/routes'
 import PrivateRoute from 'shared/routes/components/PrivateRoute'
 import PublicRoute from 'shared/routes/components/PublicRoute'
+import CssBaseline from '@mui/material/CssBaseline'
+import { Container } from './App.style'
+
+const inputBaselineStyles = <CssBaseline />
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div className="container">
+      {inputBaselineStyles}
+      <Container>
         <Switch>
           {publicRoutes.map((route) => (
             <PublicRoute
@@ -27,7 +32,7 @@ const App: React.FC = () => {
             />
           ))}
         </Switch>
-      </div>
+      </Container>
     </BrowserRouter>
   )
 }

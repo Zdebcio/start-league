@@ -6,7 +6,7 @@ interface IStart {
 
 const Start: React.FC<IStart> = ({ viewChangeFn }) => {
   return (
-    <div>
+    <>
       <Button
         color="primary"
         variant="contained"
@@ -14,14 +14,10 @@ const Start: React.FC<IStart> = ({ viewChangeFn }) => {
       >
         Sign In
       </Button>
-      <Button
-        variant="contained"
-        color="neutral"
-        onClick={() => viewChangeFn('signUp')}
-      >
+      <Button variant="contained" onClick={() => viewChangeFn('signUp')}>
         Sign Up
       </Button>
-    </div>
+    </>
   )
 }
 

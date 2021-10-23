@@ -36,7 +36,7 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
   }
 
   return (
-    <div>
+    <>
       <form onSubmit={handleLoginSubmit}>
         <TextField
           id="email-login"
@@ -61,7 +61,7 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
       <Button variant="text" onClick={() => viewChangeFn('signUp')}>
         Sign Up
       </Button>
-    </div>
+    </>
   )
 }
 

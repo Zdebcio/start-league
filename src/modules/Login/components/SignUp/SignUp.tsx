@@ -6,7 +6,7 @@ interface ISignUp {
 
 const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
   return (
-    <div>
+    <>
       <TextField
         id="nickname-registration"
         label="Nickname"
@@ -35,7 +35,7 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
       <Button variant="text" onClick={() => viewChangeFn('signIn')}>
         Sign In
       </Button>
-    </div>
+    </>
   )
 }
 
