@@ -116,28 +116,7 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
         }}
       />
       <FormControlLabel
-        control={
-          <Checkbox
-            icon={
-              <RemoveIcon
-                style={{
-                  color: 'gray',
-                  backgroundColor: 'gray',
-                  borderRadius: '0.2rem',
-                }}
-              />
-            }
-            checkedIcon={
-              <CheckIcon
-                style={{
-                  color: '#ffffff',
-                  backgroundColor: 'red',
-                  borderRadius: '0.2rem',
-                }}
-              />
-            }
-          />
-        }
+        control={<Checkbox icon={<RemoveIcon />} checkedIcon={<CheckIcon />} />}
         label="Accept regulations and terms."
       />
       <Button variant="contained" fullWidth>

@@ -92,7 +92,21 @@ const props: Components = {
 
   MuiCheckbox: {
     styleOverrides: {
-      root: {},
+      root: {
+        '& > .MuiSvgIcon-root': {
+          color: colors.checkbox.uncheckd.icon,
+          backgroundColor: colors.checkbox.uncheckd.background,
+          borderRadius: '0.2rem',
+        },
+        '&.Mui-checked > .MuiSvgIcon-root': {
+          color: colors.checkbox.checked.icon,
+          backgroundColor: colors.checkbox.checked.background,
+        },
+        '& + span': {
+          color: colors.checkbox.label,
+          fontSize: '1.4rem',
+        },
+      },
     },
   },
 }

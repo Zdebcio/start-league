@@ -17,6 +17,17 @@ const colors = {
       background: '#FFFFFF',
     },
   },
+  checkbox: {
+    checked: {
+      background: '#008DD5',
+      icon: '#FFFFFF',
+    },
+    uncheckd: {
+      background: '#C4C4C4',
+      icon: '#C4C4C4',
+    },
+    label: '#FFFFFF',
+  },
   decorations: {
     boxShadows: {
       component: '#000000',
