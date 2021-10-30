@@ -12,7 +12,11 @@ const colors = {
       primaryText: '#FFFFFF',
     },
   },
-  flieds: {},
+  fields: {
+    filled: {
+      background: '#FFFFFF',
+    },
+  },
   decorations: {
     boxShadows: {
       component: '#000000',

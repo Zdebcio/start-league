@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button, TextField } from '@mui/material'
+import { Button, TextField, InputAdornment } from '@mui/material'
 import { login } from 'shared/store/auth/actions'
+import MailOutlineIcon from '@mui/icons-material/MailOutline'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import { FormPanel } from 'modules/Login/container/Login.style'
 
 interface ISignIn {
   viewChangeFn: (view: string) => void
@@ -37,30 +40,46 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
 
   return (
     <>
-      <form onSubmit={handleLoginSubmit}>
+      <FormPanel onSubmit={handleLoginSubmit}>
         <TextField
-          id="email-login"
           placeholder="E-Mail"
           variant="filled"
           type="text"
           value={emailInput}
           onChange={handleEmailInputChange}
+          fullWidth
+          InputProps={{
+            disableUnderline: true,
+            startAdornment: (
+              <InputAdornment position="start">
+                <MailOutlineIcon />
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
-          id="password-login"
           placeholder="Password"
           variant="filled"
           type="password"
           value={passwordInput}
           onChange={handlePasswordInputChange}
+          fullWidth
+          InputProps={{
+            disableUnderline: true,
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockOutlinedIcon />
+              </InputAdornment>
+            ),
+          }}
         />
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" fullWidth>
           Sign In
         </Button>
-      </form>
-      <Button variant="text" onClick={() => viewChangeFn('signUp')}>
-        Sign Up
-      </Button>
+        <Button variant="text" onClick={() => viewChangeFn('signUp')}>
+          Sign Up
+        </Button>
+      </FormPanel>
     </>
   )
 }
