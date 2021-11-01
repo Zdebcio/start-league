@@ -13,8 +13,11 @@ export const LoginPage = styled('div')`
 
 export const LoginContainer = styled('div')`
   width: 100%;
-  max-width: 450;
+  max-width: 440px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: -13rem;
 `
 
 export const ContentContainer = styled('div')`
@@ -24,19 +27,16 @@ export const ContentContainer = styled('div')`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
-  padding-top: 30vmin;
-  margin-top: 20vmin;
+  padding-top: 13rem;
 `
 
 export const StyledAppLogo = styled(AppLogo)`
-  position: absolute;
+  position: relative;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
-  width: 50vmin;
-  max-width: 220;
-  height: 50vmin;
-  max-height: 220;
+  transform: translate(-50%, 13rem);
+  width: 50%;
+  height: auto;
 `
 
 export const StyledAppTextLogo = styled(AppTextLogo)`

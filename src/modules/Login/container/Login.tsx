@@ -37,6 +37,7 @@ const Login = () => {
 
   return (
     <LoginPage>
+      {isDesktopView && <div>aaa</div>}
       <LoginContainer>
         <StyledAppLogo />
         <ContentContainer>
