@@ -7,6 +7,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import {
   FormPanel,
   ChangeViewButtonWrapper,
+  AdditionalButtonsWrapper,
 } from 'modules/Login/container/Login.style'
 
 interface ISignIn {
@@ -79,6 +80,14 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
         <Button variant="contained" type="submit" fullWidth>
           Sign In
         </Button>
+        <AdditionalButtonsWrapper>
+          <Button variant="text" color="secondary" disableTouchRipple>
+            Regulations and terms
+          </Button>
+          <Button variant="text" color="secondary" disableTouchRipple>
+            Reset password
+          </Button>
+        </AdditionalButtonsWrapper>
         <ChangeViewButtonWrapper>
           <Typography variant="body1" component="span">
             Don’t have an account?

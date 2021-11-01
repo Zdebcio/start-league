@@ -58,7 +58,7 @@ export const FormPanelWrapper = styled('div')`
 `
 
 export const FormPanel = styled('form')`
-  & > *:not(:last-child) {
+  & > .MuiFormControl-root:not(:last-child) {
     margin-bottom: 1rem;
   }
 
@@ -71,5 +71,11 @@ export const ChangeViewButtonWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 3rem;
+`
+
+export const AdditionalButtonsWrapper = styled('div')`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `

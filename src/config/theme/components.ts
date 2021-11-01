@@ -53,8 +53,9 @@ const props: Components = {
         },
       },
       textSecondary: {
-        fontSize: '1.4rem',
+        fontSize: '1.3rem',
         color: colors.buttons.text.secondary,
+        fontWeight: 300,
         '&:hover': {
           color: darken(colors.buttons.text.secondary, 0.2),
         },
