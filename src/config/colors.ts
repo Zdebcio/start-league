@@ -5,11 +5,17 @@ const colors = {
   components: {
     primary: '#444444',
   },
-  typography: {},
+  typography: {
+    primary: '#FFFFFF',
+  },
   buttons: {
     contained: {
       primary: '#008DD5',
       primaryText: '#FFFFFF',
+    },
+    text: {
+      primary: '#6BD425',
+      secondary: '#FFFFFF',
     },
   },
   fields: {

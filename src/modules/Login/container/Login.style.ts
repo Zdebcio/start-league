@@ -47,7 +47,7 @@ export const StyledAppTextLogo = styled(AppTextLogo)`
 
 export const FormPanelWrapper = styled('div')`
   width: 100%;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -65,4 +65,11 @@ export const FormPanel = styled('form')`
   & > button:nth-of-type(1) {
     margin-top: 3rem;
   }
+`
+
+export const ChangeViewButtonWrapper = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
 `

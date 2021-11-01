@@ -38,6 +38,27 @@ const props: Components = {
           backgroundColor: darken(colors.buttons.contained.primary, 0.2),
         },
       },
+      text: {
+        textTransform: 'none',
+        padding: 0,
+        '&:hover, &:focus': {
+          backgroundColor: 'transparent',
+        },
+      },
+      textPrimary: {
+        fontSize: '1.6rem',
+        color: colors.buttons.text.primary,
+        '&:hover': {
+          color: darken(colors.buttons.text.primary, 0.2),
+        },
+      },
+      textSecondary: {
+        fontSize: '1.4rem',
+        color: colors.buttons.text.secondary,
+        '&:hover': {
+          color: darken(colors.buttons.text.secondary, 0.2),
+        },
+      },
     },
   },
 

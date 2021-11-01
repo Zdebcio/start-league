@@ -5,12 +5,16 @@ import {
   InputAdornment,
   FormControlLabel,
   Checkbox,
+  Typography,
 } from '@mui/material'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import LockIcon from '@mui/icons-material/Lock'
-import { FormPanel } from 'modules/Login/container/Login.style'
+import {
+  FormPanel,
+  ChangeViewButtonWrapper,
+} from 'modules/Login/container/Login.style'
 
 import CheckIcon from '@mui/icons-material/Check'
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -122,9 +126,19 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
       <Button variant="contained" fullWidth>
         Sign Up
       </Button>
-      <Button variant="text" onClick={() => viewChangeFn('signIn')}>
-        Sign In
-      </Button>
+      <ChangeViewButtonWrapper>
+        <Typography variant="body1" component="span">
+          Do you already have an account?
+        </Typography>
+        <Button
+          variant="text"
+          color="primary"
+          disableTouchRipple
+          onClick={() => viewChangeFn('signIn')}
+        >
+          Sign In
+        </Button>
+      </ChangeViewButtonWrapper>
     </FormPanel>
   )
 }

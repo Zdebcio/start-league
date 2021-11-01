@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button, TextField, InputAdornment } from '@mui/material'
+import { Button, TextField, InputAdornment, Typography } from '@mui/material'
 import { login } from 'shared/store/auth/actions'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import { FormPanel } from 'modules/Login/container/Login.style'
+import {
+  FormPanel,
+  ChangeViewButtonWrapper,
+} from 'modules/Login/container/Login.style'
 
 interface ISignIn {
   viewChangeFn: (view: string) => void
@@ -76,9 +79,19 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
         <Button variant="contained" type="submit" fullWidth>
           Sign In
         </Button>
-        <Button variant="text" onClick={() => viewChangeFn('signUp')}>
-          Sign Up
-        </Button>
+        <ChangeViewButtonWrapper>
+          <Typography variant="body1" component="span">
+            Don’t have an account?
+          </Typography>
+          <Button
+            variant="text"
+            color="primary"
+            disableTouchRipple
+            onClick={() => viewChangeFn('signUp')}
+          >
+            Sign Up
+          </Button>
+        </ChangeViewButtonWrapper>
       </FormPanel>
     </>
   )
