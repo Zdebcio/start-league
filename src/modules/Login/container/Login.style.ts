@@ -10,21 +10,22 @@ export const LoginPage = styled('div')`
   align-items: center;
   padding: 1rem;
   ${(props) => props.theme.breakpoints?.up('lg')} {
-    padding: 4rem;
+    padding: 4rem calc(4rem + 50px);
     padding-top: 2rem;
     align-items: stretch;
 
     & > *:not(:last-child) {
-      margin-right: 2rem;
+      margin-right: calc(4rem + 50px);
     }
   }
 `
 
 export const CarouselContainer = styled('div')`
-  height: 100vh;
   background-color: ${colors.components.primary};
   flex-grow: 1;
   box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
+  margin-top: 50px;
+  margin-bottom: 50px;
 `
 
 export const LoginContainer = styled('div')`
@@ -33,7 +34,10 @@ export const LoginContainer = styled('div')`
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    margin-top: 50px;
+  }
 `
 
 export const ContentContainer = styled('div')`
@@ -43,6 +47,11 @@ export const ContentContainer = styled('div')`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    margin-bottom: 50px;
+    height: 100%;
+  }
 `
 
 export const StyledAppLogo = styled(AppLogo)`
@@ -72,15 +81,26 @@ export const FormPanelWrapper = styled('div')`
   & > *:not(:last-child) {
     margin-bottom: 1rem;
   }
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    flex-grow: 1;
+    padding-bottom: 4rem;
+  }
 `
 
 export const FormPanel = styled('form')`
+  display: flex;
+  flex-direction: column;
   & > .MuiFormControl-root:not(:last-child) {
     margin-bottom: 1rem;
   }
 
   & > button:nth-of-type(1) {
     margin-top: 3rem;
+  }
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    flex-grow: 1;
   }
 `
 
@@ -89,6 +109,9 @@ export const ChangeViewButtonWrapper = styled('div')`
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    margin-top: auto;
+  }
 `
 
 export const AdditionalButtonsWrapper = styled('div')`

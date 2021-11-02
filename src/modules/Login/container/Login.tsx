@@ -45,7 +45,7 @@ const Login = () => {
       <LoginContainer>
         <ContentContainer>
           <StyledAppLogo />
-          {selectedView === 'start' && <StyledAppTextLogo />}
+          {(selectedView === 'start' || isDesktop) && <StyledAppTextLogo />}
           <FormPanelWrapper>{displayView()}</FormPanelWrapper>
         </ContentContainer>
       </LoginContainer>
