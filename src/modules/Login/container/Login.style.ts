@@ -47,8 +47,10 @@ export const ContentContainer = styled('div')`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
+  margin-top: 50px;
 
   ${(props) => props.theme.breakpoints?.up('lg')} {
+    margin-top: 0;
     margin-bottom: 50px;
     height: 100%;
   }
@@ -57,7 +59,6 @@ export const ContentContainer = styled('div')`
 export const StyledAppLogo = styled(AppLogo)`
   position: relative;
   top: 0;
-  /* left: 50%; */
   left: 0;
   transform: translateY(-50px);
   width: 50%;
