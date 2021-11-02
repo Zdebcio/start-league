@@ -1,6 +1,8 @@
-import { darken } from '@mui/system'
+import { darken, createTheme } from '@mui/system'
 import { Components } from '@mui/material/styles/components'
 import colors from 'config/colors'
+
+const theme = createTheme({})
 
 const props: Components = {
   MuiCssBaseline: {
@@ -12,6 +14,9 @@ const props: Components = {
       },
       html: {
         fontSize: 10,
+        // [theme.breakpoints.up('md')]: {
+        //   fontSize: 30,
+        // },
       },
 
       'body, button': {
@@ -28,7 +33,7 @@ const props: Components = {
         borderRadius: 0,
         textTransform: 'uppercase',
         padding: '1.2rem',
-        fontSize: '1.4rem',
+        fontSize: '1.6rem',
         fontWeight: 700,
       },
       containedPrimary: {
@@ -84,7 +89,7 @@ const props: Components = {
           borderBottomWidth: 0,
           marginBottom: 0,
           boxShadow: 'none',
-          fontSize: '1.4rem',
+          fontSize: '1.8rem',
           '&::placeholder': {
             textTransform: 'uppercase',
           },
@@ -127,6 +132,7 @@ const props: Components = {
         '& + span': {
           color: colors.checkbox.label,
           fontSize: '1.4rem',
+          fontWeight: 300,
         },
       },
     },

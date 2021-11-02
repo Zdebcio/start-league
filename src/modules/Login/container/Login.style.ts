@@ -9,6 +9,22 @@ export const LoginPage = styled('div')`
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    padding: 4rem;
+    padding-top: 2rem;
+    align-items: stretch;
+
+    & > *:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+`
+
+export const CarouselContainer = styled('div')`
+  height: 100vh;
+  background-color: ${colors.components.primary};
+  flex-grow: 1;
+  box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
 `
 
 export const LoginContainer = styled('div')`
@@ -17,7 +33,7 @@ export const LoginContainer = styled('div')`
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-top: -13rem;
+  margin-top: 50px;
 `
 
 export const ContentContainer = styled('div')`
@@ -27,16 +43,17 @@ export const ContentContainer = styled('div')`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
-  padding-top: 13rem;
 `
 
 export const StyledAppLogo = styled(AppLogo)`
   position: relative;
   top: 0;
-  left: 50%;
-  transform: translate(-50%, 13rem);
+  /* left: 50%; */
+  left: 0;
+  transform: translateY(-50px);
   width: 50%;
   height: auto;
+  margin-bottom: -50px;
 `
 
 export const StyledAppTextLogo = styled(AppTextLogo)`

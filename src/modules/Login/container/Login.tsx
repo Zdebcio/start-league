@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useMediaQuery, useTheme } from '@mui/material'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import Start from 'modules/Login/components/Start/Start'
 import SignIn from 'modules/Login/components/SignIn/SignIn'
 import SignUp from 'modules/Login/components/SignUp/SignUp'
 import {
   LoginPage,
+  CarouselContainer,
   LoginContainer,
   ContentContainer,
   StyledAppLogo,
@@ -17,6 +19,8 @@ const Login = () => {
   const [selectedView, setSelectedView] = useState(
     isDesktopView ? 'signIn' : 'start'
   )
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'))
 
   const handleChangeView = (view: string) => {
     setSelectedView(view)
@@ -37,10 +41,10 @@ const Login = () => {
 
   return (
     <LoginPage>
-      {isDesktopView && <div>aaa</div>}
+      {isDesktop && <CarouselContainer>aaa</CarouselContainer>}
       <LoginContainer>
-        <StyledAppLogo />
         <ContentContainer>
+          <StyledAppLogo />
           {selectedView === 'start' && <StyledAppTextLogo />}
           <FormPanelWrapper>{displayView()}</FormPanelWrapper>
         </ContentContainer>
