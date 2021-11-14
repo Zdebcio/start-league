@@ -1,7 +1,8 @@
 import qs from 'qs'
 import config from 'config'
-import { Api } from 'shared/services'
-import { LoginPayload } from 'shared/types'
+import { Api, Auth } from 'shared/services'
+import { LoginPayload, LoginResponse } from 'shared/types'
+import { AxiosResponse } from 'axios'
 
 export default class AuthApi extends Api {
   public async login({ email, passwd }: LoginPayload) {
@@ -14,8 +15,14 @@ export default class AuthApi extends Api {
       },
     }
 
-    return this.api.post(API, null, configRequest).then((response) => {
-      return response.data
-    })
+    return this.api
+      .post<LoginPayload, AxiosResponse<LoginResponse>>(
+        API,
+        configRequest.params
+      )
+      .then((response) => {
+        Auth.setToken(response.data.response)
+        return response.data
+      })
   }
 }

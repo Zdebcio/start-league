@@ -12,6 +12,7 @@ export const doSomethingAsync = createAsyncThunk(
     ) as Promise<string>
 )
 
-export const login = createAsyncThunk(`auth/login`, (payload: LoginPayload) =>
-  api.login(payload)
+export const login = createAsyncThunk(
+  `auth/login`,
+  async (payload: LoginPayload) => api.login(payload)
 )

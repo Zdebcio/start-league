@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { Button, TextField, InputAdornment, Typography } from '@mui/material'
 import { login } from 'shared/store/auth/actions'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
@@ -9,15 +10,28 @@ import {
   ChangeViewButtonWrapper,
   AdditionalButtonsWrapper,
 } from 'modules/Login/container/Login.style'
+import { useHistory } from 'react-router-dom'
 
 interface ISignIn {
   viewChangeFn: (view: string) => void
 }
 
+type Inputs = {
+  email: string
+  passwd: string
+}
+
 const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
   const dispatch = useDispatch()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>()
   const [emailInput, setEmailInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
+  const history = useHistory()
 
   const handleEmailInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -31,26 +45,35 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
     setPasswordInput(event.target.value)
   }
 
-  const handleLoginSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
-
+  const handleLoginSubmit: SubmitHandler<Inputs> = async (data) => {
     const payload = {
-      email: emailInput,
-      passwd: passwordInput,
+      email: data.email,
+      passwd: data.passwd,
     }
 
-    dispatch(login(payload))
+    await dispatch(login(payload))
+    console.log('aaa')
+    history.push('/')
   }
+
+  // const handleLoginSubmit = (event: React.FormEvent) => {
+  //   event.preventDefault()
+
+  //   const payload = {
+  //     email: emailInput,
+  //     passwd: passwordInput,
+  //   }
+
+  //   dispatch(login(payload))
+  // }
 
   return (
     <>
-      <FormPanel onSubmit={handleLoginSubmit}>
+      <FormPanel onSubmit={handleSubmit(handleLoginSubmit)}>
         <TextField
           placeholder="E-Mail"
           variant="filled"
           type="text"
-          value={emailInput}
-          onChange={handleEmailInputChange}
           fullWidth
           InputProps={{
             disableUnderline: true,
@@ -59,14 +82,13 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
                 <MailOutlineIcon />
               </InputAdornment>
             ),
+            ...register('email', { required: true }),
           }}
         />
         <TextField
           placeholder="Password"
           variant="filled"
           type="password"
-          value={passwordInput}
-          onChange={handlePasswordInputChange}
           fullWidth
           InputProps={{
             disableUnderline: true,
@@ -75,6 +97,7 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
                 <LockOutlinedIcon />
               </InputAdornment>
             ),
+            ...register('passwd', { required: true }),
           }}
         />
         <Button variant="contained" type="submit" fullWidth>
