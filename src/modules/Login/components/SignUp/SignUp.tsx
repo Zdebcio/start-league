@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import {
   Button,
   TextField,
@@ -7,6 +9,7 @@ import {
   Checkbox,
   Typography,
 } from '@mui/material'
+import { registration } from 'shared/store/auth/actions'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -18,49 +21,78 @@ import {
 
 import CheckIcon from '@mui/icons-material/Check'
 import RemoveIcon from '@mui/icons-material/Remove'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { passwordRegExp } from 'shared/utils/regexp'
+import { DevTool } from '@hookform/devtools'
 
 interface ISignUp {
   viewChangeFn: (view: string) => void
 }
 
 const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
-  const [nicknameInput, setNicknameInput] = useState('')
-  const [emailInput, setEmailInput] = useState('')
-  const [passwordInput, setPasswordInput] = useState('')
-  const [repeatPasswordInput, setRepeatPasswordInput] = useState('')
+  const dispatch = useDispatch()
 
-  const handleNicknameInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setNicknameInput(event.target.value)
+  type Inputs = {
+    nickname: string
+    email: string
+    passwd: string
+    repeatPasswd: string
+    termsAndRegulations: boolean
   }
 
-  const handleEmailInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setEmailInput(event.target.value)
-  }
+  const schema = yup
+    .object({
+      nickname: yup.string().required('Field must be filled'),
+      email: yup
+        .string()
+        .email('Incorrect E-mail.')
+        .required('Field must be filled'),
+      passwd: yup
+        .string()
+        .test(
+          'is-strong-password',
+          'Password must have min 8 characters and contains one lowercase, one uppercase, number and special character.',
+          (value) => {
+            if (value) {
+              return passwordRegExp.test(value)
+            }
 
-  const handlePasswordInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPasswordInput(event.target.value)
-  }
+            return true
+          }
+        )
+        .required('Field must be filled'),
+      repeatPasswd: yup.string().required('Field must be filled'),
+      termsAndRegulations: yup.bool().oneOf([true], 'Field must be checked'),
+    })
+    .required()
 
-  const handleRepeatPasswordInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRepeatPasswordInput(event.target.value)
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    getValues,
+    setValue,
+    formState: { errors },
+  } = useForm<Inputs>({ resolver: yupResolver(schema) })
+
+  const handleRegistrationSubmit: SubmitHandler<Inputs> = async (data) => {
+    const payload = {
+      nickname: data.nickname,
+      email: data.email,
+      passwd: data.passwd,
+    }
+
+    dispatch(registration(payload))
   }
 
   return (
-    <FormPanel>
+    <FormPanel onSubmit={handleSubmit(handleRegistrationSubmit)}>
       <TextField
         placeholder="Nickname"
         variant="filled"
         type="text"
-        value={nicknameInput}
-        onChange={handleNicknameInputChange}
         fullWidth
         InputProps={{
           disableUnderline: true,
@@ -69,14 +101,13 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
               <PersonOutlineOutlinedIcon />
             </InputAdornment>
           ),
+          ...register('nickname', { required: true }),
         }}
       />
       <TextField
         placeholder="E-Mail"
         variant="filled"
         type="text"
-        value={emailInput}
-        onChange={handleEmailInputChange}
         fullWidth
         InputProps={{
           disableUnderline: true,
@@ -85,14 +116,13 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
               <MailOutlineIcon />
             </InputAdornment>
           ),
+          ...register('email', { required: true }),
         }}
       />
       <TextField
         placeholder="Password"
         variant="filled"
         type="password"
-        value={passwordInput}
-        onChange={handlePasswordInputChange}
         fullWidth
         InputProps={{
           disableUnderline: true,
@@ -101,14 +131,13 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
               <LockOutlinedIcon />
             </InputAdornment>
           ),
+          ...register('passwd', { required: true }),
         }}
       />
       <TextField
         placeholder="Reply password"
         variant="filled"
         type="password"
-        value={repeatPasswordInput}
-        onChange={handleRepeatPasswordInputChange}
         fullWidth
         InputProps={{
           disableUnderline: true,
@@ -117,13 +146,28 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
               <LockIcon />
             </InputAdornment>
           ),
+          ...register('repeatPasswd', { required: true }),
         }}
       />
-      <FormControlLabel
-        control={<Checkbox icon={<RemoveIcon />} checkedIcon={<CheckIcon />} />}
-        label="Accept regulations and terms."
+      <Controller
+        name="termsAndRegulations"
+        control={control}
+        render={() => (
+          <FormControlLabel
+            control={
+              <Checkbox
+                icon={<RemoveIcon />}
+                checkedIcon={<CheckIcon />}
+                onChange={(event) => {
+                  setValue('termsAndRegulations', event.target.checked)
+                }}
+              />
+            }
+            label="Accept regulations and terms."
+          />
+        )}
       />
-      <Button variant="contained" fullWidth>
+      <Button variant="contained" fullWidth type="submit">
         Sign Up
       </Button>
       <ChangeViewButtonWrapper>
@@ -139,6 +183,7 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
           Sign In
         </Button>
       </ChangeViewButtonWrapper>
+      <DevTool control={control} />
     </FormPanel>
   )
 }

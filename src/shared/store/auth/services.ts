@@ -1,7 +1,7 @@
 import qs from 'qs'
 import config from 'config'
 import { Api, Auth } from 'shared/services'
-import { LoginPayload, LoginResponse } from 'shared/types'
+import { LoginPayload, LoginResponse, RegistrationPayload } from 'shared/types'
 import { AxiosResponse } from 'axios'
 
 export default class AuthApi extends Api {
@@ -22,6 +22,23 @@ export default class AuthApi extends Api {
       )
       .then((response) => {
         Auth.setToken(response.data.response)
+        return response.data
+      })
+  }
+
+  public async registration(payload: RegistrationPayload) {
+    const API = `${config.API_URL}/auth/register`
+
+    const options = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }
+
+    return this.api
+      .post<RegistrationPayload, AxiosResponse<any>>(API, payload, options)
+      .then((response) => {
         return response.data
       })
   }

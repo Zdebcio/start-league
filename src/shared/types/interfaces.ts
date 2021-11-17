@@ -11,3 +11,9 @@ export interface LoginResponse {
   success: boolean
   response: string
 }
+
+export interface RegistrationPayload {
+  nickname: string
+  email: string
+  passwd: string
+}

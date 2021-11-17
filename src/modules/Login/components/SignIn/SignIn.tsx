@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Button, TextField, InputAdornment, Typography } from '@mui/material'
@@ -11,6 +10,8 @@ import {
   AdditionalButtonsWrapper,
 } from 'modules/Login/container/Login.style'
 import { useHistory } from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 interface ISignIn {
   viewChangeFn: (view: string) => void
@@ -23,27 +24,21 @@ type Inputs = {
 
 const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  const schema = yup
+    .object({
+      email: yup.string().required(),
+      passwd: yup.string().required(),
+    })
+    .required()
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>()
-  const [emailInput, setEmailInput] = useState('')
-  const [passwordInput, setPasswordInput] = useState('')
-  const history = useHistory()
-
-  const handleEmailInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setEmailInput(event.target.value)
-  }
-
-  const handlePasswordInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPasswordInput(event.target.value)
-  }
+  } = useForm<Inputs>({ resolver: yupResolver(schema) })
 
   const handleLoginSubmit: SubmitHandler<Inputs> = async (data) => {
     const payload = {
@@ -52,20 +47,8 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
     }
 
     await dispatch(login(payload))
-    console.log('aaa')
     history.push('/')
   }
-
-  // const handleLoginSubmit = (event: React.FormEvent) => {
-  //   event.preventDefault()
-
-  //   const payload = {
-  //     email: emailInput,
-  //     passwd: passwordInput,
-  //   }
-
-  //   dispatch(login(payload))
-  // }
 
   return (
     <>
