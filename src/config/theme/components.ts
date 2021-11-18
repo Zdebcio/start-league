@@ -83,7 +83,13 @@ const props: Components = {
         justifyContent: 'center',
         alignItems: 'center',
         padding: '1rem',
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        '&.Mui-error': {
+          border: `0.2rem solid ${colors.fields.filled.error}`,
+        },
       },
+
       input: {
         '&&&, &&&&:focus': {
           borderBottomWidth: 0,

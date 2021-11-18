@@ -21,6 +21,7 @@ const colors = {
   fields: {
     filled: {
       background: '#FFFFFF',
+      error: '#EC0B43',
     },
   },
   checkbox: {

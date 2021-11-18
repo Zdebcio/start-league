@@ -12,4 +12,6 @@ const store = configureStore(
   // /* preloadedState, */ devToolsEnhancer({})
 )
 
+export type RootState = ReturnType<typeof store.getState>
+
 export default store

@@ -120,3 +120,9 @@ export const AdditionalButtonsWrapper = styled('div')`
   display: flex;
   justify-content: space-between;
 `
+
+export const FormErrorMessage = styled('span')`
+  display: block;
+  text-align: right;
+  color: ${colors.fields.filled.error};
+`
