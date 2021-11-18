@@ -12,6 +12,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { DevTool } from '@hookform/devtools'
 
 interface ISignIn {
   viewChangeFn: (view: string) => void
@@ -36,6 +37,7 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
   const {
     register,
     handleSubmit,
+    control,
     watch,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
@@ -107,6 +109,7 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
             Sign Up
           </Button>
         </ChangeViewButtonWrapper>
+        <DevTool control={control} />
       </FormPanel>
     </>
   )
