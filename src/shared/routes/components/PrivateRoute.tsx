@@ -1,5 +1,5 @@
 import { Route, Redirect } from 'react-router-dom'
-import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
+import { Auth } from 'shared/services'
 
 interface IPrivateRoute {
   component: () => JSX.Element
@@ -12,16 +12,14 @@ const PrivateRoute: React.FC<IPrivateRoute> = ({
   path,
   exact,
 }) => {
-  const isDesktopView = useCheckDesktopScreen()
-  const isAuthenticated = localStorage.getItem('authKey')
+  const isAuthenticated = Auth.getToken()
 
-  const redirectPage = isDesktopView ? '/sign-in' : '/login'
   return (
     <Route
       path={path}
       exact={exact}
       render={() =>
-        isAuthenticated ? <Component /> : <Redirect to={redirectPage} />
+        isAuthenticated ? <Component /> : <Redirect to="/login" />
       }
     />
   )

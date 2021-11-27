@@ -1,24 +1,21 @@
-// import StartLoginPage from 'components/pages/StartLoginPage/StartLoginPage';
-// import SignInPage from 'components/pages/SignInPage/SignInPage';
-// import SignUpPage from 'components/pages/SignUpPage/SignUpPage';
-import Private from 'shared/components/Private'
+import Login from 'modules/Login/container/Login'
 
 export default [
   {
     path: '/login',
-    component: Private,
+    component: Login,
     isRestricted: false,
     exact: true,
   },
   {
     path: '/sign-in',
-    component: Private,
+    component: Login,
     isRestricted: false,
     exact: true,
   },
   {
     path: '/sign-up',
-    component: Private,
+    component: Login,
     isRestricted: false,
     exact: true,
   },

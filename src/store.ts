@@ -3,7 +3,7 @@ import { reducer } from 'shared/store'
 
 /* Create root reducer, containing all features of the application */
 const rootReducer = combineReducers({
-  ...reducer,
+  reducer,
 })
 
 const store = configureStore(
@@ -11,5 +11,7 @@ const store = configureStore(
 
   // /* preloadedState, */ devToolsEnhancer({})
 )
+
+export type RootState = ReturnType<typeof store.getState>
 
 export default store

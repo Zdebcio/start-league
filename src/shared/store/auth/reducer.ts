@@ -1,35 +1,54 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { LoadingStatus } from 'shared/types'
-import { doSomethingAsync } from './actions'
+import { login, registration } from './actions'
 
 interface State {
   something: string
   loading: LoadingStatus
   error?: string | null
+  loginSuccess: boolean
+  registerSuccess: boolean
 }
 
 const initialState: State = {
   something: '',
   loading: LoadingStatus.Idle,
+  loginSuccess: true,
+  registerSuccess: true,
   error: null,
 }
 
 export default createReducer(initialState, (builder) =>
   builder
-    .addCase(doSomethingAsync.pending, (state) => ({
+    .addCase(login.pending, (state) => ({
       ...state,
-      loading: LoadingStatus.Pending,
-      error: null,
     }))
-    .addCase(doSomethingAsync.fulfilled, (state, action) => ({
+    .addCase(login.fulfilled, (state, action) => {
+      return {
+        ...state,
+        loginSuccess: true,
+      }
+    })
+    .addCase(login.rejected, (state, action) => {
+      return {
+        ...state,
+        registerSuccess: false,
+      }
+    })
+    .addCase(registration.pending, (state) => ({
       ...state,
-      something: action.payload,
-      loading: LoadingStatus.Succeeded,
-      error: null,
     }))
-    .addCase(doSomethingAsync.rejected, (state, action) => ({
-      ...state,
-      loading: LoadingStatus.Failed,
-      error: action.error.message,
-    }))
+    .addCase(registration.fulfilled, (state, action) => {
+      return {
+        ...state,
+        registerSuccess: true,
+      }
+    })
+    .addCase(registration.rejected, (state, action) => {
+      console.log(state, action)
+      return {
+        ...state,
+        registerSuccess: false,
+      }
+    })
 )

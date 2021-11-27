@@ -1,4 +1,5 @@
 import { Route, Redirect } from 'react-router-dom'
+import { Auth } from 'shared/services'
 
 interface IPublicRoute {
   component: () => JSX.Element
@@ -13,10 +14,8 @@ const PublicRoute: React.FC<IPublicRoute> = ({
   path,
   exact,
 }) => {
-  const isAuthenticated = localStorage.getItem('authKey')
+  const isAuthenticated = Auth.getToken()
   return (
-    // restricted = false meaning public route
-    // restricted = true meaning restricted route
     <Route
       path={path}
       exact={exact}

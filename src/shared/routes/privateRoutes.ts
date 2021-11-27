@@ -1,9 +1,10 @@
 import Private from 'shared/components/Private'
+import Home from 'modules/Home/container/Home'
 
 export default [
   {
     path: '',
-    component: Private,
+    component: Home,
     redirectTo: '/login',
     exact: true,
   },
