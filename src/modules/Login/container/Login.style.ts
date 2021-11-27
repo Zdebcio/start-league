@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { colors } from 'config'
+import { Checkbox } from '@mui/material'
 import { ReactComponent as AppLogo } from 'shared/images/logos/logo-icon.svg'
 import { ReactComponent as AppTextLogo } from 'shared/images/logos/logo-text.svg'
 
@@ -125,4 +126,11 @@ export const FormErrorMessage = styled('span')`
   display: block;
   text-align: right;
   color: ${colors.fields.filled.error};
+  margin-bottom: 1rem;
+`
+
+export const ValidationCheckbox = styled(Checkbox)`
+  &.Checkbox-Error > svg {
+    border: 0.2rem solid ${colors.fields.filled.error};
+  }
 `

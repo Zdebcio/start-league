@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import {
@@ -6,7 +6,6 @@ import {
   TextField,
   InputAdornment,
   FormControlLabel,
-  Checkbox,
   Typography,
 } from '@mui/material'
 import { registration } from 'shared/store/auth/actions'
@@ -17,6 +16,8 @@ import LockIcon from '@mui/icons-material/Lock'
 import {
   FormPanel,
   ChangeViewButtonWrapper,
+  FormErrorMessage,
+  ValidationCheckbox,
 } from 'modules/Login/container/Login.style'
 
 import CheckIcon from '@mui/icons-material/Check'
@@ -41,31 +42,37 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
     termsAndRegulations: boolean
   }
 
-  const schema = yup
-    .object({
-      nickname: yup.string().required('Field must be filled'),
-      email: yup
-        .string()
-        .email('Incorrect E-mail.')
-        .required('Field must be filled'),
-      passwd: yup
-        .string()
-        .test(
-          'is-strong-password',
-          'Password must have min 8 characters and contains one lowercase, one uppercase, number and special character.',
-          (value) => {
-            if (value) {
-              return passwordRegExp.test(value)
-            }
-
-            return true
+  const schema = yup.object({
+    nickname: yup.string().required('Field must be filled'),
+    email: yup
+      .string()
+      .email('Incorrect E-mail.')
+      .required('Field must be filled'),
+    passwd: yup
+      .string()
+      .test(
+        'is-strong-password',
+        'Password must have min 8 characters and contains one lowercase, one uppercase, number and special character.',
+        (value) => {
+          if (value) {
+            return passwordRegExp.test(value)
           }
-        )
-        .required('Field must be filled'),
-      repeatPasswd: yup.string().required('Field must be filled'),
-      termsAndRegulations: yup.bool().oneOf([true], 'Field must be checked'),
-    })
-    .required()
+
+          return true
+        }
+      )
+      .required('Field must be filled'),
+    repeatPasswd: yup
+      .string()
+      .test('is-corect-passwd', 'Passwords must be the same', (value, ctx) => {
+        return value === ctx.parent.passwd
+      })
+      .required('Field must be filled'),
+    termsAndRegulations: yup
+      .bool()
+      .oneOf([true], 'Field must be checked')
+      .required('Field must be checked'),
+  })
 
   const {
     register,
@@ -74,8 +81,22 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
     watch,
     getValues,
     setValue,
+    setError,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
+
+  // useEffect(() => {
+  //   if (!loginSuccess) {
+  //     setError('nickname', {
+  //       type: 'server',
+  //       message: 'Nickname already exist',
+  //     })
+  //     setError('email', {
+  //       type: 'server',
+  //       message: 'E-mail already exist',
+  //     })
+  //   }
+  // }, [loginSuccess])
 
   const handleRegistrationSubmit: SubmitHandler<Inputs> = async (data) => {
     const payload = {
@@ -94,6 +115,7 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
         variant="filled"
         type="text"
         fullWidth
+        error={!!errors.nickname}
         InputProps={{
           disableUnderline: true,
           startAdornment: (
@@ -104,11 +126,15 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
           ...register('nickname', { required: true }),
         }}
       />
+      {errors.nickname && (
+        <FormErrorMessage>{errors.nickname.message}</FormErrorMessage>
+      )}
       <TextField
         placeholder="E-Mail"
         variant="filled"
         type="text"
         fullWidth
+        error={!!errors.email}
         InputProps={{
           disableUnderline: true,
           startAdornment: (
@@ -119,11 +145,15 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
           ...register('email', { required: true }),
         }}
       />
+      {errors.email && (
+        <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+      )}
       <TextField
         placeholder="Password"
         variant="filled"
         type="password"
         fullWidth
+        error={!!errors.passwd}
         InputProps={{
           disableUnderline: true,
           startAdornment: (
@@ -134,11 +164,15 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
           ...register('passwd', { required: true }),
         }}
       />
+      {errors.passwd && (
+        <FormErrorMessage>{errors.passwd.message}</FormErrorMessage>
+      )}
       <TextField
         placeholder="Reply password"
         variant="filled"
         type="password"
         fullWidth
+        error={!!errors.repeatPasswd}
         InputProps={{
           disableUnderline: true,
           startAdornment: (
@@ -149,17 +183,23 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
           ...register('repeatPasswd', { required: true }),
         }}
       />
+      {errors.repeatPasswd && (
+        <FormErrorMessage>{errors.repeatPasswd.message}</FormErrorMessage>
+      )}
       <Controller
         name="termsAndRegulations"
         control={control}
         render={() => (
           <FormControlLabel
             control={
-              <Checkbox
+              <ValidationCheckbox
+                className={errors.termsAndRegulations ? 'Checkbox-Error' : ''}
                 icon={<RemoveIcon />}
                 checkedIcon={<CheckIcon />}
                 onChange={(event) => {
-                  setValue('termsAndRegulations', event.target.checked)
+                  setValue('termsAndRegulations', event.target.checked, {
+                    shouldValidate: true,
+                  })
                 }}
               />
             }
