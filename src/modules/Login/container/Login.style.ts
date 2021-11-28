@@ -22,7 +22,7 @@ export const LoginPage = styled('div')`
 `
 
 export const CarouselContainer = styled('div')`
-  background-color: ${colors.components.primary};
+  /* background-color: ${colors.components.primary}; */
   flex-grow: 1;
   box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
   margin-top: 50px;

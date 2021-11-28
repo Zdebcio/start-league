@@ -85,19 +85,6 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
 
-  // useEffect(() => {
-  //   if (!loginSuccess) {
-  //     setError('nickname', {
-  //       type: 'server',
-  //       message: 'Nickname already exist',
-  //     })
-  //     setError('email', {
-  //       type: 'server',
-  //       message: 'E-mail already exist',
-  //     })
-  //   }
-  // }, [loginSuccess])
-
   const handleRegistrationSubmit: SubmitHandler<Inputs> = async (data) => {
     const payload = {
       nickname: data.nickname,

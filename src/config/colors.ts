@@ -1,6 +1,9 @@
 const colors = {
   gradient: {
-    background: `linear-gradient(0deg, #222 0%, #333 100%)`,
+    background: `linear-gradient(0deg, #222222 0%, #333333 100%)`,
+  },
+  background: {
+    primary: '#333333',
   },
   components: {
     primary: '#444444',

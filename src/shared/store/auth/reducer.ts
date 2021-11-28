@@ -32,7 +32,7 @@ export default createReducer(initialState, (builder) =>
     .addCase(login.rejected, (state, action) => {
       return {
         ...state,
-        registerSuccess: false,
+        loginSuccess: false,
       }
     })
     .addCase(registration.pending, (state) => ({
@@ -45,7 +45,6 @@ export default createReducer(initialState, (builder) =>
       }
     })
     .addCase(registration.rejected, (state, action) => {
-      console.log(state, action)
       return {
         ...state,
         registerSuccess: false,
