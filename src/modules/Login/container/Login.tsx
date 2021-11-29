@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useMediaQuery, useTheme } from '@mui/material'
+import { Typography } from '@mui/material'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import Start from 'modules/Login/components/Start/Start'
 import SignIn from 'modules/Login/components/SignIn/SignIn'
@@ -12,6 +12,8 @@ import {
   StyledAppLogo,
   StyledAppTextLogo,
   FormPanelWrapper,
+  CarouselHeader,
+  CarouselContent,
 } from './Login.style'
 
 const Login = () => {
@@ -19,8 +21,6 @@ const Login = () => {
   const [selectedView, setSelectedView] = useState(
     isDesktopView ? 'signIn' : 'start'
   )
-  const theme = useTheme()
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'))
 
   const handleChangeView = (view: string) => {
     setSelectedView(view)
@@ -41,11 +41,21 @@ const Login = () => {
 
   return (
     <LoginPage>
-      {isDesktop && <CarouselContainer>aaa</CarouselContainer>}
+      {isDesktopView && (
+        <CarouselContainer>
+          <Typography variant="h1">ss</Typography>
+          <CarouselHeader>NEED TO MANAGE YOUR LEAGUE?</CarouselHeader>
+          <CarouselContent>
+            Nothing easier! With StartLeague you can create as many editable
+            league tables as you want. Our system automatically will sort teams
+            depends on the results. Save your time and join StartLeague now!
+          </CarouselContent>
+        </CarouselContainer>
+      )}
       <LoginContainer>
         <ContentContainer>
           <StyledAppLogo />
-          {(selectedView === 'start' || isDesktop) && <StyledAppTextLogo />}
+          {(selectedView === 'start' || isDesktopView) && <StyledAppTextLogo />}
           <FormPanelWrapper>{displayView()}</FormPanelWrapper>
         </ContentContainer>
       </LoginContainer>

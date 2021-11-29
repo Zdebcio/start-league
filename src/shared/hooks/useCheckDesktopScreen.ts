@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 const useCheckDesktopScreen = () => {
+  const theme = useTheme()
   const [width, setWidth] = useState(window.innerWidth)
   const handleWindowSizeChange = () => {
     setWidth(window.innerWidth)
@@ -13,7 +15,7 @@ const useCheckDesktopScreen = () => {
     }
   }, [])
 
-  return width > 1280
+  return width >= theme.breakpoints.values.lg
 }
 
 export default useCheckDesktopScreen

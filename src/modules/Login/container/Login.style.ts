@@ -3,6 +3,7 @@ import { colors } from 'config'
 import { Checkbox } from '@mui/material'
 import { ReactComponent as AppLogo } from 'shared/images/logos/logo-icon.svg'
 import { ReactComponent as AppTextLogo } from 'shared/images/logos/logo-text.svg'
+import banerImg from 'shared/images/login-baner.png'
 
 export const LoginPage = styled('div')`
   min-height: 100vh;
@@ -15,16 +16,23 @@ export const LoginPage = styled('div')`
     padding-top: 2rem;
     align-items: stretch;
 
+    background-image: url(${banerImg});
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-attachment: fixed;
+    background-size: 100vh;
+
     & > *:not(:last-child) {
       margin-right: calc(4rem + 50px);
     }
   }
+  ${(props) => props.theme.breakpoints?.up('xl')} {
+    background-position: 25% top;
+  }
 `
 
 export const CarouselContainer = styled('div')`
-  /* background-color: ${colors.components.primary}; */
   flex-grow: 1;
-  box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
   margin-top: 50px;
   margin-bottom: 50px;
 `
@@ -133,4 +141,12 @@ export const ValidationCheckbox = styled(Checkbox)`
   &.Checkbox-Error > svg {
     border: 0.2rem solid ${colors.fields.filled.error};
   }
+`
+
+export const CarouselHeader = styled('div')`
+  background-color: ${colors.components.transparent};
+`
+
+export const CarouselContent = styled('div')`
+  background-color: ${colors.components.transparent};
 `
