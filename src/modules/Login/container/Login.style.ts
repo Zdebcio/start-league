@@ -66,6 +66,7 @@ export const ContentContainer = styled('div')`
   box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
   margin-top: 50px;
   width: 100%;
+  border-radius: 0.5rem;
 
   ${(props) => props.theme.breakpoints?.up('lg')} {
     margin-top: 0;
@@ -134,6 +135,7 @@ export const ChangeViewButtonWrapper = styled('div')`
 `
 
 export const AdditionalButtonsWrapper = styled('div')`
+  margin-top: 1rem;
   width: 100%;
   display: flex;
   justify-content: space-between;

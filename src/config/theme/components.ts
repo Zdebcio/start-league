@@ -34,11 +34,11 @@ const props: Components = {
     styleOverrides: {
       root: {},
       contained: {
-        borderRadius: 0,
         textTransform: 'uppercase',
         padding: '1.2rem',
         fontSize: '1.4rem',
         fontWeight: 700,
+        borderRadius: '0.5rem',
       },
       containedPrimary: {
         color: colors.buttons.contained.primaryText,
@@ -79,6 +79,7 @@ const props: Components = {
     styleOverrides: {
       root: {
         backgroundColor: colors.fields.filled.background,
+        borderRadius: '0.5rem',
       },
     },
   },
