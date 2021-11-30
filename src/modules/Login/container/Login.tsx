@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import Start from 'modules/Login/components/Start/Start'
 import SignIn from 'modules/Login/components/SignIn/SignIn'
@@ -12,8 +12,9 @@ import {
   StyledAppLogo,
   StyledAppTextLogo,
   FormPanelWrapper,
-  CarouselHeader,
-  CarouselContent,
+  InformationWrapper,
+  InformationHeader,
+  InformationContent,
 } from './Login.style'
 
 const Login = () => {
@@ -43,13 +44,26 @@ const Login = () => {
     <LoginPage>
       {isDesktopView && (
         <CarouselContainer>
-          <Typography variant="h1">ss</Typography>
-          <CarouselHeader>NEED TO MANAGE YOUR LEAGUE?</CarouselHeader>
-          <CarouselContent>
-            Nothing easier! With StartLeague you can create as many editable
-            league tables as you want. Our system automatically will sort teams
-            depends on the results. Save your time and join StartLeague now!
-          </CarouselContent>
+          <InformationWrapper>
+            <InformationHeader>
+              <Typography variant="h3" component="h1">
+                NEED TO MANAGE YOUR LEAGUE?
+              </Typography>
+            </InformationHeader>
+            <InformationContent>
+              <Typography variant="h4" component="h2">
+                Nothing easier!
+              </Typography>
+              <Typography variant="body1" component="p">
+                With StartLeague you can create as many editable league tables
+                as you want. Our system automatically will sort teams depends on
+                the results. Save your time and join StartLeague now!
+              </Typography>
+              <Button variant="contained" size="small">
+                Read more
+              </Button>
+            </InformationContent>
+          </InformationWrapper>
         </CarouselContainer>
       )}
       <LoginContainer>

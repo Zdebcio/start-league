@@ -13,7 +13,15 @@ const typography: TypographyOptions = {
   },
   h3: {
     color: colors.typography.secondary,
+    fontWeight: 800,
+    textTransform: 'uppercase',
+    fontSize: '2.4rem',
+  },
+  h4: {
+    color: colors.typography.primary,
     fontWeight: 400,
+    textTransform: 'uppercase',
+    fontSize: '2rem',
   },
   body1: {
     fontSize: '1.6rem',

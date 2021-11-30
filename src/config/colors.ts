@@ -45,6 +45,10 @@ const colors = {
   decorations: {
     boxShadows: {
       component: '#000000',
+      transparentComponent: alpha('#000000', 0.9),
+    },
+    border: {
+      secondary: '#6BD425',
     },
   },
 }

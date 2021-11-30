@@ -27,7 +27,7 @@ export const LoginPage = styled('div')`
     }
   }
   ${(props) => props.theme.breakpoints?.up('xl')} {
-    background-position: 25% top;
+    background-position: calc(50% - 600px) top;
   }
 `
 
@@ -35,6 +35,10 @@ export const CarouselContainer = styled('div')`
   flex-grow: 1;
   margin-top: 50px;
   margin-bottom: 50px;
+  max-width: 100vh;
+  position: relative;
+  top: 0;
+  left: 0;
 `
 
 export const LoginContainer = styled('div')`
@@ -46,6 +50,10 @@ export const LoginContainer = styled('div')`
 
   ${(props) => props.theme.breakpoints?.up('lg')} {
     margin-top: 50px;
+    max-width: 500px;
+  }
+  ${(props) => props.theme.breakpoints?.up('xl')} {
+    max-width: 600px;
   }
 `
 
@@ -57,6 +65,7 @@ export const ContentContainer = styled('div')`
   align-items: center;
   box-shadow: 0px 1vmin 1vmin ${colors.decorations.boxShadows.component};
   margin-top: 50px;
+  width: 100%;
 
   ${(props) => props.theme.breakpoints?.up('lg')} {
     margin-top: 0;
@@ -143,10 +152,38 @@ export const ValidationCheckbox = styled(Checkbox)`
   }
 `
 
-export const CarouselHeader = styled('div')`
-  background-color: ${colors.components.transparent};
+export const InformationWrapper = styled('div')`
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-width: 900px;
 `
 
-export const CarouselContent = styled('div')`
+export const InformationHeader = styled('div')`
   background-color: ${colors.components.transparent};
+  padding: 1rem 1.6rem;
+  margin-bottom: 1.6rem;
+  width: 85%;
+  border-radius: 0.5rem;
+  border-left: 0.8rem solid ${colors.decorations.border.secondary};
+  box-shadow: 0.2rem 0.4rem 0.4rem 0
+    ${colors.decorations.boxShadows.transparentComponent};
+`
+
+export const InformationContent = styled('div')`
+  background-color: ${colors.components.transparent};
+  padding: 1rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  border-left: 0.8rem solid ${colors.decorations.border.secondary};
+  box-shadow: 0.2rem 0.4rem 0.4rem 0
+    ${colors.decorations.boxShadows.transparentComponent};
+  & > * {
+    margin-bottom: 1rem;
+  }
+  & > button {
+    align-self: flex-end;
+  }
 `
