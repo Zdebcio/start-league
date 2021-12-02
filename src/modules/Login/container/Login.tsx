@@ -4,6 +4,8 @@ import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import Start from 'modules/Login/components/Start/Start'
 import SignIn from 'modules/Login/components/SignIn/SignIn'
 import SignUp from 'modules/Login/components/SignUp/SignUp'
+import { Scrollbars } from 'react-custom-scrollbars'
+
 import {
   LoginPage,
   CarouselContainer,
@@ -15,6 +17,7 @@ import {
   InformationWrapper,
   InformationHeader,
   InformationContent,
+  LogotypeWrapper,
 } from './Login.style'
 
 const Login = () => {
@@ -68,9 +71,15 @@ const Login = () => {
       )}
       <LoginContainer>
         <ContentContainer>
-          <StyledAppLogo />
-          {(selectedView === 'start' || isDesktopView) && <StyledAppTextLogo />}
-          <FormPanelWrapper>{displayView()}</FormPanelWrapper>
+          <LogotypeWrapper>
+            <StyledAppLogo />
+            {(selectedView === 'start' || isDesktopView) && (
+              <StyledAppTextLogo />
+            )}
+          </LogotypeWrapper>
+          <Scrollbars>
+            <FormPanelWrapper>{displayView()}</FormPanelWrapper>
+          </Scrollbars>
         </ContentContainer>
       </LoginContainer>
     </LoginPage>

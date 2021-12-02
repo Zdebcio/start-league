@@ -93,6 +93,7 @@ const props: Components = {
         padding: '1rem',
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
+        borderRadius: '0.5rem',
         '&.Mui-error': {
           border: `0.2rem solid ${colors.fields.filled.error}`,
         },
