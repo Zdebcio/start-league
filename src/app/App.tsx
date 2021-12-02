@@ -7,10 +7,11 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { Container } from './App.style'
 
 const inputBaselineStyles = <CssBaseline />
+const basename = document.querySelector('base')?.getAttribute('href') ?? '/'
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       {inputBaselineStyles}
       <Container>
         <Switch>

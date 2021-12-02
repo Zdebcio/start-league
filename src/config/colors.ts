@@ -1,12 +1,19 @@
+import { alpha } from '@mui/material'
+
 const colors = {
   gradient: {
-    background: `linear-gradient(0deg, #222 0%, #333 100%)`,
+    background: `linear-gradient(0deg, #222222 0%, #333333 100%)`,
+  },
+  background: {
+    primary: '#333333',
   },
   components: {
     primary: '#444444',
+    transparent: alpha('#2B3E44', 0.9),
   },
   typography: {
     primary: '#FFFFFF',
+    secondary: '#6BD425',
   },
   buttons: {
     contained: {
@@ -38,6 +45,10 @@ const colors = {
   decorations: {
     boxShadows: {
       component: '#000000',
+      transparentComponent: alpha('#000000', 0.9),
+    },
+    border: {
+      secondary: '#6BD425',
     },
   },
 }

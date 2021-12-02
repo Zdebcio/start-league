@@ -1,8 +1,9 @@
-import { darken, createTheme } from '@mui/system'
+import { darken, createBreakpoints } from '@mui/system'
+import breakpointsOptions from 'config/theme/breakpoints'
 import { Components } from '@mui/material/styles/components'
 import colors from 'config/colors'
 
-const theme = createTheme({})
+const breakpoints = createBreakpoints(breakpointsOptions)
 
 const props: Components = {
   MuiCssBaseline: {
@@ -14,9 +15,12 @@ const props: Components = {
       },
       html: {
         fontSize: 10,
-        // [theme.breakpoints.up('md')]: {
-        //   fontSize: 30,
-        // },
+        [breakpoints.up('lg')]: {
+          fontSize: 12,
+        },
+        [breakpoints.up('xl')]: {
+          fontSize: 14,
+        },
       },
 
       'body, button': {
@@ -30,11 +34,11 @@ const props: Components = {
     styleOverrides: {
       root: {},
       contained: {
-        borderRadius: 0,
         textTransform: 'uppercase',
         padding: '1.2rem',
-        fontSize: '1.6rem',
+        fontSize: '1.4rem',
         fontWeight: 700,
+        borderRadius: '0.5rem',
       },
       containedPrimary: {
         color: colors.buttons.contained.primaryText,
@@ -42,6 +46,9 @@ const props: Components = {
         '&:hover, &:focus': {
           backgroundColor: darken(colors.buttons.contained.primary, 0.2),
         },
+      },
+      containedSizeSmall: {
+        padding: '0.5rem 0.8rem',
       },
       text: {
         textTransform: 'none',
@@ -72,6 +79,7 @@ const props: Components = {
     styleOverrides: {
       root: {
         backgroundColor: colors.fields.filled.background,
+        borderRadius: '0.5rem',
       },
     },
   },
@@ -85,6 +93,7 @@ const props: Components = {
         padding: '1rem',
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
+        borderRadius: '0.5rem',
         '&.Mui-error': {
           border: `0.2rem solid ${colors.fields.filled.error}`,
         },
