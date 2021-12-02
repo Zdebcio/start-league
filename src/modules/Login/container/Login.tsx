@@ -77,9 +77,13 @@ const Login = () => {
               <StyledAppTextLogo />
             )}
           </LogotypeWrapper>
-          <Scrollbars>
+          {isDesktopView ? (
+            <Scrollbars>
+              <FormPanelWrapper>{displayView()}</FormPanelWrapper>
+            </Scrollbars>
+          ) : (
             <FormPanelWrapper>{displayView()}</FormPanelWrapper>
-          </Scrollbars>
+          )}
         </ContentContainer>
       </LoginContainer>
     </LoginPage>
