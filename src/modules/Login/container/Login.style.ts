@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import { colors } from 'config'
-import { Checkbox } from '@mui/material'
+import { Checkbox, styled } from '@mui/material'
 import { ReactComponent as AppLogo } from 'shared/images/logos/logo-icon.svg'
 import { ReactComponent as AppTextLogo } from 'shared/images/logos/logo-text.svg'
 import banerImg from 'shared/images/login-baner.png'

@@ -9,6 +9,8 @@ const colors = {
   },
   components: {
     primary: '#444444',
+    secondary: '#1F1F1F',
+    navigation: '#2E2E2E',
     transparent: alpha('#2B3E44', 0.9),
   },
   typography: {
