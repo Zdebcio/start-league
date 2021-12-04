@@ -6,7 +6,7 @@ import { ReactComponent as AppLogo } from 'shared/images/logos/logo-icon.svg'
 import { ReactComponent as AppTextLogo } from 'shared/images/logos/logo-text.svg'
 
 export const Container = styled('div')`
-  min-height: 100vh;
+  min-height: 200vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -24,11 +24,26 @@ export const TopBar = styled('div')`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  & > .icon-button {
+    cursor: pointer;
+  }
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    & > .burger-button {
+      display: none;
+    }
+  }
 `
 
 export const MainContent = styled('div')`
   display: flex;
   flex-direction: column;
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    margin-left: 32rem;
+    padding: 2rem;
+  }
 `
 export const TopBarAppLogo = styled(AppLogo)`
   width: auto;
@@ -48,18 +63,25 @@ export const MainContentContainer = styled('div')`
 export const MainNavContainer = styled('nav', {
   shouldForwardProp: (prop) => prop !== 'isActive',
 })<{ isActive?: boolean }>(
-  ({ isActive }) => `    
+  ({ isActive, theme }) => `    
   display: flex;
   flex-direction: column;
   position: fixed;
-//   position: absolute;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 6.2rem);
+  overflow: auto;
   z-index: 100;
   background-color: ${colors.components.navigation};
   transition: transform 0.3s;
   transform: ${isActive ? 'translateX(0)' : 'translateX(-100%)'};
   padding: 2rem 2rem;
+
+  ${theme.breakpoints?.up('lg')} {
+  position: fixed;
+  transform: translateX(0);
+  background-color: ${colors.background.primary};
+  max-width: 32rem;
+  }
 `
 )
 
@@ -67,15 +89,25 @@ export const MainNav = styled('ul')`
   display: flex;
   flex-direction: column;
   list-style: none;
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    height: 100%;
+  }
 `
 
 export const MainNavItem = styled('li')`
   &:not(:last-child) {
     margin-bottom: 2rem;
   }
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    &:last-child {
+      margin-top: auto;
+    }
+  }
 `
 
-export const MainRRNavLink = styled(NavLink)`
+const navigationButton = `
   width: 100%;
   height: 100%;
   text-transform: uppercase;
@@ -85,6 +117,9 @@ export const MainRRNavLink = styled(NavLink)`
   align-items: center;
   padding: 1rem 3rem;
   font-weight: 700;
+  transition: 0.3s;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 
   & > .MuiSvgIcon-root {
     font-size: 5rem;
@@ -97,4 +132,31 @@ export const MainRRNavLink = styled(NavLink)`
     color: ${colors.buttons.contained.primaryText};
     box-shadow: 0 0.7rem 0.7rem ${colors.decorations.boxShadows.component};
   }
+`
+
+export const LogoutButton = styled('div')`
+  ${navigationButton}
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  ${(props) => props.theme.breakpoints?.up('lg')} {
+    margin-top: auto;
+  }
+`
+
+export const MainRRNavLink = styled(NavLink)`
+  ${navigationButton}
+`
+
+export const AccountIconWrapper = styled('div')`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`
+
+export const AccountIconLabel = styled('span')`
+  margin-right: 0.5rem;
+  text-transform: uppercase;
+  font-size: 1.4rem;
 `
