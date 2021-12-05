@@ -11,7 +11,7 @@ export const LoginPage = styled('div')`
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     padding: 4rem calc(4rem + 50px);
     padding-top: 2rem;
     align-items: stretch;
@@ -48,7 +48,7 @@ export const LoginContainer = styled('div')`
   display: flex;
   flex-direction: column;
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     margin-top: 50px;
     max-width: 500px;
   }
@@ -75,7 +75,7 @@ export const ContentContainer = styled('div')`
     z-index: 20;
   }
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     margin-top: 0;
     margin-bottom: 50px;
     height: 100%;
@@ -110,7 +110,7 @@ export const FormPanelWrapper = styled('div')`
     margin-bottom: 1rem;
   }
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     flex-grow: 1;
     padding-bottom: 4rem;
   }
@@ -146,7 +146,7 @@ export const FormPanel = styled('form')`
     margin-bottom: 5rem;
   }
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     flex-grow: 1;
   }
 `
@@ -156,7 +156,7 @@ export const ChangeViewButtonWrapper = styled('div')`
   flex-direction: column;
   align-items: center;
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     margin-top: auto;
   }
 

@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import { colors } from 'config'
 import routes from 'shared/routes/privateRoutes'
 import { ReactComponent as BurgerMenuIcon } from 'shared/images/icons/burger-icon.svg'
@@ -12,12 +14,14 @@ import {
   MainNavContainer,
   MainContent,
   TopBarAppLogo,
+  TopBarAppTextLogo,
   MainNav,
   MainNavItem,
   MainRRNavLink,
   LogoutButton,
   AccountIconWrapper,
   AccountIconLabel,
+  TopBarLogoWrapper,
 } from './PageAfterLogin.style'
 
 export interface IPageAfterLogin {
@@ -25,8 +29,15 @@ export interface IPageAfterLogin {
 }
 
 const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
+  const history = useHistory()
+  const isDesktopView = useCheckDesktopScreen()
   const navigationRoutes = routes.filter((item) => item.navigation)
   const [activeMenu, setActiveMenu] = useState(false)
+
+  const handleLogout = () => {
+    localStorage.clear()
+    history.push('/')
+  }
 
   return (
     <Container>
@@ -44,9 +55,12 @@ const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
             className="icon-button burger-button"
           />
         )}
-        <TopBarAppLogo />
+        <TopBarLogoWrapper to="/">
+          <TopBarAppLogo />
+          {isDesktopView && <TopBarAppTextLogo />}
+        </TopBarLogoWrapper>
         <AccountIconWrapper>
-          <AccountIconLabel>Account</AccountIconLabel>
+          {isDesktopView && <AccountIconLabel>Account</AccountIconLabel>}
           <AccountIcon
             fill={colors.typography.primary}
             className="icon-button"
@@ -67,7 +81,7 @@ const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
               )
             )}
             <MainNavItem>
-              <LogoutButton>
+              <LogoutButton onClick={handleLogout}>
                 <LogoutIcon />
                 Sign out
               </LogoutButton>

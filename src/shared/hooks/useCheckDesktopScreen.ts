@@ -15,7 +15,7 @@ const useCheckDesktopScreen = () => {
     }
   }, [])
 
-  return width >= theme.breakpoints.values.lg
+  return width >= theme.breakpoints.values.md
 }
 
 export default useCheckDesktopScreen

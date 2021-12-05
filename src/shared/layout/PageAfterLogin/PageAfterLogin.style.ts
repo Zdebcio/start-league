@@ -1,7 +1,7 @@
 // import styled from 'styled-components'
 import { styled } from '@mui/material'
 import { colors } from 'config'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { ReactComponent as AppLogo } from 'shared/images/logos/logo-icon.svg'
 import { ReactComponent as AppTextLogo } from 'shared/images/logos/logo-text.svg'
 
@@ -29,7 +29,7 @@ export const TopBar = styled('div')`
     cursor: pointer;
   }
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     & > .burger-button {
       display: none;
     }
@@ -40,11 +40,18 @@ export const MainContent = styled('div')`
   display: flex;
   flex-direction: column;
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     margin-left: 32rem;
     padding: 2rem;
   }
 `
+
+export const TopBarLogoWrapper = styled(Link)`
+  display: flex;
+  height: 100%;
+  cursor: pointer;
+`
+
 export const TopBarAppLogo = styled(AppLogo)`
   width: auto;
   height: 100%;
@@ -76,7 +83,7 @@ export const MainNavContainer = styled('nav', {
   transform: ${isActive ? 'translateX(0)' : 'translateX(-100%)'};
   padding: 2rem 2rem;
 
-  ${theme.breakpoints?.up('lg')} {
+  ${theme.breakpoints?.up('md')} {
   position: fixed;
   transform: translateX(0);
   background-color: ${colors.background.primary};
@@ -90,7 +97,7 @@ export const MainNav = styled('ul')`
   flex-direction: column;
   list-style: none;
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     height: 100%;
   }
 `
@@ -100,7 +107,7 @@ export const MainNavItem = styled('li')`
     margin-bottom: 2rem;
   }
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     &:last-child {
       margin-top: auto;
     }
@@ -140,7 +147,7 @@ export const LogoutButton = styled('div')`
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  ${(props) => props.theme.breakpoints?.up('lg')} {
+  ${(props) => props.theme.breakpoints?.up('md')} {
     margin-top: auto;
   }
 `
