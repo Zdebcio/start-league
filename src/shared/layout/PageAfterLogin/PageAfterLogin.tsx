@@ -10,6 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import {
   Container,
   TopBar,
+  BurgerIconWrapper,
   MainContentContainer,
   MainNavContainer,
   MainContent,
@@ -42,18 +43,20 @@ const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
   return (
     <Container>
       <TopBar>
-        {activeMenu ? (
-          <ExitIcon
-            fill={colors.typography.primary}
-            onClick={() => setActiveMenu(false)}
-            className="icon-button burger-button"
-          />
-        ) : (
-          <BurgerMenuIcon
-            fill={colors.typography.primary}
-            onClick={() => setActiveMenu(true)}
-            className="icon-button burger-button"
-          />
+        {!isDesktopView && (
+          <BurgerIconWrapper onClick={() => setActiveMenu(!activeMenu)}>
+            {activeMenu ? (
+              <ExitIcon
+                fill={colors.typography.primary}
+                className="icon-button burger-button"
+              />
+            ) : (
+              <BurgerMenuIcon
+                fill={colors.typography.primary}
+                className="icon-button burger-button"
+              />
+            )}
+          </BurgerIconWrapper>
         )}
         <TopBarLogoWrapper to="/">
           <TopBarAppLogo />

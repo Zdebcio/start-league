@@ -156,6 +156,10 @@ export const MainRRNavLink = styled(NavLink)`
   ${navigationButton}
 `
 
+export const BurgerIconWrapper = styled('div')`
+  cursor: pointer;
+`
+
 export const AccountIconWrapper = styled('div')`
   cursor: pointer;
   display: flex;
