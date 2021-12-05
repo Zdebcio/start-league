@@ -48,12 +48,12 @@ const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
             {activeMenu ? (
               <ExitIcon
                 fill={colors.typography.primary}
-                className="icon-button burger-button"
+                className="burger-button"
               />
             ) : (
               <BurgerMenuIcon
                 fill={colors.typography.primary}
-                className="icon-button burger-button"
+                className="burger-button"
               />
             )}
           </BurgerIconWrapper>
@@ -64,10 +64,7 @@ const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
         </TopBarLogoWrapper>
         <AccountIconWrapper>
           {isDesktopView && <AccountIconLabel>Account</AccountIconLabel>}
-          <AccountIcon
-            fill={colors.typography.primary}
-            className="icon-button"
-          />
+          <AccountIcon fill={colors.typography.primary} />
         </AccountIconWrapper>
       </TopBar>
       <MainContentContainer>
