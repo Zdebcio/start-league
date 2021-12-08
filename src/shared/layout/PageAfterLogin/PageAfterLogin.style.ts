@@ -6,7 +6,7 @@ import { ReactComponent as AppLogo } from 'shared/images/logos/logo-icon.svg'
 import { ReactComponent as AppTextLogo } from 'shared/images/logos/logo-text.svg'
 
 export const Container = styled('div')`
-  min-height: 200vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -37,12 +37,11 @@ export const TopBar = styled('div')`
 `
 
 export const MainContent = styled('div')`
-  display: flex;
-  flex-direction: column;
+  padding: 2rem;
+  flex-grow: 1;
 
   ${(props) => props.theme.breakpoints?.up('md')} {
     margin-left: 32rem;
-    padding: 2rem;
   }
 `
 
@@ -65,6 +64,7 @@ export const TopBarAppTextLogo = styled(AppTextLogo)`
 
 export const MainContentContainer = styled('div')`
   display: flex;
+  flex-grow: 1;
 `
 
 export const MainNavContainer = styled('nav', {

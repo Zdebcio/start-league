@@ -15,15 +15,18 @@ const colors = {
   },
   typography: {
     primary: '#FFFFFF',
-    secondary: '#6BD425',
+    secondary: '#5DD425',
+    additional: '#717171',
   },
   buttons: {
     contained: {
       primary: '#008DD5',
       primaryText: '#FFFFFF',
+      secondary: '#5DD425',
+      secondaryText: '#FFFFFF',
     },
     text: {
-      primary: '#6BD425',
+      primary: '#5DD425',
       secondary: '#FFFFFF',
     },
   },
@@ -50,7 +53,7 @@ const colors = {
       transparentComponent: alpha('#000000', 0.9),
     },
     border: {
-      secondary: '#6BD425',
+      secondary: '#5DD425',
     },
   },
 }

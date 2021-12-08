@@ -47,8 +47,23 @@ const props: Components = {
           backgroundColor: darken(colors.buttons.contained.primary, 0.2),
         },
       },
+      containedSecondary: {
+        color: colors.buttons.contained.secondaryText,
+        backgroundColor: colors.buttons.contained.secondary,
+        '&:hover, &:focus': {
+          backgroundColor: darken(colors.buttons.contained.secondary, 0.2),
+        },
+      },
       containedSizeSmall: {
-        padding: '0.5rem 0.8rem',
+        padding: '0.3rem 0.8rem',
+        borderRadius: '0.8rem',
+        border: '0.2rem solid black',
+        fontSize: '1.8rem',
+        boxShadow: `${colors.decorations.boxShadows.component} 0 0.4rem 0.8rem -0,2rem, ${colors.decorations.boxShadows.component} 0 0 0 1rem`,
+
+        '&:hover': {
+          boxShadow: `${colors.decorations.boxShadows.component} 0 0.4rem 0.8rem -0,2rem, ${colors.decorations.boxShadows.component} 0 0 0 1rem`,
+        },
       },
       text: {
         textTransform: 'none',
@@ -84,6 +99,16 @@ const props: Components = {
     },
   },
 
+  MuiFormControl: {
+    styleOverrides: {
+      root: {
+        '&&': {
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+  },
+
   MuiFilledInput: {
     styleOverrides: {
       root: {
@@ -91,11 +116,16 @@ const props: Components = {
         justifyContent: 'center',
         alignItems: 'center',
         padding: '1rem',
+        backgroundColor: colors.fields.filled.background,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
         borderRadius: '0.5rem',
         '&.Mui-error': {
           border: `0.2rem solid ${colors.fields.filled.error}`,
+        },
+
+        '&:hover, &.Mui-focused': {
+          backgroundColor: colors.fields.filled.background,
         },
       },
 
@@ -110,6 +140,13 @@ const props: Components = {
           },
         },
       },
+
+      sizeSmall: {
+        padding: '0.3rem 0.8rem',
+        borderRadius: '0.8rem',
+        border: '0.2rem solid black',
+        fontSize: '1.8rem',
+      },
     },
   },
 
@@ -118,14 +155,23 @@ const props: Components = {
       root: {
         '&&&&': {
           marginTop: 0,
-          borderRight: `0.1rem solid ${'grey'}`,
           height: 'auto',
           paddingRight: '1rem',
           fontSize: '1.4rem',
+          borderRight: `0.1rem solid ${'grey'}`,
 
           '& >svg': {
             width: '2.5rem',
             height: '2.5rem',
+          },
+
+          '&.MuiInputAdornment-sizeSmall': {
+            borderRightWidth: 0,
+
+            '& >svg': {
+              width: '3.5rem',
+              height: '3.5rem',
+            },
           },
         },
       },
