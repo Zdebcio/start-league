@@ -1,6 +1,6 @@
 // import styled from 'styled-components'
 import { colors } from 'config'
-import { Checkbox, styled } from '@mui/material'
+import { Button, Checkbox, styled } from '@mui/material'
 import { ReactComponent as AppLogo } from 'shared/images/logos/logo-icon.svg'
 import { ReactComponent as AppTextLogo } from 'shared/images/logos/logo-text.svg'
 import banerImg from 'shared/images/login-baner.png'
@@ -231,3 +231,10 @@ export const LogotypeWrapper = styled('div')`
   z-index: 10;
 `
 
+export const ReadMoreButton = styled(Button)`
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  border-width: 0;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+`

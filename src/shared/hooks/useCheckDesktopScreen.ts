@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useMediaQuery, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 
 const useCheckDesktopScreen = () => {
   const theme = useTheme()

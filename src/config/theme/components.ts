@@ -37,7 +37,7 @@ const props: Components = {
         textTransform: 'uppercase',
         padding: '1.2rem',
         fontSize: '1.4rem',
-        fontWeight: 700,
+        fontWeight: 600,
         borderRadius: '0.5rem',
       },
       containedPrimary: {
@@ -55,10 +55,10 @@ const props: Components = {
         },
       },
       containedSizeSmall: {
-        padding: '0.3rem 0.8rem',
+        padding: '0.4rem 3rem',
         borderRadius: '0.8rem',
         border: '0.2rem solid black',
-        fontSize: '1.8rem',
+        fontSize: '1.7rem',
         boxShadow: `${colors.decorations.boxShadows.component} 0 0.4rem 0.8rem -0,2rem, ${colors.decorations.boxShadows.component} 0 0 0 1rem`,
 
         '&:hover': {
