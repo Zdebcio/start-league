@@ -73,7 +73,7 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
     }
 
     await dispatch(login(payload))
-    history.push('/')
+    history.push('/tables')
   }
 
   return (

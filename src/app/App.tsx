@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { BrowserRouter, Redirect, Switch } from 'react-router-dom'
 import { publicRoutes, privateRoutes } from 'shared/routes'
 import PrivateRoute from 'shared/routes/components/PrivateRoute'
 import PublicRoute from 'shared/routes/components/PublicRoute'
@@ -32,6 +32,7 @@ const App: React.FC = () => {
               component={route.component}
             />
           ))}
+          <Redirect to="/tables" />
         </Switch>
       </Container>
     </BrowserRouter>
