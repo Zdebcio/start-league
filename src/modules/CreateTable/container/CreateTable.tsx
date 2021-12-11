@@ -1,18 +1,19 @@
-import { Link } from 'react-router-dom'
-import { Button, InputAdornment, useTheme } from '@mui/material'
+import { useHistory, useLocation } from 'react-router-dom'
+import { InputAdornment } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
 import {
   ContentWindow,
   TablesContainer,
   StyledSearchBar,
-  useCreateButtonStyles,
-} from './Tables.style'
+  StyledCreateButton,
+} from './CreateTable.style'
 import NoDataView from '../components/NoDataView/NoDataView'
 
-const Tables = () => {
-  const theme = useTheme()
+const CreateTable = () => {
+  const location = useLocation()
 
+  console.log(location)
   return (
     <PageAfterLogin>
       <TablesContainer>
@@ -34,20 +35,17 @@ const Tables = () => {
         <ContentWindow className="component-window">
           <NoDataView />
         </ContentWindow>
-        <Button
-          component={Link}
-          to="/tables/create"
+        <StyledCreateButton
           className="component-button"
           variant="contained"
           size="small"
           color="secondary"
-          sx={useCreateButtonStyles(theme)}
         >
           Create new table
-        </Button>
+        </StyledCreateButton>
       </TablesContainer>
     </PageAfterLogin>
   )
 }
 
-export default Tables
+export default CreateTable

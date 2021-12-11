@@ -1,4 +1,4 @@
-import { styled, TextField, Theme } from '@mui/material'
+import { styled, Typography, TextField, Button } from '@mui/material'
 import { colors } from 'config'
 
 export const TablesContainer = styled('div')`
@@ -47,12 +47,13 @@ export const ContentWindow = styled('div')`
   }
 `
 
-export const useCreateButtonStyles = (theme: Theme) => ({
-  order: 3,
-  [theme.breakpoints.up('md')]: {
-    flexDirection: 'row',
-    order: 2,
-    width: 'auto',
-    marginLeft: '4rem',
-  },
-})
+export const StyledCreateButton = styled(Button)`
+  order: 3;
+
+  ${(props) => props.theme.breakpoints?.up('md')} {
+    flex-direction: row;
+    order: 2;
+    width: auto;
+    margin-left: 4rem;
+  }
+`
