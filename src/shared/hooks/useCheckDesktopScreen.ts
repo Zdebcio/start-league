@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useMediaQuery, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 
 const useCheckDesktopScreen = () => {
   const theme = useTheme()
@@ -15,7 +15,7 @@ const useCheckDesktopScreen = () => {
     }
   }, [])
 
-  return width >= theme.breakpoints.values.lg
+  return width >= theme.breakpoints.values.md
 }
 
 export default useCheckDesktopScreen

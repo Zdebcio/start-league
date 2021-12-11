@@ -23,6 +23,7 @@ const typography: TypographyOptions = {
     textTransform: 'uppercase',
     fontSize: '2rem',
   },
+
   body1: {
     fontSize: '1.6rem',
     color: colors.typography.primary,

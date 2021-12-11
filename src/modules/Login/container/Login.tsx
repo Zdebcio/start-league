@@ -18,6 +18,7 @@ import {
   InformationHeader,
   InformationContent,
   LogotypeWrapper,
+  ReadMoreButton,
 } from './Login.style'
 
 const Login = () => {
@@ -62,9 +63,9 @@ const Login = () => {
                 as you want. Our system automatically will sort teams depends on
                 the results. Save your time and join StartLeague now!
               </Typography>
-              <Button variant="contained" size="small">
+              <ReadMoreButton variant="contained" size="small">
                 Read more
-              </Button>
+              </ReadMoreButton>
             </InformationContent>
           </InformationWrapper>
         </CarouselContainer>
