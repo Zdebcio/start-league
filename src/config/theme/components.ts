@@ -32,7 +32,15 @@ const props: Components = {
 
   MuiButton: {
     styleOverrides: {
-      root: {},
+      root: {
+        '&.MuiButton-containedTertiary': {
+          color: colors.buttons.contained.tertiaryText,
+          backgroundColor: colors.buttons.contained.tertiary,
+          '&:hover, &:focus': {
+            backgroundColor: darken(colors.buttons.contained.tertiary, 0.2),
+          },
+        },
+      },
       contained: {
         textTransform: 'uppercase',
         padding: '1.2rem',
@@ -54,6 +62,7 @@ const props: Components = {
           backgroundColor: darken(colors.buttons.contained.secondary, 0.2),
         },
       },
+
       containedSizeSmall: {
         padding: '0.4rem 3rem',
         borderRadius: '0.8rem',

@@ -22,24 +22,24 @@ const palette: PaletteOptions = {
   error: {
     main: '#BF0000',
   },
-  neutral: { main: '#FF0' },
+  tertiary: { main: '#FF0' },
 }
 
 declare module '@mui/material/styles' {
   interface Palette {
-    neutral: Palette['primary']
+    tertiary: Palette['primary']
   }
 
   // allow configuration using `createTheme`
   interface PaletteOptions {
-    neutral?: PaletteOptions['primary']
+    tertiary?: PaletteOptions['primary']
   }
 }
 
 // Update the Button's color prop options
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
-    neutral: true
+    tertiary: true
   }
 }
 

@@ -31,13 +31,12 @@ const Tables = () => {
             ),
           }}
         />
-        <ContentWindow className="component-window">
+        <ContentWindow>
           <NoDataView />
         </ContentWindow>
         <Button
           component={Link}
           to="/tables/create"
-          className="component-button"
           variant="contained"
           size="small"
           color="secondary"

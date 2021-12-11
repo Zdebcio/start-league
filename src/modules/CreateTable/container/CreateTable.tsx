@@ -1,14 +1,7 @@
-import { useHistory, useLocation } from 'react-router-dom'
-import { InputAdornment } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
+import { Button, Typography } from '@mui/material'
+import { useLocation } from 'react-router-dom'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
-import {
-  ContentWindow,
-  TablesContainer,
-  StyledSearchBar,
-  StyledCreateButton,
-} from './CreateTable.style'
-import NoDataView from '../components/NoDataView/NoDataView'
+import { ContentWindow, CreateTableContainer } from './CreateTable.style'
 
 const CreateTable = () => {
   const location = useLocation()
@@ -16,34 +9,19 @@ const CreateTable = () => {
   console.log(location)
   return (
     <PageAfterLogin>
-      <TablesContainer>
-        <StyledSearchBar
-          placeholder="Search of a league table"
-          variant="filled"
-          size="small"
-          type="text"
-          fullWidth
-          InputProps={{
-            disableUnderline: true,
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
+      <CreateTableContainer>
         <ContentWindow className="component-window">
-          <NoDataView />
+          <Typography variant="h1">Insert your league name:</Typography>
         </ContentWindow>
-        <StyledCreateButton
+        <Button
           className="component-button"
           variant="contained"
           size="small"
-          color="secondary"
+          color="tertiary"
         >
           Create new table
-        </StyledCreateButton>
-      </TablesContainer>
+        </Button>
+      </CreateTableContainer>
     </PageAfterLogin>
   )
 }
