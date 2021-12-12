@@ -1,7 +1,7 @@
 import { styled } from '@mui/material'
 import { colors } from 'config'
 
-export const CreateTableContainer = styled('div')`
+export const CreateLeagueContainer = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -35,7 +35,7 @@ export const ContentWindow = styled('div')`
   }
 `
 
-export const CreateTableForm = styled('form')`
+export const CreateLeagueForm = styled('form')`
   display: flex;
   flex-direction: column;
   align-items: center;

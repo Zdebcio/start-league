@@ -4,18 +4,18 @@ import SearchIcon from '@mui/icons-material/Search'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
 import {
   ContentWindow,
-  TablesContainer,
+  LeaguesContainer,
   StyledSearchBar,
   useCreateButtonStyles,
-} from './Tables.style'
+} from './Leagues.style'
 import NoDataView from '../components/NoDataView/NoDataView'
 
-const Tables = () => {
+const Leagues = () => {
   const theme = useTheme()
 
   return (
     <PageAfterLogin>
-      <TablesContainer>
+      <LeaguesContainer>
         <StyledSearchBar
           placeholder="Search of a league table"
           variant="filled"
@@ -36,7 +36,7 @@ const Tables = () => {
         </ContentWindow>
         <Button
           component={Link}
-          to="/tables/create"
+          to="/leagues/create"
           variant="contained"
           size="small"
           color="secondary"
@@ -45,9 +45,9 @@ const Tables = () => {
         >
           Create new table
         </Button>
-      </TablesContainer>
+      </LeaguesContainer>
     </PageAfterLogin>
   )
 }
 
-export default Tables
+export default Leagues

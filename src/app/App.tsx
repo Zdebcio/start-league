@@ -32,7 +32,7 @@ const App: React.FC = () => {
               component={route.component}
             />
           ))}
-          <Redirect to="/tables" />
+          <Redirect to="/leagues" />
         </Switch>
       </Container>
     </BrowserRouter>

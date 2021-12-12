@@ -31,16 +31,16 @@ interface ISignUp {
   viewChangeFn: (view: string) => void
 }
 
+type Inputs = {
+  nickname: string
+  email: string
+  passwd: string
+  repeatPasswd: string
+  termsAndRegulations: boolean
+}
+
 const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
   const dispatch = useDispatch()
-
-  type Inputs = {
-    nickname: string
-    email: string
-    passwd: string
-    repeatPasswd: string
-    termsAndRegulations: boolean
-  }
 
   const schema = yup.object({
     nickname: yup.string().required('Field must be filled'),
@@ -78,10 +78,7 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
     register,
     handleSubmit,
     control,
-    watch,
-    getValues,
     setValue,
-    setError,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
 

@@ -1,12 +1,12 @@
 import Private from 'shared/components/Private'
-import Tables from 'modules/Tables/container/Tables'
-import CreateTable from 'modules/CreateTable/container/CreateTable'
+import Tables from 'modules/Leagues/container/Leagues'
+import CreateTable from 'modules/CreateLeague/container/CreateLeague'
 import StorageIcon from '@mui/icons-material/Storage'
 import AccountTreeIcon from '@mui/icons-material/AccountTree'
 
 export default [
   {
-    path: '/tables',
+    path: '/leagues',
     component: Tables,
     redirectTo: '/login',
     exact: true,
@@ -15,7 +15,7 @@ export default [
     NavigationIcon: StorageIcon,
   },
   {
-    path: '/tables/create',
+    path: '/leagues/create',
     component: CreateTable,
     redirectTo: '/login',
     exact: true,

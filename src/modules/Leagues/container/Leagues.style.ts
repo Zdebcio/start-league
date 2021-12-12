@@ -1,7 +1,7 @@
 import { styled, TextField, Theme } from '@mui/material'
 import { colors } from 'config'
 
-export const TablesContainer = styled('div')`
+export const LeaguesContainer = styled('div')`
   display: flex;
   flex-direction: column;
   height: 100%;
