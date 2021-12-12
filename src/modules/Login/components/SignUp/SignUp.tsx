@@ -194,7 +194,7 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
           />
         )}
       />
-      <Button variant="contained" fullWidth type="submit">
+      <Button variant="contained" disableTouchRipple fullWidth type="submit">
         Sign Up
       </Button>
       <ChangeViewButtonWrapper>

@@ -1,11 +1,25 @@
+import { createBreakpoints } from '@mui/system'
+import breakpointsOptions from 'config/theme/breakpoints'
 import { TypographyOptions } from '@mui/material/styles/createTypography'
 import colors from 'config/colors'
+
+const breakpoints = createBreakpoints(breakpointsOptions)
 
 const typography: TypographyOptions = {
   fontFamily: ['Lato', 'Roboto', 'Arial', 'sans-serif'].join(','),
   h1: {
     color: colors.typography.primary,
-    fontWeight: 400,
+    fontWeight: 700,
+    fontSize: '2.4rem',
+    [breakpoints.up('xs')]: {
+      fontSize: '3rem',
+    },
+    [breakpoints.up('sm')]: {
+      fontSize: '4.5rem',
+    },
+    [breakpoints.up('md')]: {
+      fontSize: '5rem',
+    },
   },
   h2: {
     color: colors.typography.primary,

@@ -10,11 +10,16 @@ const Start: React.FC<IStart> = ({ viewChangeFn }) => {
       <Button
         color="primary"
         variant="contained"
+        disableTouchRipple
         onClick={() => viewChangeFn('signIn')}
       >
         Sign In
       </Button>
-      <Button variant="contained" onClick={() => viewChangeFn('signUp')}>
+      <Button
+        variant="contained"
+        disableTouchRipple
+        onClick={() => viewChangeFn('signUp')}
+      >
         Sign Up
       </Button>
     </>

@@ -40,6 +40,7 @@ const Tables = () => {
           variant="contained"
           size="small"
           color="secondary"
+          disableTouchRipple
           sx={useCreateButtonStyles(theme)}
         >
           Create new table
