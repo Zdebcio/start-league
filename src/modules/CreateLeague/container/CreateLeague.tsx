@@ -14,6 +14,8 @@ import { leagueNameRegExp } from 'shared/utils/regexp'
 import { DevTool } from '@hookform/devtools'
 import { getCreateLeagueStatus } from 'shared/store/leagues/selectors'
 import { LoadingStatus } from 'shared/types'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import { colors } from 'config'
 import {
   ContentWindow,
   CreateLeagueForm,
@@ -77,9 +79,18 @@ const CreateLeague = () => {
       <CreateLeagueContainer>
         <ContentWindow>
           {createLeagueStatus === LoadingStatus.Succeeded ? (
-            <Typography variant="h1" align="center">
-              Table was created
-            </Typography>
+            <>
+              <CheckCircleOutlineIcon
+                sx={{
+                  color: colors.typography.success,
+                  width: '40%',
+                  height: '40%',
+                }}
+              />
+              <Typography variant="h1" align="center">
+                Table was created
+              </Typography>
+            </>
           ) : (
             <>
               <Typography variant="h1" align="center">

@@ -17,6 +17,7 @@ const colors = {
     primary: '#FFFFFF',
     secondary: '#5DD425',
     additional: '#717171',
+    success: '#5DD425',
   },
   buttons: {
     contained: {
