@@ -32,10 +32,10 @@ const CreateLeague = () => {
   const createLeagueStatus = useSelector(getCreateLeagueStatus)
 
   useEffect(() => {
-    if (createLeagueStatus === LoadingStatus.Succeeded) {
-      console.log('Table was created')
+    return () => {
+      dispatch(resetCreatedLeagueStatus())
     }
-  }, [createLeagueStatus])
+  }, [])
 
   const schema = yup
     .object({
@@ -135,7 +135,6 @@ const CreateLeague = () => {
             disableTouchRipple
             size="small"
             color="tertiary"
-            onClick={() => dispatch(resetCreatedLeagueStatus())}
           >
             Go back
           </Button>
