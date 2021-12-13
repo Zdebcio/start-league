@@ -32,7 +32,15 @@ const props: Components = {
 
   MuiButton: {
     styleOverrides: {
-      root: {},
+      root: {
+        '&.MuiButton-containedTertiary': {
+          color: colors.buttons.contained.tertiaryText,
+          backgroundColor: colors.buttons.contained.tertiary,
+          '&:hover, &:focus': {
+            backgroundColor: darken(colors.buttons.contained.tertiary, 0.2),
+          },
+        },
+      },
       contained: {
         textTransform: 'uppercase',
         padding: '1.2rem',
@@ -54,6 +62,7 @@ const props: Components = {
           backgroundColor: darken(colors.buttons.contained.secondary, 0.2),
         },
       },
+
       containedSizeSmall: {
         padding: '0.4rem 3rem',
         borderRadius: '0.8rem',
@@ -102,9 +111,14 @@ const props: Components = {
   MuiFormControl: {
     styleOverrides: {
       root: {
+        // width: '100%',
+        // maxWidth: '50rem',
         '&&': {
           backgroundColor: 'transparent',
         },
+      },
+      fullWidth: {
+        // maxWidth: 'auto',
       },
     },
   },
@@ -135,8 +149,13 @@ const props: Components = {
           marginBottom: 0,
           boxShadow: 'none',
           fontSize: '1.8rem',
+          textAlign: 'center',
           '&::placeholder': {
             textTransform: 'uppercase',
+          },
+
+          [breakpoints.up('md')]: {
+            textAlign: 'left',
           },
         },
       },
@@ -156,7 +175,8 @@ const props: Components = {
         '&&&&': {
           marginTop: 0,
           height: 'auto',
-          paddingRight: '1rem',
+          paddingRight: '0',
+          marginRight: 0,
           fontSize: '1.4rem',
           borderRight: `0.1rem solid ${'grey'}`,
 
@@ -172,6 +192,11 @@ const props: Components = {
               width: '3.5rem',
               height: '3.5rem',
             },
+          },
+
+          [breakpoints.up('md')]: {
+            paddingRight: '1rem',
+            marginRight: '0.8rem',
           },
         },
       },

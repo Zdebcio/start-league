@@ -63,7 +63,11 @@ const Login = () => {
                 as you want. Our system automatically will sort teams depends on
                 the results. Save your time and join StartLeague now!
               </Typography>
-              <ReadMoreButton variant="contained" size="small">
+              <ReadMoreButton
+                variant="contained"
+                disableTouchRipple
+                size="small"
+              >
                 Read more
               </ReadMoreButton>
             </InformationContent>

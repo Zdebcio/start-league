@@ -1,18 +1,21 @@
-import { TextField, InputAdornment, Typography, Button } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { Button, InputAdornment, useTheme } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
 import {
   ContentWindow,
-  TablesContainer,
+  LeaguesContainer,
   StyledSearchBar,
-  StyledCreateButton,
-} from './Tables.style'
+  useCreateButtonStyles,
+} from './Leagues.style'
 import NoDataView from '../components/NoDataView/NoDataView'
 
-const Tables = () => {
+const Leagues = () => {
+  const theme = useTheme()
+
   return (
     <PageAfterLogin>
-      <TablesContainer>
+      <LeaguesContainer>
         <StyledSearchBar
           placeholder="Search of a league table"
           variant="filled"
@@ -28,20 +31,23 @@ const Tables = () => {
             ),
           }}
         />
-        <ContentWindow className="component-window">
+        <ContentWindow>
           <NoDataView />
         </ContentWindow>
-        <StyledCreateButton
-          className="component-button"
+        <Button
+          component={Link}
+          to="/leagues/create"
           variant="contained"
           size="small"
           color="secondary"
+          disableTouchRipple
+          sx={useCreateButtonStyles(theme)}
         >
           Create new table
-        </StyledCreateButton>
-      </TablesContainer>
+        </Button>
+      </LeaguesContainer>
     </PageAfterLogin>
   )
 }
 
-export default Tables
+export default Leagues

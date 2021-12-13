@@ -5,3 +5,4 @@ export const emailRegExp = new RegExp(
 export const passwordRegExp = new RegExp(
   '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
 )
+export const leagueNameRegExp = new RegExp(/^[a-zA-Z0-9 _]*$/)

@@ -17,3 +17,7 @@ export interface RegistrationPayload {
   email: string
   passwd: string
 }
+
+export interface CreateLeaguePayload {
+  leagueName: string
+}

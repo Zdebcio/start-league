@@ -37,7 +37,7 @@ const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
 
   const handleLogout = () => {
     localStorage.clear()
-    history.push('/tables')
+    history.push('/leagues')
   }
 
   return (

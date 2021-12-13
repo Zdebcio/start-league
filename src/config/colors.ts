@@ -17,6 +17,7 @@ const colors = {
     primary: '#FFFFFF',
     secondary: '#5DD425',
     additional: '#717171',
+    success: '#5DD425',
   },
   buttons: {
     contained: {
@@ -24,6 +25,8 @@ const colors = {
       primaryText: '#FFFFFF',
       secondary: '#5DD425',
       secondaryText: '#FFFFFF',
+      tertiary: '#535B58',
+      tertiaryText: '#FFFFFF',
     },
     text: {
       primary: '#5DD425',
