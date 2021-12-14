@@ -8,11 +8,13 @@ import {
 
 interface State {
   createLeagueStatus: LoadingStatus
+  fetchLeaguesListStatus: LoadingStatus
   userLeaguesList: IUserLeaguesList[] | null
 }
 
 const initialState: State = {
   createLeagueStatus: LoadingStatus.Idle,
+  fetchLeaguesListStatus: LoadingStatus.Idle,
   userLeaguesList: null,
 }
 
@@ -41,21 +43,21 @@ export default createReducer(initialState, (builder) =>
 
     .addCase(fetchAllLeaguesList.pending, (state) => ({
       ...state,
-      createLeagueStatus: LoadingStatus.Pending,
+      fetchLeaguesListStatus: LoadingStatus.Pending,
       userLeaguesList: state.userLeaguesList,
     }))
     .addCase(fetchAllLeaguesList.fulfilled, (state, action) => {
       const { response, status } = action.payload.data
       return {
         ...state,
-        createLeagueStatus: LoadingStatus.Succeeded,
+        fetchLeaguesListStatus: LoadingStatus.Succeeded,
         userLeaguesList: response,
       }
     })
     .addCase(fetchAllLeaguesList.rejected, (state, action) => {
       return {
         ...state,
-        createLeagueStatus: LoadingStatus.Failed,
+        fetchLeaguesListStatus: LoadingStatus.Failed,
         userLeaguesList: state.userLeaguesList,
       }
     })

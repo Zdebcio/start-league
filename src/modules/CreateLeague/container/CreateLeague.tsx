@@ -88,7 +88,7 @@ const CreateLeague = () => {
                 }}
               />
               <Typography variant="h1" align="center">
-                Table was created
+                Table created successfully
               </Typography>
             </>
           ) : (
