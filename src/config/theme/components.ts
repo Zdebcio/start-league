@@ -111,14 +111,9 @@ const props: Components = {
   MuiFormControl: {
     styleOverrides: {
       root: {
-        // width: '100%',
-        // maxWidth: '50rem',
         '&&': {
           backgroundColor: 'transparent',
         },
-      },
-      fullWidth: {
-        // maxWidth: 'auto',
       },
     },
   },
@@ -143,28 +138,31 @@ const props: Components = {
         },
       },
 
+      sizeSmall: {
+        padding: '0.3rem 0.8rem',
+        borderRadius: '0.8rem',
+        border: '0.2rem solid black',
+        fontSize: '1.8rem',
+      },
+
       input: {
         '&&&, &&&&:focus': {
           borderBottomWidth: 0,
           marginBottom: 0,
           boxShadow: 'none',
           fontSize: '1.8rem',
-          textAlign: 'center',
           '&::placeholder': {
             textTransform: 'uppercase',
           },
 
-          [breakpoints.up('md')]: {
-            textAlign: 'left',
+          '&.MuiInputBase-inputSizeSmall': {
+            textAlign: 'center',
+
+            [breakpoints.up('md')]: {
+              textAlign: 'left',
+            },
           },
         },
-      },
-
-      sizeSmall: {
-        padding: '0.3rem 0.8rem',
-        borderRadius: '0.8rem',
-        border: '0.2rem solid black',
-        fontSize: '1.8rem',
       },
     },
   },
@@ -175,8 +173,9 @@ const props: Components = {
         '&&&&': {
           marginTop: 0,
           height: 'auto',
-          paddingRight: '0',
-          marginRight: 0,
+          paddingRight: '1rem',
+          marginRight: '0.8rem',
+
           fontSize: '1.4rem',
           borderRight: `0.1rem solid ${'grey'}`,
 
@@ -187,16 +186,18 @@ const props: Components = {
 
           '&.MuiInputAdornment-sizeSmall': {
             borderRightWidth: 0,
+            paddingRight: '0',
+            marginRight: 0,
 
             '& >svg': {
               width: '3.5rem',
               height: '3.5rem',
             },
-          },
 
-          [breakpoints.up('md')]: {
-            paddingRight: '1rem',
-            marginRight: '0.8rem',
+            [breakpoints.up('md')]: {
+              paddingRight: '1rem',
+              marginRight: '0.8rem',
+            },
           },
         },
       },
