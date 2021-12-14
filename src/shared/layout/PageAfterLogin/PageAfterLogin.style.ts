@@ -10,6 +10,7 @@ export const Container = styled('div')`
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 `
 
 export const TopBar = styled('div')`
@@ -39,6 +40,9 @@ export const TopBar = styled('div')`
 export const MainContent = styled('div')`
   padding: 2rem;
   flex-grow: 1;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
 
   ${(props) => props.theme.breakpoints?.up('md')} {
     margin-left: 32rem;

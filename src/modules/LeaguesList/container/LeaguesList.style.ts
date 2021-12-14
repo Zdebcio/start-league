@@ -1,57 +1,43 @@
 import { styled, TextField, Theme } from '@mui/material'
 import { colors } from 'config'
 
-export const LeaguesContainer = styled('div')`
+export const SearchContainer = styled('div')`
   display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  & > *:not(:last-child) {
-    margin-bottom: 2rem;
-  }
-
-  ${(props) => props.theme.breakpoints?.up('md')} {
-    flex-direction: row;
-    align-content: flex-start;
-    flex-wrap: wrap;
-    align-items: baseline;
-  }
+  margin-bottom: 2rem;
 `
 
 export const StyledSearchBar = styled(TextField)`
-  order: 1;
-
   ${(props) => props.theme.breakpoints?.up('md')} {
     flex-grow: 1;
     flex-shring: 1;
     width: auto;
+    margin-right: 4rem;
   }
 `
 
 export const ContentWindow = styled('div')`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: ${colors.components.secondary};
-  border-radius: 0.3rem;
   flex-grow: 1;
   padding: 2rem;
-  order: 2;
+  border-radius: 0.5rem;
+  background-color: ${colors.components.secondary};
+  margin-bottom: 4rem;
 
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 70vh;
+  flex-grow: 1;
+  flex-shrink: 1;
   ${(props) => props.theme.breakpoints?.up('md')} {
-    flex-direction: column-reverse;
-    order: 3;
     width: 100%;
-    height: 90%;
   }
 `
 
 export const useCreateButtonStyles = (theme: Theme) => ({
-  order: 3,
+  flexShrink: 0,
   [theme.breakpoints.up('md')]: {
     flexDirection: 'row',
-    order: 2,
     width: 'auto',
     marginLeft: '4rem',
   },

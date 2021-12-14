@@ -2,6 +2,15 @@ import { styled, Typography } from '@mui/material'
 import { ReactComponent as AppLogo } from 'shared/images/logos/logo-icon-grey.svg'
 import { colors } from 'config'
 
+export const NoDataContainer = styled('div')`
+  display: flex;
+  flex-direction: column;
+
+  ${(props) => props.theme.breakpoints?.up('md')} {
+    flex-direction: column-reverse;
+  }
+`
+
 export const NoDataTypography = styled(Typography)`
   color: ${colors.typography.additional};
   font-size: 2rem;

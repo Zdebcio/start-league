@@ -14,4 +14,10 @@ export default class LeaguesApi extends Api {
 
     return this.api.post(API, configRequest.params)
   }
+
+  public async fetchAllLeaguesList() {
+    const API = `${config.API_URL}/league/view/all`
+
+    return this.api.get(API)
+  }
 }
