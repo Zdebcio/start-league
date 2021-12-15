@@ -24,7 +24,7 @@ export const ContentWindow = styled('div')`
 
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
   overflow-y: auto;
   max-height: 70vh;
   flex-grow: 1;

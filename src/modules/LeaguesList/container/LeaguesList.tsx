@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, InputAdornment, useTheme } from '@mui/material'
+import { Scrollbars } from 'react-custom-scrollbars'
 import SearchIcon from '@mui/icons-material/Search'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
 import { fetchAllLeaguesList } from 'shared/store/leagues/actions'
@@ -60,7 +61,13 @@ const LeaguesList = () => {
 
       <ContentWindow>
         {userLeagueList && userLeagueList.length ? (
-          <ListOfTables tablesList={userLeagueList} />
+          <Scrollbars
+            renderTrackHorizontal={(props) => (
+              <div {...props} style={{ display: 'none' }} />
+            )}
+          >
+            <ListOfTables tablesList={userLeagueList} />
+          </Scrollbars>
         ) : (
           <NoDataView />
         )}

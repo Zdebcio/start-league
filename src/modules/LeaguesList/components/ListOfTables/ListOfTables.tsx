@@ -1,6 +1,7 @@
 import { styled } from '@mui/system'
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled'
 import { IListOfTables } from 'shared/types'
+import { Scrollbars } from 'react-custom-scrollbars'
 import {
   ResponsiveTableContainer,
   StaticSubtableWrapper,
@@ -19,26 +20,27 @@ const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
   return (
     <ResponsiveTableContainer>
       <ResponsiveSubtableWrapper>
-        <div>
-          <table aria-label="custom pagination table">
-            <thead>
-              <tr>
-                <th>Name of league</th>
-                <th>League ID</th>
-                <th>Created at</th>
-                <th>Updated at</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tablesList.map((row) => (
+        <Scrollbars>
+          <div>
+            <table aria-label="custom pagination table">
+              <thead>
                 <tr>
-                  <td>{row.league_name}</td>
-                  <td>{row.table_id}</td>
-                  <td>{row.created_at}</td>
-                  <td>{row.updated_at}</td>
+                  <th>Name of league</th>
+                  <th>League ID</th>
+                  <th>Created at</th>
+                  <th>Updated at</th>
                 </tr>
-              ))}
-              {/* {(rowsPerPage > 0
+              </thead>
+              <tbody>
+                {tablesList.map((row) => (
+                  <tr>
+                    <td>{row.league_name}</td>
+                    <td>{row.table_id}</td>
+                    <td>{row.created_at}</td>
+                    <td>{row.updated_at}</td>
+                  </tr>
+                ))}
+                {/* {(rowsPerPage > 0
           ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
           : rows
         ).map((row) => (
@@ -57,10 +59,10 @@ const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
             <td colSpan={3} />
           </tr>
         )} */}
-            </tbody>
-            <tfoot>
-              <tr>
-                {/* <CustomTablePagination
+              </tbody>
+              <tfoot>
+                <tr>
+                  {/* <CustomTablePagination
             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
             colSpan={3}
             count={rows.length}
@@ -78,10 +80,11 @@ const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           /> */}
-              </tr>
-            </tfoot>
-          </table>
-        </div>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </Scrollbars>
       </ResponsiveSubtableWrapper>
       <StaticSubtableWrapper>
         <table aria-label="custom pagination table">
