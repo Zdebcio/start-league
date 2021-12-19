@@ -21,7 +21,7 @@ const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
     <ResponsiveTableContainer>
       <ResponsiveSubtableWrapper>
         <Scrollbars>
-          <div>
+          <div className="table-wrapper">
             <table aria-label="custom pagination table">
               <thead>
                 <tr>

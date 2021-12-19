@@ -62,6 +62,7 @@ const LeaguesList = () => {
       <ContentWindow>
         {userLeagueList && userLeagueList.length ? (
           <Scrollbars
+            style={{ overflowY: 'hidden' }}
             renderTrackHorizontal={(props) => (
               <div {...props} style={{ display: 'none' }} />
             )}
