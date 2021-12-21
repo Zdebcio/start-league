@@ -224,6 +224,47 @@ const props: Components = {
       },
     },
   },
+
+  MuiTableBody: {
+    styleOverrides: {
+      root: {
+        '& .MuiTableRow-root:nth-of-type(even)': {
+          '& .MuiTableCell': {
+            backgroundColor: colors.tables.bakgroundBodyEven,
+          },
+        },
+        '& .MuiTableRow-root:nth-of-type(odd)': {
+          '& .MuiTableCell-root': {
+            backgroundColor: colors.tables.bakgroundBodyOdd,
+          },
+        },
+      },
+    },
+  },
+
+  MuiTableCell: {
+    styleOverrides: {
+      root: {
+        color: colors.typography.primary,
+        fontSize: '1.4rem',
+        [breakpoints.up('xl')]: {
+          fontSize: '1.6rem',
+        },
+        padding: '1.5rem 2rem',
+        width: 'auto',
+        whiteSpace: 'nowrap',
+      },
+      head: {
+        backgroundColor: colors.tables.backgroundHeader,
+        color: colors.tables.textHeader,
+        border: '0px solid transparent',
+        fontWeight: 700,
+      },
+      body: {
+        border: '0px solid transparent',
+      },
+    },
+  },
 }
 
 export default props

@@ -12,12 +12,14 @@ const colors = {
     secondary: '#1F1F1F',
     navigation: '#2E2E2E',
     transparent: alpha('#2B3E44', 0.9),
+    additional: '#000000',
   },
   typography: {
     primary: '#FFFFFF',
     secondary: '#5DD425',
     additional: '#717171',
     success: '#5DD425',
+    error: '#EC0B43',
   },
   buttons: {
     contained: {
@@ -38,6 +40,15 @@ const colors = {
       background: '#FFFFFF',
       error: '#EC0B43',
     },
+  },
+  tables: {
+    textHeader: '#FFFFFF',
+    textBody: '#FFFFFF',
+    backgroundHeader: '#000000',
+    bakgroundBodyEven: '#1F1F1F',
+    bakgroundBodyOdd: '#2E2E2E',
+    buttonPrimary: '#FFFFFF',
+    buttonPrimaryHover: '#008DD5',
   },
   checkbox: {
     checked: {
