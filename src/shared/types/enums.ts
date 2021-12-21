@@ -4,3 +4,9 @@ export enum LoadingStatus {
   Succeeded = 'succeeded',
   Failed = 'failed',
 }
+
+export enum AllLeaguesTableColumns {
+  LeagueName = 'league_name',
+  LeagueID = 'table_id',
+  CretedAt = 'created_at',
+}

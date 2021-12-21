@@ -265,6 +265,34 @@ const props: Components = {
       },
     },
   },
+
+  MuiTableSortLabel: {
+    styleOverrides: {
+      root: {
+        color: colors.tables.textHeader,
+
+        '&.Mui-active': {
+          color: colors.tables.textHeader,
+
+          '& .MuiTableSortLabel-icon': {
+            color: colors.tables.textHeader,
+          },
+        },
+
+        '&:hover': {
+          color: colors.tables.textHeader,
+        },
+      },
+
+      icon: {
+        color: colors.tables.textHeader,
+        fontSize: '1.4rem',
+        [breakpoints.up('xl')]: {
+          fontSize: '1.6rem',
+        },
+      },
+    },
+  },
 }
 
 export default props
