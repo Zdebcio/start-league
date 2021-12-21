@@ -1,5 +1,5 @@
 import Private from 'shared/components/Private'
-import Tables from 'modules/Leagues/container/Leagues'
+import Tables from 'modules/LeaguesList/container/LeaguesList'
 import CreateTable from 'modules/CreateLeague/container/CreateLeague'
 import StorageIcon from '@mui/icons-material/Storage'
 import AccountTreeIcon from '@mui/icons-material/AccountTree'

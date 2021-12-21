@@ -20,3 +20,8 @@ export const createLeague = createAsyncThunk(
 export const resetCreatedLeagueStatus = createAction<void>(
   'leagues/resetCreateLeagueStatus'
 )
+
+export const fetchAllLeaguesList = createAsyncThunk(
+  `leagues/fetchAllLeaguesList`,
+  async () => api.fetchAllLeaguesList()
+)

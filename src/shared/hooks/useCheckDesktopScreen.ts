@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useTheme } from '@mui/material'
+import { useTheme, Breakpoint } from '@mui/material'
 
-const useCheckDesktopScreen = () => {
+const useCheckDesktopScreen = (breakpoint: Breakpoint = 'md') => {
   const theme = useTheme()
   const [width, setWidth] = useState(window.innerWidth)
   const handleWindowSizeChange = () => {
@@ -15,7 +15,7 @@ const useCheckDesktopScreen = () => {
     }
   }, [])
 
-  return width >= theme.breakpoints.values.md
+  return width >= theme.breakpoints.values[breakpoint]
 }
 
 export default useCheckDesktopScreen
