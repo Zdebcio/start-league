@@ -5,3 +5,6 @@ export const getCreateLeagueStatus = (state: RootState) =>
 
 export const getUserLeaguesList = (state: RootState) =>
   state.reducer.leagues.userLeaguesList
+
+export const getSelectedLeagueLadeboard = (state: RootState) =>
+  state.reducer.leagues.selectedLeagueLadeboard

@@ -23,7 +23,7 @@ const props: Components = {
         },
       },
 
-      'body, button': {
+      'body, button, input': {
         fontSize: '1.6rem',
         fontFamily: '"Lato", arial, sans-serif',
       },
@@ -290,6 +290,27 @@ const props: Components = {
         [breakpoints.up('xl')]: {
           fontSize: '1.6rem',
         },
+      },
+    },
+  },
+
+  MuiSelect: {
+    styleOverrides: {
+      root: {},
+      select: { padding: '0 1rem' },
+    },
+  },
+
+  MuiList: {
+    styleOverrides: {
+      root: {},
+    },
+  },
+
+  MuiMenuItem: {
+    styleOverrides: {
+      root: {
+        color: 'black',
       },
     },
   },

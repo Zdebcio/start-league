@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 import {
   Table,
   TableBody,
@@ -14,6 +15,7 @@ import {
   OptionsTableCell,
   StyledEditIcon,
   StyledRemoveIcon,
+  StyledEditLink,
 } from './ListOfTables.style'
 
 const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
@@ -99,7 +101,9 @@ const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
                 {moment(row.created_at).format('DD.MM.YYYY')}
               </TableCell>
               <OptionsTableCell align="center">
-                <StyledEditIcon />
+                <StyledEditLink to={`/leagues/${row.table_id}`}>
+                  <StyledEditIcon />
+                </StyledEditLink>
                 <StyledRemoveIcon />
               </OptionsTableCell>
             </TableRow>

@@ -10,3 +10,14 @@ export enum AllLeaguesTableColumns {
   LeagueID = 'table_id',
   CretedAt = 'created_at',
 }
+
+export enum LeagueLadeboardColumns {
+  TeamName = 'name',
+  Played = 'played',
+  Won = 'won',
+  Drawn = 'drawn',
+  Lost = 'lost',
+  Forward = 'handicap',
+  Against = 'against',
+  Points = 'points',
+}

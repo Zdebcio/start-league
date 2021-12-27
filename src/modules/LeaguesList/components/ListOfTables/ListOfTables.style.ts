@@ -1,6 +1,7 @@
 import { TableCell } from '@mui/material'
 import { styled } from '@mui/system'
 import { colors } from 'config'
+import { Link } from 'react-router-dom'
 import { ReactComponent as RemoveIcon } from 'shared/images/icons/bin-round-icon.svg'
 import { ReactComponent as EditIcon } from 'shared/images/icons/pen-round-icon.svg'
 
@@ -33,4 +34,10 @@ export const StyledRemoveIcon = styled(RemoveIcon)`
   &:hover {
     fill: ${colors.typography.error};
   }
+`
+
+export const StyledEditLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

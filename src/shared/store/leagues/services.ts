@@ -1,6 +1,9 @@
 import config from 'config'
 import { Api } from 'shared/services'
-import { CreateLeaguePayload } from 'shared/types'
+import {
+  CreateLeaguePayload,
+  SelectedLeagueLadeboardPayload,
+} from 'shared/types'
 
 export default class LeaguesApi extends Api {
   public async createLeague({ leagueName }: CreateLeaguePayload) {
@@ -17,6 +20,14 @@ export default class LeaguesApi extends Api {
 
   public async fetchAllLeaguesList() {
     const API = `${config.API_URL}/league/view/all`
+
+    return this.api.get(API)
+  }
+
+  public async fetchSelectedLeagueLadeboard({
+    leagueID,
+  }: SelectedLeagueLadeboardPayload) {
+    const API = `${config.API_URL}/league/table/view/sorted/${leagueID}`
 
     return this.api.get(API)
   }

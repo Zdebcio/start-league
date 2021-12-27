@@ -1,7 +1,7 @@
 import Private from 'shared/components/Private'
 import Tables from 'modules/LeaguesList/container/LeaguesList'
 import CreateTable from 'modules/CreateLeague/container/CreateLeague'
-import LeagueView from 'modules/LeagueView/container/LeagueView'
+import SelectedLeagueView from 'modules/SelectedLeagueView/container/SelectedLeagueView'
 import StorageIcon from '@mui/icons-material/Storage'
 import AccountTreeIcon from '@mui/icons-material/AccountTree'
 
@@ -25,9 +25,9 @@ export default [
   },
   {
     path: '/leagues/:leagueID',
-    component: LeagueView,
+    component: SelectedLeagueView,
     redirectTo: '/login',
-    exact: true,
+    exact: false,
     navigation: false,
   },
 

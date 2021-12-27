@@ -1,6 +1,9 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit'
 import Auth from 'shared/store/leagues/services'
-import { LoginPayload, CreateLeaguePayload } from 'shared/types'
+import {
+  CreateLeaguePayload,
+  SelectedLeagueLadeboardPayload,
+} from 'shared/types'
 
 const api = new Auth()
 
@@ -24,4 +27,10 @@ export const resetCreatedLeagueStatus = createAction<void>(
 export const fetchAllLeaguesList = createAsyncThunk(
   `leagues/fetchAllLeaguesList`,
   async () => api.fetchAllLeaguesList()
+)
+
+export const fetchSelectedLeagueLadeboard = createAsyncThunk(
+  `leagues/fetchSelectedLeagueLadeboard`,
+  async (payload: SelectedLeagueLadeboardPayload) =>
+    api.fetchSelectedLeagueLadeboard(payload)
 )
