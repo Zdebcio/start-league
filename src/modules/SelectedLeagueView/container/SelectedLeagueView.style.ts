@@ -23,6 +23,7 @@ export const ContentWindow = styled('div')`
 export const ContentHeaderWrapper = styled('div')`
   display: flex;
   align-items: center;
+  margin-bottom: 4rem;
 
   & > *:not(:last-child) {
     margin-right: 3rem;

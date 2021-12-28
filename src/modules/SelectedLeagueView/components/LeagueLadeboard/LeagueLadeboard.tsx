@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react'
-import moment from 'moment'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import {
   Table,
   TableBody,
@@ -11,26 +8,20 @@ import {
   TableSortLabel,
 } from '@mui/material'
 import Scrollbars from 'react-custom-scrollbars'
-import { fetchSelectedLeagueLadeboard } from 'shared/store/leagues/actions'
-import { getSelectedLeagueLadeboard } from 'shared/store/leagues/selectors'
 import {
-  IListOfTables,
+  ILeagueLadeboardTeam,
   LeagueLadeboardColumns,
   Order,
-  ILeagueTeam,
 } from 'shared/types'
-import { OptionsTableCell } from 'modules/LeaguesList/components/ListOfTables/ListOfTables.style'
 
 export interface ITeamList {
-  leagueID: number
+  leagueLadeboardData: ILeagueLadeboardTeam[]
 }
 
-const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
-  const dispatch = useDispatch()
-  const leagueLadeboard = useSelector(getSelectedLeagueLadeboard)
+const LeagueLadeboard: React.FC<ITeamList> = ({ leagueLadeboardData }) => {
   const [order, setOrder] = useState<Order>('asc')
   const [orderBy, setOrderBy] = useState<LeagueLadeboardColumns>(
-    LeagueLadeboardColumns.Points
+    LeagueLadeboardColumns.Position
   )
 
   const handleRequestSort = (property: LeagueLadeboardColumns) => {
@@ -44,26 +35,35 @@ const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
     orderByVale: LeagueLadeboardColumns
   ) => {
     if (orderValue === 'asc') {
-      return [...leagueLadeboard].sort((a, b) =>
+      return [...leagueLadeboardData].sort((a, b) =>
         a[orderByVale] > b[orderByVale] ? 1 : -1
       )
     }
 
-    return [...leagueLadeboard].sort((a, b) =>
+    return [...leagueLadeboardData].sort((a, b) =>
       a[orderByVale] < b[orderByVale] ? 1 : -1
     )
   }
-
-  useEffect(() => {
-    dispatch(fetchSelectedLeagueLadeboard({ leagueID }))
-  }, [])
 
   return (
     <Scrollbars>
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>
+            <TableCell align="right">
+              <TableSortLabel
+                active={orderBy === LeagueLadeboardColumns.Position}
+                direction={
+                  orderBy === LeagueLadeboardColumns.Position ? order : 'asc'
+                }
+                onClick={() =>
+                  handleRequestSort(LeagueLadeboardColumns.Position)
+                }
+              >
+                #
+              </TableSortLabel>
+            </TableCell>
+            <TableCell sx={{ width: '100%' }}>
               <TableSortLabel
                 active={orderBy === LeagueLadeboardColumns.TeamName}
                 direction={
@@ -87,7 +87,7 @@ const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
                 M
               </TableSortLabel>
             </TableCell>
-            <TableCell>
+            <TableCell align="center">
               <TableSortLabel
                 active={orderBy === LeagueLadeboardColumns.Won}
                 direction={
@@ -98,7 +98,7 @@ const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
                 W
               </TableSortLabel>
             </TableCell>
-            <TableCell>
+            <TableCell align="center">
               <TableSortLabel
                 active={orderBy === LeagueLadeboardColumns.Lost}
                 direction={
@@ -109,7 +109,7 @@ const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
                 L
               </TableSortLabel>
             </TableCell>
-            <TableCell>
+            <TableCell align="center">
               <TableSortLabel
                 active={orderBy === LeagueLadeboardColumns.Drawn}
                 direction={
@@ -120,7 +120,7 @@ const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
                 D
               </TableSortLabel>
             </TableCell>
-            <TableCell>
+            <TableCell align="center">
               <TableSortLabel
                 active={orderBy === LeagueLadeboardColumns.Forward}
                 direction={
@@ -133,7 +133,7 @@ const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
                 GS
               </TableSortLabel>
             </TableCell>
-            <TableCell>
+            <TableCell align="center">
               <TableSortLabel
                 active={orderBy === LeagueLadeboardColumns.Against}
                 direction={
@@ -146,7 +146,7 @@ const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
                 GL
               </TableSortLabel>
             </TableCell>
-            <TableCell>
+            <TableCell align="center">
               <TableSortLabel
                 active={orderBy === LeagueLadeboardColumns.Points}
                 direction={
@@ -162,7 +162,8 @@ const LeagueLadeboard: React.FC<ITeamList> = ({ leagueID }) => {
         <TableBody>
           {getComparator(order, orderBy).map((row) => (
             <TableRow>
-              <TableCell>{row.name}</TableCell>
+              <TableCell align="right">{`${row.position}.`}</TableCell>
+              <TableCell sx={{ width: '100%' }}>{row.name}</TableCell>
               <TableCell align="center">{row.played}</TableCell>
               <TableCell align="center">{row.won}</TableCell>
               <TableCell align="center">{row.lost}</TableCell>

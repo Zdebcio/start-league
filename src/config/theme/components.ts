@@ -270,6 +270,7 @@ const props: Components = {
     styleOverrides: {
       root: {
         color: colors.tables.textHeader,
+        position: 'relative',
 
         '&.Mui-active': {
           color: colors.tables.textHeader,
@@ -285,10 +286,16 @@ const props: Components = {
       },
 
       icon: {
+        position: 'absolute',
+        top: 0,
+        right: '-2rem',
+
         color: colors.tables.textHeader,
+
         fontSize: '1.4rem',
         [breakpoints.up('xl')]: {
           fontSize: '1.6rem',
+          right: '-2.4rem',
         },
       },
     },

@@ -39,6 +39,19 @@ export interface SelectedLeagueLadeboardPayload {
 }
 
 export interface ILeagueTeam {
+  position?: number
+  name: string
+  played: number
+  won: number
+  drawn: number
+  lost: number
+  handicap: number
+  against: number
+  points: number
+}
+
+export interface ILeagueLadeboardTeam {
+  position: number
   name: string
   played: number
   won: number

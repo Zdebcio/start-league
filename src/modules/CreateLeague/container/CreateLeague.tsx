@@ -16,11 +16,11 @@ import { getCreateLeagueStatus } from 'shared/store/leagues/selectors'
 import { LoadingStatus } from 'shared/types'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { colors } from 'config'
+import { ButtonsControlWrapper } from 'shared/styles/ButtonsControlWrapper.style'
 import {
   ContentWindow,
   CreateLeagueForm,
   CreateLeagueContainer,
-  ButtonsControlWrapper,
 } from './CreateLeague.style'
 
 type Inputs = {

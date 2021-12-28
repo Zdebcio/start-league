@@ -58,25 +58,3 @@ export const CreateLeagueForm = styled('form')`
     }
   }
 `
-
-export const ButtonsControlWrapper = styled('div')`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  & > *:not(:last-child) {
-    margin-top: 1rem;
-  }
-
-  ${(props) => props.theme.breakpoints?.up('sm')} {
-    & > * {
-      width: 33.3333%;
-      maxwidth: 30rem;
-
-      &:not(:last-child) {
-        margin-top: 0;
-        margin-right: 1rem;
-      }
-    }
-  }
-`

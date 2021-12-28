@@ -12,6 +12,7 @@ export enum AllLeaguesTableColumns {
 }
 
 export enum LeagueLadeboardColumns {
+  Position = 'position',
   TeamName = 'name',
   Played = 'played',
   Won = 'won',

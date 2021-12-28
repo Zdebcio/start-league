@@ -1,48 +1,56 @@
 import { useEffect, useState } from 'react'
 import { Select, MenuItem, Typography } from '@mui/material'
-import { Route, useHistory, Switch, Redirect } from 'react-router-dom'
+import {
+  Route,
+  useHistory,
+  Switch,
+  Redirect,
+  matchPath,
+  useLocation,
+  useParams,
+} from 'react-router-dom'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
+import { ButtonsControlWrapper } from 'shared/styles/ButtonsControlWrapper.style'
 import { ContentWindow, ContentHeaderWrapper } from './SelectedLeagueView.style'
-import LeagueLadeboard from '../components/LeagueLadeboard/LeagueLadeboard'
+import TablePageView from '../components/TablePageView/TablePageView'
+import TeamsPageView from '../components/TeamsPageView/TeamsPageView'
 
 const SelectedLeagueView = () => {
-  const [selectedView, setSelectedView] = useState('table')
+  const { leagueID } = useParams<{ leagueID?: string }>()
   const history = useHistory()
+  const location = useLocation()
+  const tablePath = `/leagues/${leagueID}`
+  const teamsPath = `/leagues/${leagueID}/teams`
+  const [selectedView, setSelectedView] = useState(
+    matchPath(location.pathname, '/leagues/:leagueID/teams') ? 'teams' : 'table'
+  )
 
   const handleSelectedViewChange = (value: string) => {
     setSelectedView(value)
     if (value === 'teams') {
-      history.replace('/leagues/50/teams')
+      history.replace(teamsPath)
     } else {
-      history.replace('/leagues/50')
+      history.replace(tablePath)
     }
   }
 
   return (
     <PageAfterLogin>
-      <ContentWindow>
-        <ContentHeaderWrapper>
-          <Typography variant="h4" component="h1">
-            League name
-          </Typography>
-          <Select
-            value={selectedView}
-            onChange={(event) => handleSelectedViewChange(event.target.value)}
-            variant="filled"
-            disableUnderline
-          >
-            <MenuItem value="table">Table</MenuItem>
-            <MenuItem value="teams">Teams</MenuItem>
-          </Select>
-        </ContentHeaderWrapper>
-        <Switch>
-          <Route path="/leagues/50/teams" exact render={() => <div>zxc</div>} />
-          <Route path="/leagues/50" exact>
-            <LeagueLadeboard leagueID={1} />
-          </Route>
-          <Redirect to="/leagues/50" />
-        </Switch>
-      </ContentWindow>
+      <Switch>
+        <Route path={teamsPath} exact>
+          <TeamsPageView
+            selectedView={selectedView}
+            changeViewFn={handleSelectedViewChange}
+          />
+        </Route>
+        <Route path={tablePath} exact>
+          <TablePageView
+            selectedView={selectedView}
+            changeViewFn={handleSelectedViewChange}
+          />
+        </Route>
+        <Redirect to={tablePath} />
+      </Switch>
     </PageAfterLogin>
   )
 }
