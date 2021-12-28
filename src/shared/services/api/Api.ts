@@ -35,7 +35,7 @@ class Api {
           localStorage.clear()
           window.location.replace('/')
         }
-        return error
+        throw error
       }
     )
   }
