@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Select, MenuItem, Typography, Button } from '@mui/material'
-import LeagueLadeboard from 'modules/SelectedLeagueView/components/LeagueLadeboard/LeagueLadeboard'
+import LeagueLadeboard from 'shared/components/LeagueLadeboard/LeagueLadeboard'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import { fetchSelectedLeagueLadeboard } from 'shared/store/leagues/actions'
 import { getSelectedLeagueLadeboard } from 'shared/store/leagues/selectors'
@@ -32,7 +32,7 @@ const TablePageView: React.FC<ITablePageView> = ({
   ).map((team, index) => ({ ...team, position: index + 1 }))
 
   useEffect(() => {
-    dispatch(fetchSelectedLeagueLadeboard({ leagueID: Number(leagueID) }))
+    dispatch(fetchSelectedLeagueLadeboard({ leagueID }))
   }, [])
 
   return (

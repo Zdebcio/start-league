@@ -41,6 +41,7 @@ const SelectedLeagueView = () => {
           <TeamsPageView
             selectedView={selectedView}
             changeViewFn={handleSelectedViewChange}
+            leagueID={Number(leagueID)}
           />
         </Route>
         <Route path={tablePath} exact>

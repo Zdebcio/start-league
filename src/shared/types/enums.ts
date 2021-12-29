@@ -22,3 +22,9 @@ export enum LeagueLadeboardColumns {
   Against = 'against',
   Points = 'points',
 }
+
+export enum TeamsListColumns {
+  TeamName = 'team_name',
+  CretedAt = 'created_at',
+  UpdatedAt = 'updated_at',
+}

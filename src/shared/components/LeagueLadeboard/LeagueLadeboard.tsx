@@ -14,11 +14,13 @@ import {
   Order,
 } from 'shared/types'
 
-export interface ITeamList {
+export interface ILeagueLadeboard {
   leagueLadeboardData: ILeagueLadeboardTeam[]
 }
 
-const LeagueLadeboard: React.FC<ITeamList> = ({ leagueLadeboardData }) => {
+const LeagueLadeboard: React.FC<ILeagueLadeboard> = ({
+  leagueLadeboardData,
+}) => {
   const [order, setOrder] = useState<Order>('asc')
   const [orderBy, setOrderBy] = useState<LeagueLadeboardColumns>(
     LeagueLadeboardColumns.Position
