@@ -47,6 +47,7 @@ const SelectedLeagueView = () => {
           <TablePageView
             selectedView={selectedView}
             changeViewFn={handleSelectedViewChange}
+            leagueID={Number(leagueID)}
           />
         </Route>
         <Redirect to={tablePath} />

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Select, MenuItem, Typography, Button } from '@mui/material'
-import { useParams, Link } from 'react-router-dom'
 import LeagueLadeboard from 'modules/SelectedLeagueView/components/LeagueLadeboard/LeagueLadeboard'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import { fetchSelectedLeagueLadeboard } from 'shared/store/leagues/actions'
@@ -15,13 +15,14 @@ import {
 export interface ITablePageView {
   selectedView: string
   changeViewFn: (value: string) => void
+  leagueID: number
 }
 
 const TablePageView: React.FC<ITablePageView> = ({
   selectedView,
   changeViewFn,
+  leagueID,
 }) => {
-  const { leagueID } = useParams<{ leagueID?: string }>()
   const isDesktopScreen = useCheckDesktopScreen('sm')
 
   const dispatch = useDispatch()
@@ -30,9 +31,7 @@ const TablePageView: React.FC<ITablePageView> = ({
   ).map((team, index) => ({ ...team, position: index + 1 }))
 
   useEffect(() => {
-    if (leagueID) {
-      dispatch(fetchSelectedLeagueLadeboard({ leagueID: Number(leagueID) }))
-    }
+    dispatch(fetchSelectedLeagueLadeboard({ leagueID: Number(leagueID) }))
   }, [])
 
   return (
