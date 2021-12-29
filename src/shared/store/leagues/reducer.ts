@@ -1,10 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { LoadingStatus, IUserLeaguesList, ILeagueTeam } from 'shared/types'
+import {
+  LoadingStatus,
+  IUserLeaguesList,
+  ILeagueTeam,
+  ITeamFromList,
+} from 'shared/types'
 import {
   createLeague,
   resetCreatedLeagueStatus,
   fetchAllLeaguesList,
   fetchSelectedLeagueLadeboard,
+  fetchSelectedLeagueTeams,
 } from './actions'
 
 interface State {
@@ -12,6 +18,7 @@ interface State {
   fetchLeaguesListStatus: LoadingStatus
   userLeaguesList: IUserLeaguesList[] | null
   selectedLeagueLadeboard: ILeagueTeam[]
+  selectedLeagueTeams: ITeamFromList[]
 }
 
 const initialState: State = {
@@ -19,6 +26,7 @@ const initialState: State = {
   fetchLeaguesListStatus: LoadingStatus.Idle,
   userLeaguesList: null,
   selectedLeagueLadeboard: [],
+  selectedLeagueTeams: [],
 }
 
 export default createReducer(initialState, (builder) =>
@@ -67,22 +75,37 @@ export default createReducer(initialState, (builder) =>
 
     .addCase(fetchSelectedLeagueLadeboard.pending, (state) => ({
       ...state,
-      fetchLeaguesListStatus: LoadingStatus.Pending,
       selectedLeagueLadeboard: initialState.selectedLeagueLadeboard,
     }))
     .addCase(fetchSelectedLeagueLadeboard.fulfilled, (state, action) => {
       const { response, status } = action.payload.data
       return {
         ...state,
-        fetchLeaguesListStatus: LoadingStatus.Succeeded,
         selectedLeagueLadeboard: response,
       }
     })
     .addCase(fetchSelectedLeagueLadeboard.rejected, (state, action) => {
       return {
         ...state,
-        fetchLeaguesListStatus: LoadingStatus.Failed,
         selectedLeagueLadeboard: state.selectedLeagueLadeboard,
+      }
+    })
+
+    .addCase(fetchSelectedLeagueTeams.pending, (state) => ({
+      ...state,
+      selectedLeagueTeams: initialState.selectedLeagueTeams,
+    }))
+    .addCase(fetchSelectedLeagueTeams.fulfilled, (state, action) => {
+      const { response, status } = action.payload.data
+      return {
+        ...state,
+        selectedLeagueTeams: response,
+      }
+    })
+    .addCase(fetchSelectedLeagueTeams.rejected, (state, action) => {
+      return {
+        ...state,
+        selectedLeagueTeams: state.selectedLeagueTeams,
       }
     })
 )

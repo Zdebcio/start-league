@@ -34,7 +34,7 @@ export interface IUserLeaguesList {
 export interface IListOfTables {
   tablesList: IUserLeaguesList[]
 }
-export interface SelectedLeagueLadeboardPayload {
+export interface SelectedLeaguePayload {
   leagueID: number
 }
 
@@ -48,6 +48,15 @@ export interface ILeagueTeam {
   handicap: number
   against: number
   points: number
+}
+
+export interface ITeamFromList {
+  id: number
+  table_id: number
+  user_key: number
+  team_name: string
+  created_at: string
+  updated_at: string
 }
 
 export interface ILeagueLadeboardTeam {
