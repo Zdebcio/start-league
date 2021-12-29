@@ -5,6 +5,8 @@ import { Button, InputAdornment, useTheme } from '@mui/material'
 import { Scrollbars } from 'react-custom-scrollbars'
 import SearchIcon from '@mui/icons-material/Search'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
+import NoDataView from 'shared/components/NoDataView/NoDataView'
+import ListOfTables from 'modules/LeaguesList/components/ListOfTables/ListOfTables'
 import { fetchAllLeaguesList } from 'shared/store/leagues/actions'
 import { getUserLeaguesList } from 'shared/store/leagues/selectors'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
@@ -14,8 +16,6 @@ import {
   StyledSearchBar,
   useCreateButtonStyles,
 } from './LeaguesList.style'
-import NoDataView from '../components/NoDataView/NoDataView'
-import ListOfTables from '../components/ListOfTables/ListOfTables'
 
 const LeaguesList = () => {
   const theme = useTheme()
@@ -63,7 +63,10 @@ const LeaguesList = () => {
         {userLeagueList && userLeagueList.length ? (
           <ListOfTables tablesList={userLeagueList} />
         ) : (
-          <NoDataView />
+          <NoDataView
+            primaryText="You didn’t add any tables yet."
+            secondaryText="Create new table to continue."
+          />
         )}
       </ContentWindow>
       {!isDesktopView && (

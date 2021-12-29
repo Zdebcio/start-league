@@ -11,6 +11,7 @@ import {
   ContentWindow,
   ContentHeaderWrapper,
 } from 'modules/SelectedLeagueView/container/SelectedLeagueView.style'
+import NoDataView from 'shared/components/NoDataView/NoDataView'
 
 export interface ITablePageView {
   selectedView: string
@@ -51,7 +52,14 @@ const TablePageView: React.FC<ITablePageView> = ({
             <MenuItem value="teams">Teams</MenuItem>
           </Select>
         </ContentHeaderWrapper>
-        <LeagueLadeboard leagueLadeboardData={leagueLadeboard} />
+        {leagueLadeboard.length > 0 ? (
+          <LeagueLadeboard leagueLadeboardData={leagueLadeboard} />
+        ) : (
+          <NoDataView
+            primaryText="Your league is empty."
+            secondaryText="Add teams to the league to unlock table view."
+          />
+        )}
       </ContentWindow>
       <ButtonsControlWrapper>
         <Button
