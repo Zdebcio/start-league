@@ -5,12 +5,17 @@ import {
   NoDataContainer,
 } from './NoDataView.style'
 
-const NoDataView = () => {
+export interface INoDataView {
+  primaryText?: string
+  secondaryText?: string
+}
+
+const NoDataView: React.FC<INoDataView> = ({ primaryText, secondaryText }) => {
   return (
     <NoDataContainer>
       <NoDataTypography align="center" variant="h1">
-        <span>You didn’t add any tables yet.</span>
-        <span>Create new table to continue.</span>
+        {primaryText && <span>{primaryText}</span>}
+        {secondaryText && <span>{secondaryText}</span>}
       </NoDataTypography>
       <NoDataAppLogo />
     </NoDataContainer>

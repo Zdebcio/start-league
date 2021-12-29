@@ -27,17 +27,15 @@ class Api {
 
     this.api.interceptors.response.use(
       (response) => {
-        console.log(response)
         return response
       },
       (error) => {
-        console.log(error.response)
         const { status } = error.response
         if (status === 401 || status === 403) {
           localStorage.clear()
           window.location.replace('/')
         }
-        return error
+        throw error
       }
     )
   }

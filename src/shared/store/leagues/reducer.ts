@@ -1,21 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { LoadingStatus, IUserLeaguesList } from 'shared/types'
+import { LoadingStatus, IUserLeaguesList, ILeagueTeam } from 'shared/types'
 import {
   createLeague,
   resetCreatedLeagueStatus,
   fetchAllLeaguesList,
+  fetchSelectedLeagueLadeboard,
 } from './actions'
 
 interface State {
   createLeagueStatus: LoadingStatus
   fetchLeaguesListStatus: LoadingStatus
   userLeaguesList: IUserLeaguesList[] | null
+  selectedLeagueLadeboard: ILeagueTeam[]
 }
 
 const initialState: State = {
   createLeagueStatus: LoadingStatus.Idle,
   fetchLeaguesListStatus: LoadingStatus.Idle,
   userLeaguesList: null,
+  selectedLeagueLadeboard: [],
 }
 
 export default createReducer(initialState, (builder) =>
@@ -59,6 +62,27 @@ export default createReducer(initialState, (builder) =>
         ...state,
         fetchLeaguesListStatus: LoadingStatus.Failed,
         userLeaguesList: state.userLeaguesList,
+      }
+    })
+
+    .addCase(fetchSelectedLeagueLadeboard.pending, (state) => ({
+      ...state,
+      fetchLeaguesListStatus: LoadingStatus.Pending,
+      selectedLeagueLadeboard: initialState.selectedLeagueLadeboard,
+    }))
+    .addCase(fetchSelectedLeagueLadeboard.fulfilled, (state, action) => {
+      const { response, status } = action.payload.data
+      return {
+        ...state,
+        fetchLeaguesListStatus: LoadingStatus.Succeeded,
+        selectedLeagueLadeboard: response,
+      }
+    })
+    .addCase(fetchSelectedLeagueLadeboard.rejected, (state, action) => {
+      return {
+        ...state,
+        fetchLeaguesListStatus: LoadingStatus.Failed,
+        selectedLeagueLadeboard: state.selectedLeagueLadeboard,
       }
     })
 )

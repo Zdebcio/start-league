@@ -23,7 +23,7 @@ const props: Components = {
         },
       },
 
-      'body, button': {
+      'body, button, input': {
         fontSize: '1.6rem',
         fontFamily: '"Lato", arial, sans-serif',
       },
@@ -262,6 +262,62 @@ const props: Components = {
       },
       body: {
         border: '0px solid transparent',
+      },
+    },
+  },
+
+  MuiTableSortLabel: {
+    styleOverrides: {
+      root: {
+        color: colors.tables.textHeader,
+        position: 'relative',
+
+        '&.Mui-active': {
+          color: colors.tables.textHeader,
+
+          '& .MuiTableSortLabel-icon': {
+            color: colors.tables.textHeader,
+          },
+        },
+
+        '&:hover': {
+          color: colors.tables.textHeader,
+        },
+      },
+
+      icon: {
+        position: 'absolute',
+        top: 0,
+        right: '-2rem',
+
+        color: colors.tables.textHeader,
+
+        fontSize: '1.4rem',
+        [breakpoints.up('xl')]: {
+          fontSize: '1.6rem',
+          right: '-2.4rem',
+        },
+      },
+    },
+  },
+
+  MuiSelect: {
+    styleOverrides: {
+      root: {},
+      select: { padding: '0 1rem' },
+    },
+  },
+
+  MuiList: {
+    styleOverrides: {
+      root: {},
+    },
+  },
+
+  MuiMenuItem: {
+    styleOverrides: {
+      root: {
+        color: 'black',
       },
     },
   },
