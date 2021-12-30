@@ -10,6 +10,10 @@ import {
 } from '@mui/material'
 import Scrollbars from 'react-custom-scrollbars'
 import { ITeamFromList, TeamsListColumns, Order } from 'shared/types'
+import {
+  OptionsTableCell,
+  StyledRemoveIcon,
+} from 'shared/styles/TableControlButton.style'
 
 export interface ITeamsList {
   teamsListData: ITeamFromList[]
@@ -44,7 +48,7 @@ const TeamsList: React.FC<ITeamsList> = ({ teamsListData }) => {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>
+            <TableCell sx={{ width: '50%' }}>
               <TableSortLabel
                 active={orderBy === TeamsListColumns.TeamName}
                 direction={
@@ -55,7 +59,7 @@ const TeamsList: React.FC<ITeamsList> = ({ teamsListData }) => {
                 Team name
               </TableSortLabel>
             </TableCell>
-            <TableCell>
+            <TableCell sx={{ width: '50%' }}>
               <TableSortLabel
                 active={orderBy === TeamsListColumns.CretedAt}
                 direction={
@@ -66,15 +70,19 @@ const TeamsList: React.FC<ITeamsList> = ({ teamsListData }) => {
                 Created at
               </TableSortLabel>
             </TableCell>
+            <TableCell align="center">Options</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {getComparator(order, orderBy).map((row) => (
             <TableRow>
-              <TableCell>{row.team_name}</TableCell>
-              <TableCell>
+              <TableCell sx={{ width: '50%' }}>{row.team_name}</TableCell>
+              <TableCell sx={{ width: '50%' }}>
                 {moment(row.created_at).format('DD.MM.YYYY')}
               </TableCell>
+              <OptionsTableCell>
+                <StyledRemoveIcon />
+              </OptionsTableCell>
             </TableRow>
           ))}
         </TableBody>
