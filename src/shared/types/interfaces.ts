@@ -82,3 +82,16 @@ export interface ILeagueLadeboardTeam {
   against: number
   points: number
 }
+
+export interface IUserInfo {
+  id: string | number
+  user_key: string | number
+  nickname: string
+  email: string
+}
+
+export interface ILeagueInfo {
+  id: number
+  table_id: number
+  league_name: string
+}

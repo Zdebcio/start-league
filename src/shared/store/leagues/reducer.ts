@@ -5,6 +5,7 @@ import {
   ILeagueTeam,
   ITeamFromList,
   IResultFromList,
+  ILeagueInfo,
 } from 'shared/types'
 import {
   createLeague,
@@ -13,10 +14,12 @@ import {
   fetchSelectedLeagueLadeboard,
   fetchSelectedLeagueTeams,
   fetchSelectedLeagueResults,
+  fetchSelectedLeagueInfo,
 } from './actions'
 
 interface State {
   createLeagueStatus: LoadingStatus
+  selectedLeagueInfo: ILeagueInfo | null
   fetchLeaguesListStatus: LoadingStatus
   userLeaguesList: IUserLeaguesList[] | null
   selectedLeagueLadeboard: ILeagueTeam[]
@@ -26,6 +29,7 @@ interface State {
 
 const initialState: State = {
   createLeagueStatus: LoadingStatus.Idle,
+  selectedLeagueInfo: null,
   fetchLeaguesListStatus: LoadingStatus.Idle,
   userLeaguesList: null,
   selectedLeagueLadeboard: [],
@@ -128,6 +132,24 @@ export default createReducer(initialState, (builder) =>
       return {
         ...state,
         selectedLeagueResults: state.selectedLeagueResults,
+      }
+    })
+
+    .addCase(fetchSelectedLeagueInfo.pending, (state) => ({
+      ...state,
+      selectedLeagueInfo: initialState.selectedLeagueInfo,
+    }))
+    .addCase(fetchSelectedLeagueInfo.fulfilled, (state, action) => {
+      const { response, status } = action.payload.data
+      return {
+        ...state,
+        selectedLeagueInfo: response,
+      }
+    })
+    .addCase(fetchSelectedLeagueInfo.rejected, (state, action) => {
+      return {
+        ...state,
+        selectedLeagueInfo: state.selectedLeagueInfo,
       }
     })
 )

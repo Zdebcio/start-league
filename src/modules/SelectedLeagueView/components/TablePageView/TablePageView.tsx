@@ -17,12 +17,14 @@ export interface ITablePageView {
   selectedView: string
   changeViewFn: (value: string) => void
   leagueID: number
+  leagueName: string
 }
 
 const TablePageView: React.FC<ITablePageView> = ({
   selectedView,
   changeViewFn,
   leagueID,
+  leagueName,
 }) => {
   const isDesktopScreen = useCheckDesktopScreen('sm')
 
@@ -39,9 +41,11 @@ const TablePageView: React.FC<ITablePageView> = ({
     <>
       <ContentWindow>
         <ContentHeaderWrapper>
-          <Typography variant="h4" component="h1">
-            League name
-          </Typography>
+          {leagueName.length > 0 && (
+            <Typography variant="h5" component="h1">
+              {leagueName}
+            </Typography>
+          )}
           <Select
             value={selectedView}
             onChange={(event) => changeViewFn(event.target.value)}

@@ -4,14 +4,6 @@ import { CreateLeaguePayload, SelectedLeaguePayload } from 'shared/types'
 
 const api = new Auth()
 
-export const doSomethingAsync = createAsyncThunk(
-  `auth/doSomethingAsync`,
-  () =>
-    new Promise((resolve) =>
-      setTimeout(() => resolve('Done'), 1000)
-    ) as Promise<string>
-)
-
 export const createLeague = createAsyncThunk(
   `leagues/createLeague`,
   async (payload: CreateLeaguePayload) => api.createLeague(payload)
@@ -42,4 +34,9 @@ export const fetchSelectedLeagueResults = createAsyncThunk(
   `leagues/fetchSelectedLeagueResults`,
   async (payload: SelectedLeaguePayload) =>
     api.fetchSelectedLeagueResults(payload)
+)
+
+export const fetchSelectedLeagueInfo = createAsyncThunk(
+  `leagues/fetchSelectedLeagueInfo`,
+  async (payload: SelectedLeaguePayload) => api.fetchSelectedLeagueInfo(payload)
 )

@@ -37,6 +37,15 @@ const typography: TypographyOptions = {
     textTransform: 'uppercase',
     fontSize: '2rem',
   },
+  h5: {
+    color: colors.typography.primary,
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    fontSize: '1.8rem',
+    [breakpoints.up('md')]: {
+      fontSize: '2rem',
+    },
+  },
 
   body1: {
     fontSize: '1.6rem',

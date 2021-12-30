@@ -17,12 +17,14 @@ export interface ITeamsPageView {
   selectedView: string
   changeViewFn: (value: string) => void
   leagueID: number
+  leagueName: string
 }
 
 const TeamsPageView: React.FC<ITeamsPageView> = ({
   selectedView,
   changeViewFn,
   leagueID,
+  leagueName,
 }) => {
   const isDesktopScreen = useCheckDesktopScreen('sm')
 
@@ -37,9 +39,11 @@ const TeamsPageView: React.FC<ITeamsPageView> = ({
     <>
       <ContentWindow>
         <ContentHeaderWrapper>
-          <Typography variant="h4" component="h1">
-            League name
-          </Typography>
+          {leagueName.length > 0 && (
+            <Typography variant="h5" component="h1">
+              {leagueName}
+            </Typography>
+          )}
           <Select
             value={selectedView}
             onChange={(event) => changeViewFn(event.target.value)}

@@ -15,17 +15,19 @@ export const ContentWindow = styled('div')`
   max-height: 70vh;
   flex-grow: 1;
   flex-shrink: 1;
-  ${(props) => props.theme.breakpoints?.up('md')} {
-    width: 100%;
-  }
 `
 
 export const ContentHeaderWrapper = styled('div')`
   display: flex;
   align-items: center;
   margin-bottom: 4rem;
+  justify-content: center;
 
   & > *:not(:last-child) {
     margin-right: 3rem;
+  }
+
+  ${(props) => props.theme.breakpoints?.up('sm')} {
+    justify-content: normal;
   }
 `
