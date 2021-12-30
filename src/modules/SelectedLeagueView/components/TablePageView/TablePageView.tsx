@@ -10,6 +10,7 @@ import { ButtonsControlWrapper } from 'shared/styles/ButtonsControlWrapper.style
 import {
   ContentWindow,
   ContentHeaderWrapper,
+  TableInfoMessage,
 } from 'modules/SelectedLeagueView/container/SelectedLeagueView.style'
 import NoDataView from 'shared/components/NoDataView/NoDataView'
 
@@ -57,7 +58,12 @@ const TablePageView: React.FC<ITablePageView> = ({
           </Select>
         </ContentHeaderWrapper>
         {leagueLadeboard.length > 0 ? (
-          <LeagueLadeboard leagueLadeboardData={leagueLadeboard} />
+          <>
+            <LeagueLadeboard leagueLadeboardData={leagueLadeboard} />
+            <TableInfoMessage>
+              * Teams without results are not displayed in the league table.
+            </TableInfoMessage>
+          </>
         ) : (
           <NoDataView
             primaryText="Your league is empty."

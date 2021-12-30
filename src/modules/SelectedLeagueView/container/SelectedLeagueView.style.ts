@@ -31,3 +31,12 @@ export const ContentHeaderWrapper = styled('div')`
     justify-content: normal;
   }
 `
+
+export const TableInfoMessage = styled('span')`
+  align-self: flex-end;
+  font-size: 1.4rem;
+
+  ${(props) => props.theme.breakpoints?.up('sm')} {
+    font-size: 1.6rem;
+  }
+`
