@@ -28,3 +28,7 @@ export enum TeamsListColumns {
   CretedAt = 'created_at',
   UpdatedAt = 'updated_at',
 }
+
+export enum ResultsListColumns {
+  CretedAt = 'created_at',
+}

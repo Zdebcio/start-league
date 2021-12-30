@@ -11,3 +11,6 @@ export const getSelectedLeagueLadeboard = (state: RootState) =>
 
 export const getSelectedLeagueTeams = (state: RootState) =>
   state.reducer.leagues.selectedLeagueTeams
+
+export const getSelectedLeagueResults = (state: RootState) =>
+  state.reducer.leagues.selectedLeagueResults

@@ -37,3 +37,9 @@ export const fetchSelectedLeagueTeams = createAsyncThunk(
   async (payload: SelectedLeaguePayload) =>
     api.fetchSelectedLeagueTeams(payload)
 )
+
+export const fetchSelectedLeagueResults = createAsyncThunk(
+  `leagues/fetchSelectedLeagueResults`,
+  async (payload: SelectedLeaguePayload) =>
+    api.fetchSelectedLeagueResults(payload)
+)

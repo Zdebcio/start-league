@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import moment from 'moment'
-import { Link } from 'react-router-dom'
 import {
   Table,
   TableBody,
@@ -13,10 +12,10 @@ import { IListOfTables, AllLeaguesTableColumns, Order } from 'shared/types'
 import Scrollbars from 'react-custom-scrollbars'
 import {
   OptionsTableCell,
-  StyledEditIcon,
   StyledRemoveIcon,
+  StyledEditIcon,
   StyledEditLink,
-} from './ListOfTables.style'
+} from 'shared/styles/TableControlButton.style'
 
 const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
   const [order, setOrder] = useState<Order>('asc')

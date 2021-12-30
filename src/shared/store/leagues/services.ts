@@ -1,3 +1,4 @@
+import axios from 'axios'
 import config from 'config'
 import { Api } from 'shared/services'
 import { CreateLeaguePayload, SelectedLeaguePayload } from 'shared/types'
@@ -31,6 +32,12 @@ export default class LeaguesApi extends Api {
 
   public async fetchSelectedLeagueTeams({ leagueID }: SelectedLeaguePayload) {
     const API = `${config.API_URL}/league/table/teams/view/${leagueID}`
+
+    return this.api.get(API)
+  }
+
+  public async fetchSelectedLeagueResults({ leagueID }: SelectedLeaguePayload) {
+    const API = `${config.API_URL}/league/table/view/${leagueID}`
 
     return this.api.get(API)
   }

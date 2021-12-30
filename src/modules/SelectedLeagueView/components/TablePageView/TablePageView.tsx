@@ -75,7 +75,7 @@ const TablePageView: React.FC<ITablePageView> = ({
         </Button>
         <Button
           component={Link}
-          to="/leagues"
+          to={`/leagues/${leagueID}/results`}
           variant="contained"
           disableTouchRipple
           size="small"
@@ -93,7 +93,7 @@ const TablePageView: React.FC<ITablePageView> = ({
           color="tertiary"
           sx={isDesktopScreen ? { order: 1, marginRight: '1rem' } : {}}
         >
-          Go back
+          Back to main page
         </Button>
       </ButtonsControlWrapper>
     </>
