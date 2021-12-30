@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import { colors } from 'config'
@@ -7,6 +8,8 @@ import { ReactComponent as BurgerMenuIcon } from 'shared/images/icons/burger-ico
 import { ReactComponent as ExitIcon } from 'shared/images/icons/exit-icon.svg'
 import { ReactComponent as AccountIcon } from 'shared/images/icons/account-icon.svg'
 import LogoutIcon from '@mui/icons-material/Logout'
+import { fetchLoggedUserInfo } from 'shared/store/user/actions'
+import { getLoggedUserInfo } from 'shared/store/user/selectors'
 import {
   Container,
   TopBar,
@@ -31,9 +34,15 @@ export interface IPageAfterLogin {
 
 const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
   const history = useHistory()
+  const dispatch = useDispatch()
+  const userInfo = useSelector(getLoggedUserInfo)
   const isDesktopView = useCheckDesktopScreen()
   const navigationRoutes = routes.filter((item) => item.navigation)
   const [activeMenu, setActiveMenu] = useState(false)
+
+  useEffect(() => {
+    dispatch(fetchLoggedUserInfo())
+  }, [dispatch])
 
   const handleLogout = () => {
     localStorage.clear()
@@ -63,7 +72,9 @@ const PageAfterLogin: React.FC<IPageAfterLogin> = ({ children }) => {
           {isDesktopView && <TopBarAppTextLogo />}
         </TopBarLogoWrapper>
         <AccountIconWrapper>
-          {isDesktopView && <AccountIconLabel>Account</AccountIconLabel>}
+          {isDesktopView && userInfo && (
+            <AccountIconLabel>{userInfo.nickname}</AccountIconLabel>
+          )}
           <AccountIcon fill={colors.typography.primary} />
         </AccountIconWrapper>
       </TopBar>
