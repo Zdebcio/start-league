@@ -59,6 +59,18 @@ export interface ITeamFromList {
   updated_at: string
 }
 
+export interface IResultFromList {
+  id: number
+  table_id: number
+  home: string
+  away: string
+  handicap: number
+  against: number
+  created_at: string
+  updated_at: string
+  user_key: number
+}
+
 export interface ILeagueLadeboardTeam {
   position: number
   name: string
