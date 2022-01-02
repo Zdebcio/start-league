@@ -6,6 +6,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Typography, TextField } from '@mui/material'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
+import CompleteComponent from 'shared/components/CompleteComponent/CompleteComponent'
 import {
   createLeague,
   resetCreatedLeagueStatus,
@@ -79,18 +80,7 @@ const CreateLeague = () => {
       <CreateLeagueContainer>
         <ContentWindow>
           {createLeagueStatus === LoadingStatus.Succeeded ? (
-            <>
-              <CheckCircleOutlineIcon
-                sx={{
-                  color: colors.typography.success,
-                  width: '40%',
-                  height: '40%',
-                }}
-              />
-              <Typography variant="h1" align="center">
-                Table created successfully
-              </Typography>
-            </>
+            <CompleteComponent text="Table created successfully" />
           ) : (
             <>
               <Typography variant="h1" align="center">
