@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { colors } from 'config'
+import { CompleteComponentWrapper } from './CompleteComponent.style'
 
 export interface ICompleteComponent {
   text: string
@@ -14,15 +15,7 @@ const CompleteComponent: React.FC<ICompleteComponent> = ({
   fontSize,
 }) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width,
-        margin: '0 auto',
-      }}
-    >
+    <CompleteComponentWrapper sx={{ width }}>
       <CheckCircleOutlineIcon
         sx={{
           color: colors.typography.success,
@@ -38,7 +31,7 @@ const CompleteComponent: React.FC<ICompleteComponent> = ({
       >
         {text}
       </Typography>
-    </div>
+    </CompleteComponentWrapper>
   )
 }
 

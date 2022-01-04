@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Typography, TextField } from '@mui/material'
+import { Button } from '@mui/material'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
-import CompleteComponent from 'shared/components/CompleteComponent/CompleteComponent'
 import {
   createLeague,
   resetCreatedLeagueStatus,
@@ -14,15 +13,9 @@ import {
 import { leagueNameRegExp } from 'shared/utils/regexp'
 import { DevTool } from '@hookform/devtools'
 import { getCreateLeagueStatus } from 'shared/store/leagues/selectors'
-import { LoadingStatus } from 'shared/types'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-import { colors } from 'config'
+import AddNewElementForm from 'shared/components/AddNewElementForm/AddNewElementForm'
 import { ButtonsControlWrapper } from 'shared/styles/ButtonsControlWrapper.style'
-import {
-  ContentWindow,
-  CreateLeagueForm,
-  CreateLeagueContainer,
-} from './CreateLeague.style'
+import { ContentWindow, CreateLeagueContainer } from './CreateLeague.style'
 
 type Inputs = {
   leagueName: string
@@ -63,7 +56,6 @@ const CreateLeague = () => {
     register,
     handleSubmit,
     control,
-    setValue,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
 
@@ -79,43 +71,14 @@ const CreateLeague = () => {
     <PageAfterLogin>
       <CreateLeagueContainer>
         <ContentWindow>
-          {createLeagueStatus === LoadingStatus.Succeeded ? (
-            <CompleteComponent text="Table created successfully" />
-          ) : (
-            <>
-              <Typography variant="h1" align="center">
-                Insert your league name:
-              </Typography>
-              <CreateLeagueForm
-                onSubmit={handleSubmit(handleCreateLeagueSubmit)}
-              >
-                <TextField
-                  placeholder="Type here..."
-                  variant="filled"
-                  size="small"
-                  type="text"
-                  fullWidth
-                  error={!!errors.leagueName}
-                  InputProps={{
-                    disableUnderline: true,
-                    inputProps: {
-                      style: { textAlign: 'center' },
-                    },
-                    ...register('leagueName', { required: true }),
-                  }}
-                />
-                <Button
-                  variant="contained"
-                  disableTouchRipple
-                  size="small"
-                  color="primary"
-                  type="submit"
-                >
-                  Submit
-                </Button>
-              </CreateLeagueForm>
-            </>
-          )}
+          <AddNewElementForm
+            createStatus={createLeagueStatus}
+            title="Insert your league name:"
+            isError={!!errors.leagueName}
+            registerProp={register('leagueName', { required: true })}
+            handleSubmitFn={handleSubmit(handleCreateLeagueSubmit)}
+            successfullyMessage="Table created successfully"
+          />
         </ContentWindow>
         <ButtonsControlWrapper>
           <Button

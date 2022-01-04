@@ -1,21 +1,6 @@
 import { styled } from '@mui/material'
 import { colors } from 'config'
 
-export const CreateLeagueContainer = styled('div')`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-
-  & > *:not(:last-child) {
-    margin-bottom: 2rem;
-  }
-
-  ${(props) => props.theme.breakpoints?.up('md')} {
-    align-items: flex-start;
-  }
-`
-
 export const ContentWindow = styled('div')`
   display: flex;
   flex-direction: column;
@@ -25,6 +10,7 @@ export const ContentWindow = styled('div')`
   border-radius: 0.3rem;
   padding: 4rem 2rem;
   width: 100%;
+  margin-bottom: 4rem;
 
   & > *:not(:last-child) {
     margin-bottom: 2rem;

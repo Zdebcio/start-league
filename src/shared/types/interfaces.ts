@@ -22,6 +22,11 @@ export interface CreateLeaguePayload {
   leagueName: string
 }
 
+export interface AddNewTeamPayload {
+  teamName: string
+  leagueID: number
+}
+
 export interface IUserLeaguesList {
   id: number
   league_name: string

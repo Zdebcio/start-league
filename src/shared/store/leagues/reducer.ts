@@ -10,15 +10,18 @@ import {
 import {
   createLeague,
   resetCreatedLeagueStatus,
+  resetAddNewLeagueStatus,
   fetchAllLeaguesList,
   fetchSelectedLeagueLadeboard,
   fetchSelectedLeagueTeams,
   fetchSelectedLeagueResults,
   fetchSelectedLeagueInfo,
+  addNewLeague,
 } from './actions'
 
 interface State {
   createLeagueStatus: LoadingStatus
+  addNewTeamStatus: LoadingStatus
   selectedLeagueInfo: ILeagueInfo | null
   fetchLeaguesListStatus: LoadingStatus
   userLeaguesList: IUserLeaguesList[] | null
@@ -29,6 +32,7 @@ interface State {
 
 const initialState: State = {
   createLeagueStatus: LoadingStatus.Idle,
+  addNewTeamStatus: LoadingStatus.Idle,
   selectedLeagueInfo: null,
   fetchLeaguesListStatus: LoadingStatus.Idle,
   userLeaguesList: null,
@@ -42,6 +46,10 @@ export default createReducer(initialState, (builder) =>
     .addCase(resetCreatedLeagueStatus, (state) => ({
       ...state,
       createLeagueStatus: LoadingStatus.Idle,
+    }))
+    .addCase(resetAddNewLeagueStatus, (state) => ({
+      ...state,
+      addNewTeamStatus: LoadingStatus.Idle,
     }))
     .addCase(createLeague.pending, (state) => ({
       ...state,
@@ -150,6 +158,23 @@ export default createReducer(initialState, (builder) =>
       return {
         ...state,
         selectedLeagueInfo: state.selectedLeagueInfo,
+      }
+    })
+
+    .addCase(addNewLeague.pending, (state) => ({
+      ...state,
+      addNewTeamStatus: LoadingStatus.Pending,
+    }))
+    .addCase(addNewLeague.fulfilled, (state, action) => {
+      return {
+        ...state,
+        addNewTeamStatus: LoadingStatus.Succeeded,
+      }
+    })
+    .addCase(addNewLeague.rejected, (state, action) => {
+      return {
+        ...state,
+        addNewTeamStatus: LoadingStatus.Failed,
       }
     })
 )
