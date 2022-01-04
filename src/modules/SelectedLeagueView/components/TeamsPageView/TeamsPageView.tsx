@@ -63,7 +63,7 @@ const TeamsPageView: React.FC<ITeamsPageView> = ({
       <ButtonsControlWrapper>
         <Button
           component={Link}
-          to="/leagues"
+          to={`/leagues/${leagueID}/teams/add`}
           variant="contained"
           disableTouchRipple
           size="small"

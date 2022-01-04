@@ -17,3 +17,6 @@ export const getSelectedLeagueResults = (state: RootState) =>
 
 export const getSelectedLeagueInfo = (state: RootState) =>
   state.reducer.leagues.selectedLeagueInfo
+
+export const getAddNewTeamStatus = (state: RootState) =>
+  state.reducer.leagues.addNewTeamStatus

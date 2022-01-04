@@ -15,6 +15,7 @@ import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
 import TablePageView from '../components/TablePageView/TablePageView'
 import TeamsPageView from '../components/TeamsPageView/TeamsPageView'
 import ResultsPageView from '../components/ResultsPageView/ResultsPageView'
+import AddNewTeamView from '../components/AddNewTeamView/AddNewTeamView'
 
 const SelectedLeagueView = () => {
   const { leagueID } = useParams<{ leagueID?: string }>()
@@ -25,6 +26,7 @@ const SelectedLeagueView = () => {
   const tablePath = `/leagues/${leagueID}`
   const teamsPath = `/leagues/${leagueID}/teams`
   const resultsPath = `/leagues/${leagueID}/results`
+  const newTeamPath = `/leagues/${leagueID}/teams/add`
   const [selectedView, setSelectedView] = useState(
     matchPath(location.pathname, '/leagues/:leagueID/teams') ? 'teams' : 'table'
   )
@@ -48,6 +50,14 @@ const SelectedLeagueView = () => {
   return (
     <PageAfterLogin>
       <Switch>
+        <Route path={newTeamPath} exact>
+          <AddNewTeamView
+            selectedView={selectedView}
+            changeViewFn={handleSelectedViewChange}
+            leagueID={Number(leagueID)}
+            leagueName={leagueName}
+          />
+        </Route>
         <Route path={teamsPath} exact>
           <TeamsPageView
             selectedView={selectedView}

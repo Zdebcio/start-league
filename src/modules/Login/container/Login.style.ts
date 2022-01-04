@@ -238,3 +238,24 @@ export const ReadMoreButton = styled(Button)`
   border-radius: 0.5rem;
   margin-top: 0.5rem;
 `
+
+export const SuccessfullMessage = styled('span')`
+  font-size: 3rem;
+  margin-top: 3rem;
+  text-align: center;
+
+  & > svg {
+    margin-right: 0.5rem;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  ${(props) => props.theme.breakpoints?.up('sm')} {
+    font-size: 2.5rem;
+
+    & > svg {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+`

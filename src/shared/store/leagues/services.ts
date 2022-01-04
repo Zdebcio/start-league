@@ -1,6 +1,10 @@
 import config from 'config'
 import { Api } from 'shared/services'
-import { CreateLeaguePayload, SelectedLeaguePayload } from 'shared/types'
+import {
+  AddNewTeamPayload,
+  CreateLeaguePayload,
+  SelectedLeaguePayload,
+} from 'shared/types'
 
 export default class LeaguesApi extends Api {
   public async createLeague({ leagueName }: CreateLeaguePayload) {
@@ -45,5 +49,17 @@ export default class LeaguesApi extends Api {
     const API = `${config.API_URL}/league/name/${leagueID}`
 
     return this.api.get(API)
+  }
+
+  public async addNewLeague({ teamName, leagueID }: AddNewTeamPayload) {
+    const API = `${config.API_URL}/league/table/teams/new/${leagueID}`
+
+    const configRequest = {
+      params: {
+        team_name: teamName,
+      },
+    }
+
+    return this.api.post(API, configRequest.params)
   }
 }

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import {
   Button,
@@ -8,7 +9,10 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material'
-import { registration } from 'shared/store/auth/actions'
+import {
+  clearRegistrationStatus,
+  registration,
+} from 'shared/store/auth/actions'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -18,6 +22,7 @@ import {
   ChangeViewButtonWrapper,
   FormErrorMessage,
   ValidationCheckbox,
+  SuccessfullMessage,
 } from 'modules/Login/container/Login.style'
 
 import CheckIcon from '@mui/icons-material/Check'
@@ -26,6 +31,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { passwordRegExp } from 'shared/utils/regexp'
 import { DevTool } from '@hookform/devtools'
+import { getRegisterStatus } from 'shared/store/auth/selectors'
+import { LoadingStatus } from 'shared/types'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import { colors } from 'config'
+import { AppDispatch } from 'store'
 
 interface ISignUp {
   viewChangeFn: (view: string) => void
@@ -40,7 +50,14 @@ type Inputs = {
 }
 
 const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+  const registerStatus = useSelector(getRegisterStatus)
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearRegistrationStatus())
+    }
+  }, [dispatch])
 
   const schema = yup.object({
     nickname: yup.string().required('Field must be filled'),
@@ -92,123 +109,158 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
     dispatch(registration(payload))
   }
 
+  const handleGoToLoginClick = () => {
+    viewChangeFn('signIn')
+  }
+
   return (
-    <FormPanel onSubmit={handleSubmit(handleRegistrationSubmit)}>
-      <TextField
-        placeholder="Nickname"
-        variant="filled"
-        type="text"
-        fullWidth
-        error={!!errors.nickname}
-        InputProps={{
-          disableUnderline: true,
-          startAdornment: (
-            <InputAdornment position="start">
-              <PersonOutlineOutlinedIcon />
-            </InputAdornment>
-          ),
-          ...register('nickname', { required: true }),
-        }}
-      />
-      {errors.nickname && (
-        <FormErrorMessage>{errors.nickname.message}</FormErrorMessage>
-      )}
-      <TextField
-        placeholder="E-Mail"
-        variant="filled"
-        type="text"
-        fullWidth
-        error={!!errors.email}
-        InputProps={{
-          disableUnderline: true,
-          startAdornment: (
-            <InputAdornment position="start">
-              <MailOutlineIcon />
-            </InputAdornment>
-          ),
-          ...register('email', { required: true }),
-        }}
-      />
-      {errors.email && (
-        <FormErrorMessage>{errors.email.message}</FormErrorMessage>
-      )}
-      <TextField
-        placeholder="Password"
-        variant="filled"
-        type="password"
-        fullWidth
-        error={!!errors.passwd}
-        InputProps={{
-          disableUnderline: true,
-          startAdornment: (
-            <InputAdornment position="start">
-              <LockOutlinedIcon />
-            </InputAdornment>
-          ),
-          ...register('passwd', { required: true }),
-        }}
-      />
-      {errors.passwd && (
-        <FormErrorMessage>{errors.passwd.message}</FormErrorMessage>
-      )}
-      <TextField
-        placeholder="Reply password"
-        variant="filled"
-        type="password"
-        fullWidth
-        error={!!errors.repeatPasswd}
-        InputProps={{
-          disableUnderline: true,
-          startAdornment: (
-            <InputAdornment position="start">
-              <LockIcon />
-            </InputAdornment>
-          ),
-          ...register('repeatPasswd', { required: true }),
-        }}
-      />
-      {errors.repeatPasswd && (
-        <FormErrorMessage>{errors.repeatPasswd.message}</FormErrorMessage>
-      )}
-      <Controller
-        name="termsAndRegulations"
-        control={control}
-        render={() => (
-          <FormControlLabel
-            control={
-              <ValidationCheckbox
-                className={errors.termsAndRegulations ? 'Checkbox-Error' : ''}
-                icon={<RemoveIcon />}
-                checkedIcon={<CheckIcon />}
-                onChange={(event) => {
-                  setValue('termsAndRegulations', event.target.checked, {
-                    shouldValidate: true,
-                  })
-                }}
-              />
-            }
-            label="Accept regulations and terms."
+    <>
+      {registerStatus === LoadingStatus.Succeeded ? (
+        <>
+          <SuccessfullMessage>
+            <CheckCircleOutlineIcon
+              sx={{
+                color: colors.typography.success,
+              }}
+            />
+            User created successfully
+          </SuccessfullMessage>
+          <Button
+            variant="contained"
+            disableTouchRipple
+            fullWidth
+            sx={{ marginTop: '3rem' }}
+            onClick={handleGoToLoginClick}
+          >
+            Go to login page
+          </Button>
+        </>
+      ) : (
+        <FormPanel onSubmit={handleSubmit(handleRegistrationSubmit)}>
+          <TextField
+            placeholder="Nickname"
+            variant="filled"
+            type="text"
+            fullWidth
+            error={!!errors.nickname}
+            InputProps={{
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonOutlineOutlinedIcon />
+                </InputAdornment>
+              ),
+              ...register('nickname', { required: true }),
+            }}
           />
-        )}
-      />
-      <Button variant="contained" disableTouchRipple fullWidth type="submit">
-        Sign Up
-      </Button>
-      <ChangeViewButtonWrapper>
-        <Typography variant="body1" component="span">
-          Do you already have an account?
-        </Typography>
-        <Button
-          variant="text"
-          color="primary"
-          disableTouchRipple
-          onClick={() => viewChangeFn('signIn')}
-        >
-          Sign In
-        </Button>
-      </ChangeViewButtonWrapper>
-      <DevTool control={control} />
-    </FormPanel>
+          {errors.nickname && (
+            <FormErrorMessage>{errors.nickname.message}</FormErrorMessage>
+          )}
+          <TextField
+            placeholder="E-Mail"
+            variant="filled"
+            type="text"
+            fullWidth
+            error={!!errors.email}
+            InputProps={{
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MailOutlineIcon />
+                </InputAdornment>
+              ),
+              ...register('email', { required: true }),
+            }}
+          />
+          {errors.email && (
+            <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+          )}
+          <TextField
+            placeholder="Password"
+            variant="filled"
+            type="password"
+            fullWidth
+            error={!!errors.passwd}
+            InputProps={{
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockOutlinedIcon />
+                </InputAdornment>
+              ),
+              ...register('passwd', { required: true }),
+            }}
+          />
+          {errors.passwd && (
+            <FormErrorMessage>{errors.passwd.message}</FormErrorMessage>
+          )}
+          <TextField
+            placeholder="Reply password"
+            variant="filled"
+            type="password"
+            fullWidth
+            error={!!errors.repeatPasswd}
+            InputProps={{
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              ),
+              ...register('repeatPasswd', { required: true }),
+            }}
+          />
+          {errors.repeatPasswd && (
+            <FormErrorMessage>{errors.repeatPasswd.message}</FormErrorMessage>
+          )}
+          <Controller
+            name="termsAndRegulations"
+            control={control}
+            render={() => (
+              <FormControlLabel
+                control={
+                  <ValidationCheckbox
+                    className={
+                      errors.termsAndRegulations ? 'Checkbox-Error' : ''
+                    }
+                    icon={<RemoveIcon />}
+                    checkedIcon={<CheckIcon />}
+                    onChange={(event) => {
+                      setValue('termsAndRegulations', event.target.checked, {
+                        shouldValidate: true,
+                      })
+                    }}
+                  />
+                }
+                label="Accept regulations and terms."
+              />
+            )}
+          />
+          <Button
+            variant="contained"
+            disableTouchRipple
+            fullWidth
+            type="submit"
+          >
+            Sign Up
+          </Button>
+          <ChangeViewButtonWrapper>
+            <Typography variant="body1" component="span">
+              Do you already have an account?
+            </Typography>
+            <Button
+              variant="text"
+              color="primary"
+              disableTouchRipple
+              onClick={() => viewChangeFn('signIn')}
+            >
+              Sign In
+            </Button>
+          </ChangeViewButtonWrapper>
+          <DevTool control={control} />
+        </FormPanel>
+      )}
+    </>
   )
 }
 
