@@ -16,6 +16,7 @@ import TablePageView from '../components/TablePageView/TablePageView'
 import TeamsPageView from '../components/TeamsPageView/TeamsPageView'
 import ResultsPageView from '../components/ResultsPageView/ResultsPageView'
 import AddNewTeamView from '../components/AddNewTeamView/AddNewTeamView'
+import AddNewResultView from '../components/AddNewResultView/AddNewResultView'
 
 const SelectedLeagueView = () => {
   const { leagueID } = useParams<{ leagueID?: string }>()
@@ -27,6 +28,7 @@ const SelectedLeagueView = () => {
   const teamsPath = `/leagues/${leagueID}/teams`
   const resultsPath = `/leagues/${leagueID}/results`
   const newTeamPath = `/leagues/${leagueID}/teams/add`
+  const newResultPath = `/leagues/${leagueID}/results/add`
   const [selectedView, setSelectedView] = useState(
     matchPath(location.pathname, '/leagues/:leagueID/teams') ? 'teams' : 'table'
   )
@@ -60,6 +62,14 @@ const SelectedLeagueView = () => {
         </Route>
         <Route path={teamsPath} exact>
           <TeamsPageView
+            selectedView={selectedView}
+            changeViewFn={handleSelectedViewChange}
+            leagueID={Number(leagueID)}
+            leagueName={leagueName}
+          />
+        </Route>
+        <Route path={newResultPath} exact>
+          <AddNewResultView
             selectedView={selectedView}
             changeViewFn={handleSelectedViewChange}
             leagueID={Number(leagueID)}

@@ -49,7 +49,7 @@ const ResultsPageView: React.FC<IResultsPageView> = ({
       <ButtonsControlWrapper>
         <Button
           component={Link}
-          to="/leagues"
+          to={`/leagues/${leagueID}/results/add`}
           variant="contained"
           disableTouchRipple
           size="small"
