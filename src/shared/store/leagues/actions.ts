@@ -4,6 +4,7 @@ import {
   AddNewTeamPayload,
   CreateLeaguePayload,
   SelectedLeaguePayload,
+  AddNewResultPayload,
 } from 'shared/types'
 
 const api = new Auth()
@@ -52,4 +53,9 @@ export const addNewLeague = createAsyncThunk(
 
 export const resetAddNewLeagueStatus = createAction<void>(
   'leagues/resetAddNewLeagueStatus'
+)
+
+export const addNewResult = createAsyncThunk(
+  `leagues/addNewResult`,
+  async (payload: AddNewResultPayload) => api.addNewResult(payload)
 )

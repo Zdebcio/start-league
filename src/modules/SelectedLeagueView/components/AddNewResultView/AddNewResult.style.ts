@@ -27,6 +27,7 @@ export const FormContainer = styled('form')`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: 2rem;
 
   & > .MuiButton-containedSizeSmall {
     width: 100%;
@@ -34,6 +35,10 @@ export const FormContainer = styled('form')`
     ${(props) => props.theme.breakpoints?.up('sm')} {
       max-width: 30rem;
     }
+  }
+
+  ${(props) => props.theme.breakpoints?.up('sm')} {
+    margin-top: 3rem;
   }
 `
 
@@ -43,7 +48,6 @@ export const ResultWrapper = styled('div')`
   flex-grow: 1;
   align-items: center;
   width: 100%;
-  margin-top: 3rem;
   margin-bottom: 3rem;
 `
 
@@ -96,10 +100,18 @@ export const SingleTeamResult = styled('div', {
   `
 })
 
-/* & > *:not(:last-child) {
-    margin-bottom: 2rem;
-  } */
+export const MobileViewLabelsWrapper = styled('div')`
+  display: flex;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1rem;
+`
 
-/* ${(props) => props.theme.breakpoints?.up('md')} {
-    padding: 10rem;
-  } */
+export const MobileTeamLabel = styled('span')`
+  flex-grow: 1;
+`
+
+export const MobileScoreLabel = styled('span')`
+  width: 5.5rem;
+`

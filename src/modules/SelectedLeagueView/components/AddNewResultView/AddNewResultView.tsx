@@ -1,8 +1,8 @@
 import { Button, Select, TextField, MenuItem, Typography } from '@mui/material'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import AddNewElementForm from 'shared/components/AddNewElementForm/AddNewElementForm'
@@ -10,10 +10,16 @@ import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import { leagueNameRegExp } from 'shared/utils/regexp'
 import {
   addNewLeague,
+  addNewResult,
+  fetchSelectedLeagueTeams,
   resetAddNewLeagueStatus,
 } from 'shared/store/leagues/actions'
-import { getAddNewTeamStatus } from 'shared/store/leagues/selectors'
+import {
+  getAddNewTeamStatus,
+  getSelectedLeagueTeams,
+} from 'shared/store/leagues/selectors'
 import { LoadingStatus } from 'shared/types'
+import { DevTool } from '@hookform/devtools'
 import { ButtonsControlWrapper } from 'shared/styles/ButtonsControlWrapper.style'
 import { ContentHeaderWrapper } from 'modules/SelectedLeagueView/container/SelectedLeagueView.style'
 import {
@@ -22,10 +28,16 @@ import {
   SingleTeamResult,
   ResultWrapper,
   CharBetweenResults,
+  MobileViewLabelsWrapper,
+  MobileTeamLabel,
+  MobileScoreLabel,
 } from './AddNewResult.style'
 
 type Inputs = {
-  teamName: string
+  homeTeam: number
+  awayTeam: number
+  homeScore: string
+  awayScore: string
 }
 
 export interface IAddNewTeamView {
@@ -41,9 +53,11 @@ const AddNewResultView: React.FC<IAddNewTeamView> = ({
 }) => {
   const dispatch = useDispatch()
   const addNewTeamStatus = useSelector(getAddNewTeamStatus)
+  const teamsList = useSelector(getSelectedLeagueTeams)
   const isDesktopScreen = useCheckDesktopScreen('sm')
 
   useEffect(() => {
+    dispatch(fetchSelectedLeagueTeams({ leagueID }))
     return () => {
       dispatch(resetAddNewLeagueStatus())
     }
@@ -51,38 +65,40 @@ const AddNewResultView: React.FC<IAddNewTeamView> = ({
 
   const schema = yup
     .object({
-      teamName: yup
+      homeTeam: yup.number().min(0, 'Field is required'),
+      awayTeam: yup.number().min(0, 'Field is required'),
+      homeScore: yup
         .string()
-        .min(2, 'Name should have minimum 2 chars')
-        .max(30, 'Name should have maximum 30 chars')
-        .test(
-          'is-correct-chars',
-          'Password should contains only letters, numbers, spaces and underscorers',
-          (value) => {
-            if (value) {
-              return leagueNameRegExp.test(value)
-            }
-
-            return true
-          }
-        )
+        .matches(/^[0-9]$/, 'Score value should be 0 or more')
+        .required('Field is required'),
+      awayScore: yup
+        .string()
+        .matches(/^[0-9]$/, 'Score value should be 0 or more')
         .required('Field is required'),
     })
     .required()
 
   const {
+    control,
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
 
-  const handleCreateLeagueSubmit: SubmitHandler<Inputs> = async (data) => {
+  const handleAddResultSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data)
     const payload = {
-      teamName: data.teamName,
+      homeTeam:
+        teamsList.find(({ id }) => id === data.homeTeam)?.team_name ?? '',
+      awayTeam:
+        teamsList.find(({ id }) => id === data.awayTeam)?.team_name ?? '',
+      homeScore: data.homeScore,
+      awayScore: data.awayScore,
       leagueID,
     }
 
-    dispatch(addNewLeague(payload))
+    dispatch(addNewResult(payload))
   }
 
   const handleNextTeamClick = () => {
@@ -98,58 +114,92 @@ const AddNewResultView: React.FC<IAddNewTeamView> = ({
             <span>Add Results</span>
           </Typography>
         </ContentHeaderWrapper>
-        <FormContainer onSubmit={handleSubmit(handleCreateLeagueSubmit)}>
-          {/* <span>Team:</span>
-          <span>Score:</span> */}
+        <FormContainer onSubmit={handleSubmit(handleAddResultSubmit)}>
+          {!isDesktopScreen && (
+            <MobileViewLabelsWrapper>
+              <MobileTeamLabel>Team:</MobileTeamLabel>
+              <MobileScoreLabel>Score:</MobileScoreLabel>
+            </MobileViewLabelsWrapper>
+          )}
           <ResultWrapper>
             <SingleTeamResult>
-              <Select
-                value="table"
-                // onChange={(event) => changeViewFn(event.target.value)}
-                variant="filled"
-                disableUnderline
-              >
-                <MenuItem value="table">Table</MenuItem>
-                <MenuItem value="teams">Teams</MenuItem>
-              </Select>
+              <Controller
+                control={control}
+                name="homeTeam"
+                defaultValue={-1}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Select
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    error={!!errors.homeTeam}
+                    variant="filled"
+                    disableUnderline
+                  >
+                    {teamsList
+                      .filter(({ id }) => id !== watch('awayTeam'))
+                      .map((team) => (
+                        <MenuItem key={team.id} value={team.id}>
+                          {team.team_name}
+                        </MenuItem>
+                      ))}
+                    <MenuItem value={-1} />
+                  </Select>
+                )}
+              />
               <TextField
-                // placeholder={placeholder}
                 variant="filled"
                 size="small"
-                type="text"
-                // error={isError}
+                type="number"
+                error={!!errors.homeScore}
                 InputProps={{
                   disableUnderline: true,
                   inputProps: {
                     style: { textAlign: 'center' },
                   },
-                  //   ...registerProp,
+                  ...register('homeScore', { required: true }),
                 }}
               />
             </SingleTeamResult>
+
             {isDesktopScreen && <CharBetweenResults>:</CharBetweenResults>}
+
             <SingleTeamResult isReverse={isDesktopScreen}>
-              <Select
-                value="table"
-                // onChange={(event) => changeViewFn(event.target.value)}
-                variant="filled"
-                disableUnderline
-              >
-                <MenuItem value="table">Table</MenuItem>
-                <MenuItem value="teams">Teams</MenuItem>
-              </Select>
+              <Controller
+                control={control}
+                name="awayTeam"
+                defaultValue={-1}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Select
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    error={!!errors.awayTeam}
+                    variant="filled"
+                    disableUnderline
+                  >
+                    {teamsList
+                      .filter(({ id }) => id !== watch('homeTeam'))
+                      .map((team) => (
+                        <MenuItem key={team.id} value={team.id}>
+                          {team.team_name}
+                        </MenuItem>
+                      ))}
+                    <MenuItem value={-1} />
+                  </Select>
+                )}
+              />
               <TextField
-                // placeholder={placeholder}
                 variant="filled"
                 size="small"
-                type="text"
-                // error={isError}
+                type="number"
+                error={!!errors.awayScore}
                 InputProps={{
                   disableUnderline: true,
                   inputProps: {
                     style: { textAlign: 'center' },
                   },
-                  //   ...registerProp,
+                  ...register('awayScore', { required: true }),
                 }}
               />
             </SingleTeamResult>
@@ -159,9 +209,11 @@ const AddNewResultView: React.FC<IAddNewTeamView> = ({
             disableTouchRipple
             size="small"
             color="primary"
+            type="submit"
           >
             Submit
           </Button>
+          <DevTool control={control} />
         </FormContainer>
       </ContentWindow>
       {/* <ButtonsControlWrapper>
