@@ -17,7 +17,10 @@ import {
   StyledEditLink,
 } from 'shared/styles/TableControlButton.style'
 
-const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
+const ListOfTables: React.FC<IListOfTables> = ({
+  tablesList,
+  handleRemoveFn,
+}) => {
   const [order, setOrder] = useState<Order>('asc')
   const [orderBy, setOrderBy] = useState<AllLeaguesTableColumns>(
     AllLeaguesTableColumns.LeagueName
@@ -103,7 +106,9 @@ const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
                 <StyledEditLink to={`/leagues/${row.table_id}`}>
                   <StyledEditIcon />
                 </StyledEditLink>
-                <StyledRemoveIcon />
+                <StyledRemoveIcon
+                  onClick={() => handleRemoveFn(row.table_id)}
+                />
               </OptionsTableCell>
             </TableRow>
           ))}

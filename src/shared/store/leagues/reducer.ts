@@ -19,6 +19,9 @@ import {
   addNewTeam,
   addNewResult,
   resetAddNewResultStatus,
+  removeLeague,
+  removeTeam,
+  removeResult,
 } from './actions'
 
 interface State {
@@ -31,6 +34,9 @@ interface State {
   selectedLeagueLadeboard: ILeagueTeam[]
   selectedLeagueTeams: ITeamFromList[]
   selectedLeagueResults: IResultFromList[]
+  removeLeagueStatus: LoadingStatus
+  removeTeamStatus: LoadingStatus
+  removeResultStatus: LoadingStatus
 }
 
 const initialState: State = {
@@ -43,10 +49,15 @@ const initialState: State = {
   selectedLeagueLadeboard: [],
   selectedLeagueTeams: [],
   selectedLeagueResults: [],
+  removeLeagueStatus: LoadingStatus.Idle,
+  removeTeamStatus: LoadingStatus.Idle,
+  removeResultStatus: LoadingStatus.Idle,
 }
 
 export default createReducer(initialState, (builder) =>
   builder
+    // reset
+
     .addCase(resetCreatedLeagueStatus, (state) => ({
       ...state,
       createLeagueStatus: LoadingStatus.Idle,
@@ -59,6 +70,9 @@ export default createReducer(initialState, (builder) =>
       ...state,
       addNewResultStatus: LoadingStatus.Idle,
     }))
+
+    // create
+
     .addCase(createLeague.pending, (state) => ({
       ...state,
       createLeagueStatus: LoadingStatus.Pending,
@@ -75,6 +89,44 @@ export default createReducer(initialState, (builder) =>
         createLeagueStatus: LoadingStatus.Failed,
       }
     })
+
+    // add
+
+    .addCase(addNewTeam.pending, (state) => ({
+      ...state,
+      addNewTeamStatus: LoadingStatus.Pending,
+    }))
+    .addCase(addNewTeam.fulfilled, (state) => {
+      return {
+        ...state,
+        addNewTeamStatus: LoadingStatus.Succeeded,
+      }
+    })
+    .addCase(addNewTeam.rejected, (state) => {
+      return {
+        ...state,
+        addNewTeamStatus: LoadingStatus.Failed,
+      }
+    })
+
+    .addCase(addNewResult.pending, (state) => ({
+      ...state,
+      addNewResultStatus: LoadingStatus.Pending,
+    }))
+    .addCase(addNewResult.fulfilled, (state) => {
+      return {
+        ...state,
+        addNewResultStatus: LoadingStatus.Succeeded,
+      }
+    })
+    .addCase(addNewResult.rejected, (state) => {
+      return {
+        ...state,
+        addNewResultStatus: LoadingStatus.Failed,
+      }
+    })
+
+    // fetch
 
     .addCase(fetchAllLeaguesList.pending, (state) => ({
       ...state,
@@ -169,37 +221,44 @@ export default createReducer(initialState, (builder) =>
       }
     })
 
-    .addCase(addNewTeam.pending, (state) => ({
-      ...state,
-      addNewTeamStatus: LoadingStatus.Pending,
-    }))
-    .addCase(addNewTeam.fulfilled, (state) => {
-      return {
-        ...state,
-        addNewTeamStatus: LoadingStatus.Succeeded,
-      }
-    })
-    .addCase(addNewTeam.rejected, (state) => {
-      return {
-        ...state,
-        addNewTeamStatus: LoadingStatus.Failed,
-      }
-    })
+    // remove
 
-    .addCase(addNewResult.pending, (state) => ({
+    .addCase(removeLeague.pending, (state) => ({
       ...state,
-      addNewResultStatus: LoadingStatus.Pending,
+      removeLeagueStatus: LoadingStatus.Pending,
     }))
-    .addCase(addNewResult.fulfilled, (state) => {
-      return {
-        ...state,
-        addNewResultStatus: LoadingStatus.Succeeded,
-      }
-    })
-    .addCase(addNewResult.rejected, (state) => {
-      return {
-        ...state,
-        addNewResultStatus: LoadingStatus.Failed,
-      }
-    })
+    .addCase(removeLeague.fulfilled, (state) => ({
+      ...state,
+      removeLeagueStatus: LoadingStatus.Succeeded,
+    }))
+    .addCase(removeLeague.rejected, (state) => ({
+      ...state,
+      removeLeagueStatus: LoadingStatus.Failed,
+    }))
+
+    .addCase(removeTeam.pending, (state) => ({
+      ...state,
+      removeTeamStatus: LoadingStatus.Pending,
+    }))
+    .addCase(removeTeam.fulfilled, (state) => ({
+      ...state,
+      removeTeamStatus: LoadingStatus.Succeeded,
+    }))
+    .addCase(removeTeam.rejected, (state) => ({
+      ...state,
+      removeTeamStatus: LoadingStatus.Failed,
+    }))
+
+    .addCase(removeResult.pending, (state) => ({
+      ...state,
+      removeResultStatus: LoadingStatus.Pending,
+    }))
+    .addCase(removeResult.fulfilled, (state) => ({
+      ...state,
+      removeResultStatus: LoadingStatus.Succeeded,
+    }))
+    .addCase(removeResult.rejected, (state) => ({
+      ...state,
+      removeResultStatus: LoadingStatus.Failed,
+    }))
 )

@@ -38,6 +38,7 @@ export interface IUserLeaguesList {
 
 export interface IListOfTables {
   tablesList: IUserLeaguesList[]
+  handleRemoveFn: (leagueID: number) => void
 }
 export interface SelectedLeaguePayload {
   leagueID: number
@@ -107,4 +108,18 @@ export interface AddNewResultPayload {
   homeScore: string
   awayScore: string
   leagueID: number
+}
+
+export interface RemoveLeaguePayload {
+  leagueID: number
+}
+
+export interface RemoveTeamPayload {
+  leagueID: number
+  teamName: number
+}
+
+export interface RemoveResultPayload {
+  leagueID: number
+  resultID: number
 }

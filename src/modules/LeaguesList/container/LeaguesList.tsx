@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, InputAdornment, useTheme } from '@mui/material'
@@ -6,7 +6,8 @@ import SearchIcon from '@mui/icons-material/Search'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
 import NoDataView from 'shared/components/NoDataView/NoDataView'
 import ListOfTables from 'modules/LeaguesList/components/ListOfTables/ListOfTables'
-import { fetchAllLeaguesList } from 'shared/store/leagues/actions'
+import CustomDialog from 'shared/components/CustomDialog/CustomDialog'
+import { fetchAllLeaguesList, removeLeague } from 'shared/store/leagues/actions'
 import { getUserLeaguesList } from 'shared/store/leagues/selectors'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import {
@@ -21,10 +22,15 @@ const LeaguesList = () => {
   const dispatch = useDispatch()
   const isDesktopView = useCheckDesktopScreen()
   const userLeagueList = useSelector(getUserLeaguesList)
+  const [leagueToRemove, setLeagueToRemove] = useState<number | null>(null)
 
   useEffect(() => {
     dispatch(fetchAllLeaguesList())
   }, [])
+
+  const handleSetLeagueToRemoveClick = (leagueID: number) => {
+    setLeagueToRemove(leagueID)
+  }
 
   return (
     <PageAfterLogin>
@@ -60,10 +66,13 @@ const LeaguesList = () => {
 
       <ContentWindow>
         {userLeagueList && userLeagueList.length ? (
-          <ListOfTables tablesList={userLeagueList} />
+          <ListOfTables
+            tablesList={userLeagueList}
+            handleRemoveFn={handleSetLeagueToRemoveClick}
+          />
         ) : (
           <NoDataView
-            primaryText="You didn’t add any tables yet."
+            primaryText="You didn't add any tables yet."
             secondaryText="Create new table to continue."
           />
         )}
@@ -81,6 +90,17 @@ const LeaguesList = () => {
           Create new table
         </Button>
       )}
+      <CustomDialog
+        isWarning
+        title="Are you sure you want to continue removing this league?"
+        content="All datas (teams/results) connected with this league will be also removed."
+        isOpen={typeof leagueToRemove === 'number'}
+        handleOnClose={() => setLeagueToRemove(null)}
+        handleOnDisagreeClick={() => setLeagueToRemove(null)}
+        handleOnAgreeClick={() =>
+          leagueToRemove && dispatch(removeLeague({ leagueID: leagueToRemove }))
+        }
+      />
     </PageAfterLogin>
   )
 }
