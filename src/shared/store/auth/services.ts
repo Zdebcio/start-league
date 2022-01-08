@@ -1,8 +1,7 @@
-import qs from 'qs'
+import { AxiosResponse } from 'axios'
 import config from 'config'
 import { Api, Auth } from 'shared/services'
 import { LoginPayload, LoginResponse, RegistrationPayload } from 'shared/types'
-import { AxiosResponse } from 'axios'
 
 export default class AuthApi extends Api {
   public async login({ email, passwd }: LoginPayload) {

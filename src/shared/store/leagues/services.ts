@@ -52,7 +52,7 @@ export default class LeaguesApi extends Api {
     return this.api.get(API)
   }
 
-  public async addNewLeague({ teamName, leagueID }: AddNewTeamPayload) {
+  public async addNewTeam({ teamName, leagueID }: AddNewTeamPayload) {
     const API = `${config.API_URL}/league/table/teams/new/${leagueID}`
 
     const configRequest = {

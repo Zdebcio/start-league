@@ -16,11 +16,13 @@ import {
 export interface IResultsPageView {
   leagueID: number
   leagueName: string
+  changeViewFn: (value: string) => void
 }
 
 const ResultsPageView: React.FC<IResultsPageView> = ({
   leagueID,
   leagueName,
+  changeViewFn,
 }) => {
   const isDesktopScreen = useCheckDesktopScreen('sm')
 
@@ -61,6 +63,7 @@ const ResultsPageView: React.FC<IResultsPageView> = ({
         <Button
           component={Link}
           to={`/leagues/${leagueID}`}
+          onClick={() => changeViewFn('table')}
           variant="contained"
           disableTouchRipple
           size="small"

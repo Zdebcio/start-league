@@ -30,7 +30,12 @@ const SelectedLeagueView = () => {
   const newTeamPath = `/leagues/${leagueID}/teams/add`
   const newResultPath = `/leagues/${leagueID}/results/add`
   const [selectedView, setSelectedView] = useState(
-    matchPath(location.pathname, '/leagues/:leagueID/teams') ? 'teams' : 'table'
+    matchPath(location.pathname, {
+      path: '/leagues/:leagueID/teams',
+      exact: true,
+    })
+      ? 'teams'
+      : 'table'
   )
   const leagueName = leagueInfo ? leagueInfo.league_name : ''
 
@@ -80,6 +85,7 @@ const SelectedLeagueView = () => {
           <ResultsPageView
             leagueID={Number(leagueID)}
             leagueName={leagueName}
+            changeViewFn={handleSelectedViewChange}
           />
         </Route>
         <Route path={tablePath} exact>

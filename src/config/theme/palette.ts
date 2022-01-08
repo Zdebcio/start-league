@@ -2,7 +2,6 @@ import { indigo, lightBlue } from '@mui/material/colors'
 import createPalette, {
   PaletteOptions,
 } from '@mui/material/styles/createPalette'
-import { colors } from 'config'
 
 const palette: PaletteOptions = {
   primary: {

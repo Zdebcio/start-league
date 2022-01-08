@@ -19,14 +19,14 @@ export default createReducer(initialState, (builder) =>
       fetchLoggedUserInfoStatus: LoadingStatus.Pending,
     }))
     .addCase(fetchLoggedUserInfo.fulfilled, (state, action) => {
-      const { response, status } = action.payload.data
+      const { response } = action.payload.data
       return {
         ...state,
         fetchLoggedUserInfoStatus: LoadingStatus.Succeeded,
         userInfo: response,
       }
     })
-    .addCase(fetchLoggedUserInfo.rejected, (state, action) => {
+    .addCase(fetchLoggedUserInfo.rejected, (state) => {
       return {
         ...state,
         fetchLoggedUserInfoStatus: LoadingStatus.Failed,
