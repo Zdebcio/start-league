@@ -75,7 +75,7 @@ const TeamsList: React.FC<ITeamsList> = ({ teamsListData }) => {
         </TableHead>
         <TableBody>
           {getComparator(order, orderBy).map((row) => (
-            <TableRow>
+            <TableRow key={row.id}>
               <TableCell sx={{ width: '50%' }}>{row.team_name}</TableCell>
               <TableCell sx={{ width: '50%' }}>
                 {moment(row.created_at).format('DD.MM.YYYY')}

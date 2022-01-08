@@ -163,7 +163,7 @@ const LeagueLadeboard: React.FC<ILeagueLadeboard> = ({
         </TableHead>
         <TableBody>
           {getComparator(order, orderBy).map((row) => (
-            <TableRow>
+            <TableRow key={`${row.name}-${row.position}`}>
               <TableCell align="right">{`${row.position}.`}</TableCell>
               <TableCell sx={{ width: '100%' }}>{row.name}</TableCell>
               <TableCell align="center">{row.played}</TableCell>

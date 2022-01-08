@@ -93,7 +93,7 @@ const ListOfTables: React.FC<IListOfTables> = ({ tablesList }) => {
         </TableHead>
         <TableBody>
           {getComparator(order, orderBy).map((row) => (
-            <TableRow>
+            <TableRow key={row.id}>
               <TableCell>{row.league_name}</TableCell>
               <TableCell align="center">{row.table_id}</TableCell>
               <TableCell>

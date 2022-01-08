@@ -4,6 +4,7 @@ import {
   AddNewTeamPayload,
   CreateLeaguePayload,
   SelectedLeaguePayload,
+  AddNewResultPayload,
 } from 'shared/types'
 
 const api = new Auth()
@@ -45,11 +46,20 @@ export const fetchSelectedLeagueInfo = createAsyncThunk(
   async (payload: SelectedLeaguePayload) => api.fetchSelectedLeagueInfo(payload)
 )
 
-export const addNewLeague = createAsyncThunk(
-  `leagues/addNewLeague`,
-  async (payload: AddNewTeamPayload) => api.addNewLeague(payload)
+export const addNewTeam = createAsyncThunk(
+  `leagues/addNewTeam`,
+  async (payload: AddNewTeamPayload) => api.addNewTeam(payload)
 )
 
-export const resetAddNewLeagueStatus = createAction<void>(
-  'leagues/resetAddNewLeagueStatus'
+export const resetAddNewTeamStatus = createAction<void>(
+  'leagues/resetAddNewTeamStatus'
+)
+
+export const addNewResult = createAsyncThunk(
+  `leagues/addNewResult`,
+  async (payload: AddNewResultPayload) => api.addNewResult(payload)
+)
+
+export const resetAddNewResultStatus = createAction<void>(
+  'leagues/resetAddNewResultStatus'
 )

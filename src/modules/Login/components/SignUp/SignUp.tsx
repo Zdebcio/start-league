@@ -17,14 +17,6 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import LockIcon from '@mui/icons-material/Lock'
-import {
-  FormPanel,
-  ChangeViewButtonWrapper,
-  FormErrorMessage,
-  ValidationCheckbox,
-  SuccessfullMessage,
-} from 'modules/Login/container/Login.style'
-
 import CheckIcon from '@mui/icons-material/Check'
 import RemoveIcon from '@mui/icons-material/Remove'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -35,7 +27,13 @@ import { getRegisterStatus } from 'shared/store/auth/selectors'
 import { LoadingStatus } from 'shared/types'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { colors } from 'config'
-import { AppDispatch } from 'store'
+import {
+  FormPanel,
+  ChangeViewButtonWrapper,
+  FormErrorMessage,
+  ValidationCheckbox,
+  SuccessfullMessage,
+} from 'modules/Login/container/Login.style'
 
 interface ISignUp {
   viewChangeFn: (view: string) => void

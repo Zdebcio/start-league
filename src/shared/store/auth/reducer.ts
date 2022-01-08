@@ -25,13 +25,13 @@ export default createReducer(initialState, (builder) =>
     .addCase(login.pending, (state) => ({
       ...state,
     }))
-    .addCase(login.fulfilled, (state, action) => {
+    .addCase(login.fulfilled, (state) => {
       return {
         ...state,
         loginSuccess: true,
       }
     })
-    .addCase(login.rejected, (state, action) => {
+    .addCase(login.rejected, (state) => {
       return {
         ...state,
         loginSuccess: false,
@@ -41,21 +41,21 @@ export default createReducer(initialState, (builder) =>
       ...state,
       registerStatus: LoadingStatus.Pending,
     }))
-    .addCase(registration.fulfilled, (state, action) => {
+    .addCase(registration.fulfilled, (state) => {
       return {
         ...state,
         registerSuccess: true,
         registerStatus: LoadingStatus.Succeeded,
       }
     })
-    .addCase(registration.rejected, (state, action) => {
+    .addCase(registration.rejected, (state) => {
       return {
         ...state,
         registerSuccess: false,
         registerStatus: LoadingStatus.Failed,
       }
     })
-    .addCase(clearRegistrationStatus, (state, action) => {
+    .addCase(clearRegistrationStatus, (state) => {
       return {
         ...state,
         registerSuccess: true,

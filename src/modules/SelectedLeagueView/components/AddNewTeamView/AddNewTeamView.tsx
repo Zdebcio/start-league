@@ -8,10 +8,7 @@ import { Button } from '@mui/material'
 import AddNewElementForm from 'shared/components/AddNewElementForm/AddNewElementForm'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import { leagueNameRegExp } from 'shared/utils/regexp'
-import {
-  addNewLeague,
-  resetAddNewLeagueStatus,
-} from 'shared/store/leagues/actions'
+import { addNewTeam, resetAddNewTeamStatus } from 'shared/store/leagues/actions'
 import { getAddNewTeamStatus } from 'shared/store/leagues/selectors'
 import { LoadingStatus } from 'shared/types'
 import { ButtonsControlWrapper } from 'shared/styles/ButtonsControlWrapper.style'
@@ -35,7 +32,7 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
 
   useEffect(() => {
     return () => {
-      dispatch(resetAddNewLeagueStatus())
+      dispatch(resetAddNewTeamStatus())
     }
   }, [])
 
@@ -63,6 +60,7 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
 
@@ -72,11 +70,12 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
       leagueID,
     }
 
-    dispatch(addNewLeague(payload))
+    dispatch(addNewTeam(payload))
   }
 
   const handleNextTeamClick = () => {
-    dispatch(resetAddNewLeagueStatus())
+    reset()
+    dispatch(resetAddNewTeamStatus())
   }
 
   return (
@@ -113,7 +112,7 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
           color="tertiary"
           sx={isDesktopScreen ? { order: 1, marginRight: '1rem' } : {}}
         >
-          Back to main page
+          Back to teams list
         </Button>
       </ButtonsControlWrapper>
     </>

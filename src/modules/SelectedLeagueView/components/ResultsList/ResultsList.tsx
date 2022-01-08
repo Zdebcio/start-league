@@ -69,7 +69,7 @@ const ResultsList: React.FC<IResultsList> = ({ resultsListData }) => {
         </TableHead>
         <TableBody>
           {getComparator(order, orderBy).map((row) => (
-            <TableRow>
+            <TableRow key={row.id}>
               <TableCell
                 sx={{ width: '100%' }}
               >{`${row.home} - ${row.away}`}</TableCell>

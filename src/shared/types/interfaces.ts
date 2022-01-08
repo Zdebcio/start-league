@@ -100,3 +100,11 @@ export interface ILeagueInfo {
   table_id: number
   league_name: string
 }
+
+export interface AddNewResultPayload {
+  homeTeam: string
+  awayTeam: string
+  homeScore: string
+  awayScore: string
+  leagueID: number
+}

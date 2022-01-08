@@ -1,6 +1,7 @@
 import config from 'config'
 import { Api } from 'shared/services'
 import {
+  AddNewResultPayload,
   AddNewTeamPayload,
   CreateLeaguePayload,
   SelectedLeaguePayload,
@@ -51,12 +52,33 @@ export default class LeaguesApi extends Api {
     return this.api.get(API)
   }
 
-  public async addNewLeague({ teamName, leagueID }: AddNewTeamPayload) {
+  public async addNewTeam({ teamName, leagueID }: AddNewTeamPayload) {
     const API = `${config.API_URL}/league/table/teams/new/${leagueID}`
 
     const configRequest = {
       params: {
         team_name: teamName,
+      },
+    }
+
+    return this.api.post(API, configRequest.params)
+  }
+
+  public async addNewResult({
+    homeTeam,
+    awayTeam,
+    homeScore,
+    awayScore,
+    leagueID,
+  }: AddNewResultPayload) {
+    const API = `${config.API_URL}/league/table/result/add/${leagueID}`
+
+    const configRequest = {
+      params: {
+        home: homeTeam,
+        away: awayTeam,
+        handicap: homeScore,
+        against: awayScore,
       },
     }
 

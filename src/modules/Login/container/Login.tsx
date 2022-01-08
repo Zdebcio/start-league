@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
 import Start from 'modules/Login/components/Start/Start'
 import SignIn from 'modules/Login/components/SignIn/SignIn'
