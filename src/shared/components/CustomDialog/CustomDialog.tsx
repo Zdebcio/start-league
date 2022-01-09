@@ -8,8 +8,15 @@ import {
   DialogActions,
   Slide,
 } from '@mui/material'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import { TransitionProps } from '@mui/material/transitions'
-import { WarningLabel } from './CustomDialog.style'
+import { Triangle } from 'react-loader-spinner'
+import { colors } from 'config'
+import {
+  DialogStateErrorMessage,
+  DialogStateInfoWrapper,
+  WarningLabel,
+} from './CustomDialog.style'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,6 +35,9 @@ export interface ICustomDialog {
   handleOnClose: () => void
   handleOnAgreeClick: () => void
   handleOnDisagreeClick: () => void
+  isLoading?: boolean
+  isError?: boolean
+  customErrorMessage?: string
 }
 
 const CustomDialog: React.FC<ICustomDialog> = ({
@@ -38,6 +48,9 @@ const CustomDialog: React.FC<ICustomDialog> = ({
   handleOnClose,
   handleOnDisagreeClick,
   handleOnAgreeClick,
+  isLoading = true,
+  isError = true,
+  customErrorMessage = 'Something went wrong',
 }) => {
   return (
     <Dialog
@@ -57,12 +70,29 @@ const CustomDialog: React.FC<ICustomDialog> = ({
         )}
       </DialogContent>
       <DialogActions>
+        <DialogStateInfoWrapper>
+          {isLoading && (
+            <Triangle
+              color={colors.typography.secondary}
+              width="2.5rem"
+              height="2.5rem"
+              wrapperClass="rotate"
+            />
+          )}
+
+          {isError && (
+            <DialogStateErrorMessage>
+              {customErrorMessage}
+            </DialogStateErrorMessage>
+          )}
+        </DialogStateInfoWrapper>
         <Button
           variant="text"
           size="small"
           disableTouchRipple
           color="tertiary"
           onClick={handleOnDisagreeClick}
+          disabled={isLoading}
         >
           Disagree
         </Button>
@@ -72,6 +102,7 @@ const CustomDialog: React.FC<ICustomDialog> = ({
           disableTouchRipple
           color="tertiary"
           onClick={handleOnAgreeClick}
+          disabled={isLoading}
         >
           Agree
         </Button>

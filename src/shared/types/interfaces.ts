@@ -116,7 +116,7 @@ export interface RemoveLeaguePayload {
 
 export interface RemoveTeamPayload {
   leagueID: number
-  teamName: number
+  teamName: string | number
 }
 
 export interface RemoveResultPayload {

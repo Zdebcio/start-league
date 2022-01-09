@@ -17,9 +17,13 @@ import {
 
 export interface IResultsList {
   resultsListData: IResultFromList[]
+  handleRemoveFn: (resultID: number) => void
 }
 
-const ResultsList: React.FC<IResultsList> = ({ resultsListData }) => {
+const ResultsList: React.FC<IResultsList> = ({
+  resultsListData,
+  handleRemoveFn,
+}) => {
   const [order, setOrder] = useState<Order>('asc')
   const [orderBy, setOrderBy] = useState<ResultsListColumns>(
     ResultsListColumns.CretedAt
@@ -78,7 +82,7 @@ const ResultsList: React.FC<IResultsList> = ({ resultsListData }) => {
                 {moment(row.created_at).format('DD.MM.YYYY')}
               </TableCell>
               <OptionsTableCell align="center">
-                <StyledRemoveIcon />
+                <StyledRemoveIcon onClick={() => handleRemoveFn(row.id)} />
               </OptionsTableCell>
             </TableRow>
           ))}

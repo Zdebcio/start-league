@@ -17,9 +17,10 @@ import {
 
 export interface ITeamsList {
   teamsListData: ITeamFromList[]
+  handleRemoveFn: (teamID: number) => void
 }
 
-const TeamsList: React.FC<ITeamsList> = ({ teamsListData }) => {
+const TeamsList: React.FC<ITeamsList> = ({ teamsListData, handleRemoveFn }) => {
   const [order, setOrder] = useState<Order>('asc')
   const [orderBy, setOrderBy] = useState<TeamsListColumns>(
     TeamsListColumns.TeamName
@@ -81,7 +82,7 @@ const TeamsList: React.FC<ITeamsList> = ({ teamsListData }) => {
                 {moment(row.created_at).format('DD.MM.YYYY')}
               </TableCell>
               <OptionsTableCell>
-                <StyledRemoveIcon />
+                <StyledRemoveIcon onClick={() => handleRemoveFn(row.id)} />
               </OptionsTableCell>
             </TableRow>
           ))}

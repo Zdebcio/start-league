@@ -27,6 +27,10 @@ const props: Components = {
         fontSize: '1.6rem',
         fontFamily: '"Lato", arial, sans-serif',
       },
+
+      '.rotate': {
+        transform: 'rotate(90deg)',
+      },
     },
   },
 

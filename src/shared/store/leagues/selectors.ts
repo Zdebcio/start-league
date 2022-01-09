@@ -23,3 +23,12 @@ export const getAddNewTeamStatus = (state: RootState) =>
 
 export const getAddNewResultStatus = (state: RootState) =>
   state.reducer.leagues.addNewResultStatus
+
+export const getRemoveLeagueStatus = (state: RootState) =>
+  state.reducer.leagues.removeLeagueStatus
+
+export const getRemoveTeamStatus = (state: RootState) =>
+  state.reducer.leagues.removeTeamStatus
+
+export const getRemoveResultStatus = (state: RootState) =>
+  state.reducer.leagues.removeResultStatus

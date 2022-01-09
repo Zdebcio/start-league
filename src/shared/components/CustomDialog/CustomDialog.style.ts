@@ -8,3 +8,13 @@ export const WarningLabel = styled('span')`
   text-align: center;
   margin-top: 6px;
 `
+
+export const DialogStateInfoWrapper = styled('div')`
+  display: flex;
+  flex-grow: 1;
+`
+
+export const DialogStateErrorMessage = styled('span')`
+  color: ${colors.typography.error};
+  font-size: 1.3rem;
+`

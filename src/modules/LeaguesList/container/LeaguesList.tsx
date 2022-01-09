@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, InputAdornment, useTheme } from '@mui/material'
@@ -7,9 +8,17 @@ import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
 import NoDataView from 'shared/components/NoDataView/NoDataView'
 import ListOfTables from 'modules/LeaguesList/components/ListOfTables/ListOfTables'
 import CustomDialog from 'shared/components/CustomDialog/CustomDialog'
-import { fetchAllLeaguesList, removeLeague } from 'shared/store/leagues/actions'
-import { getUserLeaguesList } from 'shared/store/leagues/selectors'
+import {
+  fetchAllLeaguesList,
+  removeLeague,
+  resetRemoveLeagueStatus,
+} from 'shared/store/leagues/actions'
+import {
+  getRemoveLeagueStatus,
+  getUserLeaguesList,
+} from 'shared/store/leagues/selectors'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
+import { LoadingStatus } from 'shared/types'
 import {
   SearchContainer,
   ContentWindow,
@@ -19,17 +28,35 @@ import {
 
 const LeaguesList = () => {
   const theme = useTheme()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const isDesktopView = useCheckDesktopScreen()
   const userLeagueList = useSelector(getUserLeaguesList)
+  const removeLeagueStatus = useSelector(getRemoveLeagueStatus)
   const [leagueToRemove, setLeagueToRemove] = useState<number | null>(null)
 
   useEffect(() => {
     dispatch(fetchAllLeaguesList())
   }, [])
 
+  useEffect(() => {
+    if (leagueToRemove === null) {
+      dispatch(resetRemoveLeagueStatus())
+    }
+  }, [leagueToRemove])
+
   const handleSetLeagueToRemoveClick = (leagueID: number) => {
     setLeagueToRemove(leagueID)
+  }
+
+  const handleRemoveLeague = () => {
+    if (leagueToRemove) {
+      dispatch(removeLeague({ leagueID: leagueToRemove })).then((res) => {
+        if (res.meta.requestStatus === 'fulfilled') {
+          dispatch(fetchAllLeaguesList())
+          setLeagueToRemove(null)
+        }
+      })
+    }
   }
 
   return (
@@ -97,9 +124,9 @@ const LeaguesList = () => {
         isOpen={typeof leagueToRemove === 'number'}
         handleOnClose={() => setLeagueToRemove(null)}
         handleOnDisagreeClick={() => setLeagueToRemove(null)}
-        handleOnAgreeClick={() =>
-          leagueToRemove && dispatch(removeLeague({ leagueID: leagueToRemove }))
-        }
+        handleOnAgreeClick={handleRemoveLeague}
+        isLoading={removeLeagueStatus === LoadingStatus.Pending}
+        isError={removeLeagueStatus === LoadingStatus.Failed}
       />
     </PageAfterLogin>
   )

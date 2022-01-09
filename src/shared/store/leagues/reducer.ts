@@ -22,6 +22,9 @@ import {
   removeLeague,
   removeTeam,
   removeResult,
+  resetRemoveLeagueStatus,
+  resetRemoveTeamStatus,
+  resetRemoveResultStatus,
 } from './actions'
 
 interface State {
@@ -69,6 +72,19 @@ export default createReducer(initialState, (builder) =>
     .addCase(resetAddNewResultStatus, (state) => ({
       ...state,
       addNewResultStatus: LoadingStatus.Idle,
+    }))
+
+    .addCase(resetRemoveLeagueStatus, (state) => ({
+      ...state,
+      removeLeagueStatus: LoadingStatus.Idle,
+    }))
+    .addCase(resetRemoveTeamStatus, (state) => ({
+      ...state,
+      removeTeamStatus: LoadingStatus.Idle,
+    }))
+    .addCase(resetRemoveResultStatus, (state) => ({
+      ...state,
+      removeResultStatus: LoadingStatus.Idle,
     }))
 
     // create

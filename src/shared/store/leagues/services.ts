@@ -102,6 +102,7 @@ export default class LeaguesApi extends Api {
 
   public async removeResult({ leagueID, resultID }: RemoveResultPayload) {
     const API = `${config.API_URL}/league/delete/${leagueID}/team/result/${resultID}`
+    console.log(API)
 
     return this.api.delete(API)
   }
