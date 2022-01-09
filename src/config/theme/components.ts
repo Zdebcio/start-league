@@ -27,6 +27,10 @@ const props: Components = {
         fontSize: '1.6rem',
         fontFamily: '"Lato", arial, sans-serif',
       },
+
+      '.rotate': {
+        transform: 'rotate(90deg)',
+      },
     },
   },
 
@@ -38,6 +42,13 @@ const props: Components = {
           backgroundColor: colors.buttons.contained.tertiary,
           '&:hover, &:focus': {
             backgroundColor: darken(colors.buttons.contained.tertiary, 0.2),
+          },
+        },
+
+        '&.MuiButton-textTertiary': {
+          color: colors.buttons.text.tertiary,
+          '&:hover': {
+            color: darken(colors.buttons.text.tertiary, 0.2),
           },
         },
       },
@@ -74,9 +85,11 @@ const props: Components = {
           boxShadow: `${colors.decorations.boxShadows.component} 0 0.4rem 0.8rem -0,2rem, ${colors.decorations.boxShadows.component} 0 0 0 1rem`,
         },
       },
+
       text: {
         textTransform: 'none',
         padding: 0,
+        fontSize: '1.6rem',
         '&:hover, &:focus': {
           backgroundColor: 'transparent',
         },
@@ -95,6 +108,10 @@ const props: Components = {
         '&:hover': {
           color: darken(colors.buttons.text.secondary, 0.2),
         },
+      },
+
+      textSizeSmall: {
+        fontSize: '1.4rem',
       },
     },
   },
@@ -328,6 +345,45 @@ const props: Components = {
     styleOverrides: {
       root: {
         color: 'black',
+      },
+    },
+  },
+
+  MuiDialog: {
+    styleOverrides: {
+      paper: {
+        backgroundColor: colors.components.tertiary,
+      },
+    },
+  },
+
+  MuiDialogTitle: {
+    styleOverrides: {
+      root: {
+        color: colors.typography.primary,
+        fontSize: '1.6rem',
+      },
+    },
+  },
+
+  MuiDialogContentText: {
+    styleOverrides: {
+      root: {
+        color: colors.typography.additional,
+        fontSize: '1.4rem',
+      },
+    },
+  },
+
+  MuiDialogActions: {
+    styleOverrides: {
+      root: {
+        '*:not(:first-of-type)': {
+          marginLeft: '1rem',
+        },
+      },
+      spacing: {
+        marginBottom: 6,
       },
     },
   },

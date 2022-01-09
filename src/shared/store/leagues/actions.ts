@@ -5,6 +5,9 @@ import {
   CreateLeaguePayload,
   SelectedLeaguePayload,
   AddNewResultPayload,
+  RemoveLeaguePayload,
+  RemoveTeamPayload,
+  RemoveResultPayload,
 } from 'shared/types'
 
 const api = new Auth()
@@ -62,4 +65,31 @@ export const addNewResult = createAsyncThunk(
 
 export const resetAddNewResultStatus = createAction<void>(
   'leagues/resetAddNewResultStatus'
+)
+
+export const removeLeague = createAsyncThunk(
+  `leagues/removeLeague`,
+  async (payload: RemoveLeaguePayload) => api.removeLeague(payload)
+)
+
+export const removeTeam = createAsyncThunk(
+  `leagues/removeTeam`,
+  async (payload: RemoveTeamPayload) => api.removeTeam(payload)
+)
+
+export const removeResult = createAsyncThunk(
+  `leagues/removeResult`,
+  async (payload: RemoveResultPayload) => api.removeResult(payload)
+)
+
+export const resetRemoveLeagueStatus = createAction<void>(
+  `leagues/resetRemoveLeagueStatus`
+)
+
+export const resetRemoveTeamStatus = createAction<void>(
+  `leagues/resetRemoveTeamStatus`
+)
+
+export const resetRemoveResultStatus = createAction<void>(
+  `leagues/resetRemoveResultStatus`
 )

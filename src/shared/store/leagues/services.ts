@@ -4,6 +4,9 @@ import {
   AddNewResultPayload,
   AddNewTeamPayload,
   CreateLeaguePayload,
+  RemoveLeaguePayload,
+  RemoveResultPayload,
+  RemoveTeamPayload,
   SelectedLeaguePayload,
 } from 'shared/types'
 
@@ -83,5 +86,23 @@ export default class LeaguesApi extends Api {
     }
 
     return this.api.post(API, configRequest.params)
+  }
+
+  public async removeLeague({ leagueID }: RemoveLeaguePayload) {
+    const API = `${config.API_URL}/league/delete/${leagueID}`
+
+    return this.api.delete(API)
+  }
+
+  public async removeTeam({ leagueID, teamName }: RemoveTeamPayload) {
+    const API = `${config.API_URL}/league/delete/${leagueID}/team/${teamName}`
+
+    return this.api.delete(API)
+  }
+
+  public async removeResult({ leagueID, resultID }: RemoveResultPayload) {
+    const API = `${config.API_URL}/league/delete/${leagueID}/team/result/${resultID}`
+
+    return this.api.delete(API)
   }
 }

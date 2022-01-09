@@ -10,6 +10,7 @@ const colors = {
   components: {
     primary: '#444444',
     secondary: '#1F1F1F',
+    tertiary: '#232323',
     navigation: '#2E2E2E',
     transparent: alpha('#2B3E44', 0.9),
     additional: '#000000',
@@ -33,6 +34,7 @@ const colors = {
     text: {
       primary: '#5DD425',
       secondary: '#FFFFFF',
+      tertiary: '#008DD5',
     },
   },
   fields: {
