@@ -8,13 +8,15 @@ import {
   RemoveLeaguePayload,
   RemoveTeamPayload,
   RemoveResultPayload,
+  AddTeamErrors,
 } from 'shared/types'
 
 const api = new Auth()
 
 export const createLeague = createAsyncThunk(
   `leagues/createLeague`,
-  async (payload: CreateLeaguePayload) => api.createLeague(payload)
+  async (payload: CreateLeaguePayload, { dispatch }) =>
+    api.createLeague(dispatch, payload)
 )
 
 export const resetCreatedLeagueStatus = createAction<void>(
@@ -51,7 +53,8 @@ export const fetchSelectedLeagueInfo = createAsyncThunk(
 
 export const addNewTeam = createAsyncThunk(
   `leagues/addNewTeam`,
-  async (payload: AddNewTeamPayload) => api.addNewTeam(payload)
+  async (payload: AddNewTeamPayload, { dispatch }) =>
+    api.addNewTeam(dispatch, payload)
 )
 
 export const resetAddNewTeamStatus = createAction<void>(
@@ -92,4 +95,12 @@ export const resetRemoveTeamStatus = createAction<void>(
 
 export const resetRemoveResultStatus = createAction<void>(
   `leagues/resetRemoveResultStatus`
+)
+
+export const setCreatingLeagueError = createAction<string>(
+  `leagues/setCreatingLeagueError`
+)
+
+export const setAddingNewTeamError = createAction<AddTeamErrors>(
+  `leagues/setAddingNewTeamError`
 )

@@ -67,11 +67,11 @@ const AddNewResultView: React.FC<IAddNewTeamView> = ({
       awayTeam: yup.number().min(0, 'Field is required'),
       homeScore: yup
         .string()
-        .matches(/^[0-9]$/, 'Score value should be 0 or more')
+        .matches(/^[0-9]+$/, 'Score value should be 0 or more')
         .required('Field is required'),
       awayScore: yup
         .string()
-        .matches(/^[0-9]$/, 'Score value should be 0 or more')
+        .matches(/^[0-9]+$/, 'Score value should be 0 or more')
         .required('Field is required'),
     })
     .required()

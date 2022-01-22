@@ -6,6 +6,7 @@ import {
   ITeamFromList,
   IResultFromList,
   ILeagueInfo,
+  AddTeamErrors,
 } from 'shared/types'
 import {
   createLeague,
@@ -25,6 +26,8 @@ import {
   resetRemoveLeagueStatus,
   resetRemoveTeamStatus,
   resetRemoveResultStatus,
+  setCreatingLeagueError,
+  setAddingNewTeamError,
 } from './actions'
 
 interface State {
@@ -40,6 +43,8 @@ interface State {
   removeLeagueStatus: LoadingStatus
   removeTeamStatus: LoadingStatus
   removeResultStatus: LoadingStatus
+  createLeagueError: string | null
+  addNewTeamError: AddTeamErrors | string | null
 }
 
 const initialState: State = {
@@ -55,6 +60,8 @@ const initialState: State = {
   removeLeagueStatus: LoadingStatus.Idle,
   removeTeamStatus: LoadingStatus.Idle,
   removeResultStatus: LoadingStatus.Idle,
+  createLeagueError: null,
+  addNewTeamError: null,
 }
 
 export default createReducer(initialState, (builder) =>
@@ -105,6 +112,10 @@ export default createReducer(initialState, (builder) =>
         createLeagueStatus: LoadingStatus.Failed,
       }
     })
+    .addCase(setCreatingLeagueError, (state, action) => ({
+      ...state,
+      createLeagueError: action.payload,
+    }))
 
     // add
 
@@ -124,6 +135,10 @@ export default createReducer(initialState, (builder) =>
         addNewTeamStatus: LoadingStatus.Failed,
       }
     })
+    .addCase(setAddingNewTeamError, (state, action) => ({
+      ...state,
+      addNewTeamError: action.payload,
+    }))
 
     .addCase(addNewResult.pending, (state) => ({
       ...state,

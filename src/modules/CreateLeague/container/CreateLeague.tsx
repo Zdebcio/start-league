@@ -12,8 +12,12 @@ import {
 } from 'shared/store/leagues/actions'
 import { leagueNameRegExp } from 'shared/utils/regexp'
 import { DevTool } from '@hookform/devtools'
-import { getCreateLeagueStatus } from 'shared/store/leagues/selectors'
+import {
+  getCreateLeagueStatus,
+  getCreatingLeagueError,
+} from 'shared/store/leagues/selectors'
 import AddNewElementForm from 'shared/components/AddNewElementForm/AddNewElementForm'
+import { LoadingStatus } from 'shared/types'
 import { ButtonsControlWrapper } from 'shared/styles/ButtonsControlWrapper.style'
 import { ContentWindow, CreateLeagueContainer } from './CreateLeague.style'
 
@@ -24,6 +28,7 @@ type Inputs = {
 const CreateLeague = () => {
   const dispatch = useDispatch()
   const createLeagueStatus = useSelector(getCreateLeagueStatus)
+  const creatingLeagueError = useSelector(getCreatingLeagueError)
 
   useEffect(() => {
     return () => {
@@ -56,6 +61,7 @@ const CreateLeague = () => {
     register,
     handleSubmit,
     control,
+    setError,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
 
@@ -67,6 +73,15 @@ const CreateLeague = () => {
     dispatch(createLeague(payload))
   }
 
+  useEffect(() => {
+    if (createLeagueStatus === LoadingStatus.Failed && creatingLeagueError) {
+      setError('leagueName', {
+        type: 'server',
+        message: 'You have too many created leagues (10) to create new one.',
+      })
+    }
+  }, [createLeagueStatus, creatingLeagueError])
+
   return (
     <PageAfterLogin>
       <CreateLeagueContainer>
@@ -75,6 +90,7 @@ const CreateLeague = () => {
             createStatus={createLeagueStatus}
             title="Insert your league name:"
             isError={!!errors.leagueName}
+            errorMessage={errors.leagueName?.message}
             registerProp={register('leagueName', { required: true })}
             handleSubmitFn={handleSubmit(handleCreateLeagueSubmit)}
             successfullyMessage="Table created successfully"
