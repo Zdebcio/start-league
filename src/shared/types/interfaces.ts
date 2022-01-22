@@ -18,6 +18,21 @@ export interface RegistrationPayload {
   passwd: string
 }
 
+export interface RegistrationErrors {
+  nickname?: {
+    Nickname: string
+  }
+  email?: {
+    Email: string
+  }
+}
+
+export interface AddTeamErrors {
+  team_name?: {
+    Team_name: string
+  }
+}
+
 export interface CreateLeaguePayload {
   leagueName: string
 }

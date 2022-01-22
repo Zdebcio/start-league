@@ -21,9 +21,12 @@ import CheckIcon from '@mui/icons-material/Check'
 import RemoveIcon from '@mui/icons-material/Remove'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { passwordRegExp } from 'shared/utils/regexp'
+import { passwordRegExp, usernameRegExp } from 'shared/utils/regexp'
 import { DevTool } from '@hookform/devtools'
-import { getRegisterStatus } from 'shared/store/auth/selectors'
+import {
+  getRegisterStatus,
+  getRegistrationErrors,
+} from 'shared/store/auth/selectors'
 import { LoadingStatus } from 'shared/types'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { colors } from 'config'
@@ -50,15 +53,18 @@ type Inputs = {
 const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
   const dispatch = useAppDispatch()
   const registerStatus = useSelector(getRegisterStatus)
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearRegistrationStatus())
-    }
-  }, [dispatch])
+  const registrationErrors = useSelector(getRegistrationErrors)
 
   const schema = yup.object({
-    nickname: yup.string().required('Field must be filled'),
+    nickname: yup
+      .string()
+      .matches(
+        usernameRegExp,
+        'Nickname should contains only letters and numbers'
+      )
+      .min(4, 'Nickname is too short (should have minimum 4 characters)')
+      .max(20, 'Nickname is too long (should have maximum 20 characters)')
+      .required('Field must be filled'),
     email: yup
       .string()
       .email('Incorrect E-mail.')
@@ -94,6 +100,8 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
     handleSubmit,
     control,
     setValue,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
 
@@ -110,6 +118,30 @@ const SignUp: React.FC<ISignUp> = ({ viewChangeFn }) => {
   const handleGoToLoginClick = () => {
     viewChangeFn('signIn')
   }
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearRegistrationStatus())
+    }
+  }, [dispatch])
+
+  useEffect(() => {
+    if (registerStatus === LoadingStatus.Failed) {
+      if (registrationErrors?.nickname) {
+        setError('nickname', {
+          type: 'server',
+          message: 'Nickname is already taken',
+        })
+      }
+
+      if (registrationErrors?.email) {
+        setError('email', {
+          type: 'server',
+          message: 'E-mail is already taken',
+        })
+      }
+    } else clearErrors('email')
+  }, [registerStatus, registrationErrors])
 
   return (
     <>

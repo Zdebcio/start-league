@@ -3,13 +3,18 @@ import { UseFormRegisterReturn } from 'react-hook-form'
 import { Button, Typography, TextField } from '@mui/material'
 import CompleteComponent from 'shared/components/CompleteComponent/CompleteComponent'
 import { LoadingStatus } from 'shared/types'
-import { FormContainer } from './AddNewElementForm.style'
+import {
+  FormContainer,
+  TextFieldWrapper,
+  ErrorMessage,
+} from './AddNewElementForm.style'
 
 export interface IAddNewElementForm {
   createStatus: LoadingStatus
   title: string
   placeholder?: string
   isError: boolean
+  errorMessage?: string
   registerProp: UseFormRegisterReturn
   handleSubmitFn: (event: React.SyntheticEvent<Element, Event>) => void
   successfullyMessage: string
@@ -20,6 +25,7 @@ const AddNewElementForm: React.FC<IAddNewElementForm> = ({
   title,
   placeholder = 'Type here...',
   isError = false,
+  errorMessage,
   registerProp,
   handleSubmitFn,
   successfullyMessage,
@@ -34,21 +40,24 @@ const AddNewElementForm: React.FC<IAddNewElementForm> = ({
             {title}
           </Typography>
           <FormContainer onSubmit={handleSubmitFn}>
-            <TextField
-              placeholder={placeholder}
-              variant="filled"
-              size="small"
-              type="text"
-              fullWidth
-              error={isError}
-              InputProps={{
-                disableUnderline: true,
-                inputProps: {
-                  style: { textAlign: 'center' },
-                },
-                ...registerProp,
-              }}
-            />
+            <TextFieldWrapper>
+              <TextField
+                placeholder={placeholder}
+                variant="filled"
+                size="small"
+                type="text"
+                fullWidth
+                error={isError}
+                InputProps={{
+                  disableUnderline: true,
+                  inputProps: {
+                    style: { textAlign: 'center' },
+                  },
+                  ...registerProp,
+                }}
+              />
+              {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+            </TextFieldWrapper>
             <Button
               variant="contained"
               disableTouchRipple

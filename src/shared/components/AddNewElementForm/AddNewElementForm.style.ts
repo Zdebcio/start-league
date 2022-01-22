@@ -1,4 +1,5 @@
 import { styled } from '@mui/material'
+import { colors } from 'config'
 
 export const FormContainer = styled('form')`
   display: flex;
@@ -22,4 +23,17 @@ export const FormContainer = styled('form')`
       width: 50%;
     }
   }
+`
+
+export const TextFieldWrapper = styled('div')`
+  width: 100%;
+  & > *:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+`
+
+export const ErrorMessage = styled('span')`
+  display: block;
+  text-align: center;
+  color: ${colors.fields.filled.error};
 `

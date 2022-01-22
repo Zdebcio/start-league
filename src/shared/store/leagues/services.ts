@@ -1,3 +1,4 @@
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit'
 import config from 'config'
 import { Api } from 'shared/services'
 import {
@@ -9,9 +10,13 @@ import {
   RemoveTeamPayload,
   SelectedLeaguePayload,
 } from 'shared/types'
+import { setAddingNewTeamError, setCreatingLeagueError } from './actions'
 
 export default class LeaguesApi extends Api {
-  public async createLeague({ leagueName }: CreateLeaguePayload) {
+  public async createLeague(
+    dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
+    { leagueName }: CreateLeaguePayload
+  ) {
     const API = `${config.API_URL}/league/new`
 
     const configRequest = {
@@ -20,7 +25,10 @@ export default class LeaguesApi extends Api {
       },
     }
 
-    return this.api.post(API, configRequest.params)
+    return this.api.post(API, configRequest.params).catch((err) => {
+      dispatch(setCreatingLeagueError(err.response.data.response))
+      throw new Error(err)
+    })
   }
 
   public async fetchAllLeaguesList() {
@@ -55,7 +63,10 @@ export default class LeaguesApi extends Api {
     return this.api.get(API)
   }
 
-  public async addNewTeam({ teamName, leagueID }: AddNewTeamPayload) {
+  public async addNewTeam(
+    dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
+    { teamName, leagueID }: AddNewTeamPayload
+  ) {
     const API = `${config.API_URL}/league/table/teams/new/${leagueID}`
 
     const configRequest = {
@@ -64,7 +75,10 @@ export default class LeaguesApi extends Api {
       },
     }
 
-    return this.api.post(API, configRequest.params)
+    return this.api.post(API, configRequest.params).catch((err) => {
+      dispatch(setAddingNewTeamError(err.response.data.response))
+      throw new Error(err)
+    })
   }
 
   public async addNewResult({

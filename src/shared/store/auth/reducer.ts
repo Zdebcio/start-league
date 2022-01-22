@@ -1,6 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { LoadingStatus } from 'shared/types'
-import { login, registration, clearRegistrationStatus } from './actions'
+import { LoadingStatus, RegistrationErrors } from 'shared/types'
+import {
+  login,
+  registration,
+  clearRegistrationStatus,
+  setRegistrationErrors,
+} from './actions'
 
 interface State {
   something: string
@@ -9,6 +14,7 @@ interface State {
   loginSuccess: boolean
   registerSuccess: boolean
   registerStatus: LoadingStatus
+  registrationErrors: RegistrationErrors | null
 }
 
 const initialState: State = {
@@ -18,6 +24,7 @@ const initialState: State = {
   registerSuccess: true,
   registerStatus: LoadingStatus.Idle,
   error: null,
+  registrationErrors: null,
 }
 
 export default createReducer(initialState, (builder) =>
@@ -60,6 +67,13 @@ export default createReducer(initialState, (builder) =>
         ...state,
         registerSuccess: true,
         registerStatus: LoadingStatus.Idle,
+        registrationErrors: null,
+      }
+    })
+    .addCase(setRegistrationErrors, (state, action) => {
+      return {
+        ...state,
+        registrationErrors: action.payload,
       }
     })
 )

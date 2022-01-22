@@ -32,3 +32,9 @@ export const getRemoveTeamStatus = (state: RootState) =>
 
 export const getRemoveResultStatus = (state: RootState) =>
   state.reducer.leagues.removeResultStatus
+
+export const getCreatingLeagueError = (state: RootState) =>
+  state.reducer.leagues.createLeagueError
+
+export const getAddingNewTeamError = (state: RootState) =>
+  state.reducer.leagues.addNewTeamError

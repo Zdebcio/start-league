@@ -7,9 +7,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '@mui/material'
 import AddNewElementForm from 'shared/components/AddNewElementForm/AddNewElementForm'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
-import { leagueNameRegExp } from 'shared/utils/regexp'
+import { leagueNameRegExp, teamNameRegExp } from 'shared/utils/regexp'
 import { addNewTeam, resetAddNewTeamStatus } from 'shared/store/leagues/actions'
-import { getAddNewTeamStatus } from 'shared/store/leagues/selectors'
+import {
+  getAddingNewTeamError,
+  getAddNewTeamStatus,
+} from 'shared/store/leagues/selectors'
 import { LoadingStatus } from 'shared/types'
 import { ButtonsControlWrapper } from 'shared/styles/ButtonsControlWrapper.style'
 import { ContentWindow } from './AddNewTeamView.style'
@@ -28,6 +31,7 @@ export interface IAddNewTeamView {
 const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
   const dispatch = useDispatch()
   const addNewTeamStatus = useSelector(getAddNewTeamStatus)
+  const addingNewTeamError = useSelector(getAddingNewTeamError)
   const isDesktopScreen = useCheckDesktopScreen('sm')
 
   useEffect(() => {
@@ -40,7 +44,12 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
     .object({
       teamName: yup
         .string()
-        .min(2, 'Name should have minimum 2 chars')
+        .required('Field is required')
+        .matches(
+          teamNameRegExp,
+          'Team name should contians only letters, numbers and spaces'
+        )
+        .min(3, 'Name should have minimum 3 chars')
         .max(30, 'Name should have maximum 30 chars')
         .test(
           'is-correct-chars',
@@ -52,8 +61,7 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
 
             return true
           }
-        )
-        .required('Field is required'),
+        ),
     })
     .required()
 
@@ -61,6 +69,7 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) })
 
@@ -78,6 +87,17 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
     dispatch(resetAddNewTeamStatus())
   }
 
+  useEffect(() => {
+    if (addNewTeamStatus === LoadingStatus.Failed && addingNewTeamError) {
+      if (typeof addingNewTeamError === 'string') {
+        setError('teamName', {
+          type: 'server',
+          message: addingNewTeamError,
+        })
+      }
+    }
+  }, [addNewTeamStatus, addingNewTeamError])
+
   return (
     <>
       <ContentWindow>
@@ -85,6 +105,7 @@ const AddNewTeamView: React.FC<IAddNewTeamView> = ({ leagueID }) => {
           createStatus={addNewTeamStatus}
           title="Insert your team name:"
           isError={!!errors.teamName}
+          errorMessage={errors.teamName?.message}
           registerProp={register('teamName', { required: true })}
           handleSubmitFn={handleSubmit(handleCreateLeagueSubmit)}
           successfullyMessage="Team added successfully"
