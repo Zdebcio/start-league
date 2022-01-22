@@ -1,6 +1,10 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit'
 import Auth from 'shared/store/auth/services'
-import { LoginPayload, RegistrationPayload } from 'shared/types'
+import {
+  LoginPayload,
+  RegistrationPayload,
+  RegistrationErrors,
+} from 'shared/types'
 
 const api = new Auth()
 
@@ -19,9 +23,14 @@ export const login = createAsyncThunk(
 
 export const registration = createAsyncThunk(
   `auth/registration`,
-  async (payload: RegistrationPayload) => api.registration(payload)
+  async (payload: RegistrationPayload, { dispatch }) =>
+    api.registration(dispatch, payload)
 )
 
 export const clearRegistrationStatus = createAction<void>(
   `auth/clearRegistrationStatus`
+)
+
+export const setRegistrationErrors = createAction<RegistrationErrors>(
+  `auth/setRegistrationErrors`
 )

@@ -5,3 +5,6 @@ export const getLoginSuccessStatus = (state: RootState) =>
 
 export const getRegisterStatus = (state: RootState) =>
   state.reducer.auth.registerStatus
+
+export const getRegistrationErrors = (state: RootState) =>
+  state.reducer.auth.registrationErrors

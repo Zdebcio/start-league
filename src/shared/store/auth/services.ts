@@ -1,7 +1,9 @@
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
 import config from 'config'
 import { Api, Auth } from 'shared/services'
 import { LoginPayload, LoginResponse, RegistrationPayload } from 'shared/types'
+import { setRegistrationErrors } from './actions'
 
 export default class AuthApi extends Api {
   public async login({ email, passwd }: LoginPayload) {
@@ -25,7 +27,10 @@ export default class AuthApi extends Api {
       })
   }
 
-  public async registration(payload: RegistrationPayload) {
+  public async registration(
+    dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
+    payload: RegistrationPayload
+  ) {
     const API = `${config.API_URL}/auth/register`
 
     const options = {
@@ -39,6 +44,10 @@ export default class AuthApi extends Api {
       .post<RegistrationPayload, AxiosResponse<any>>(API, payload, options)
       .then((response) => {
         return response.data
+      })
+      .catch((err) => {
+        dispatch(setRegistrationErrors(err.response.data.response))
+        throw new Error(err)
       })
   }
 }
