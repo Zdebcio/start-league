@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, InputAdornment, useTheme } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
+import ClearIcon from '@mui/icons-material/Clear'
 import PageAfterLogin from 'shared/layout/PageAfterLogin/PageAfterLogin'
 import NoDataView from 'shared/components/NoDataView/NoDataView'
 import ListOfTables from 'modules/LeaguesList/components/ListOfTables/ListOfTables'
@@ -93,9 +94,16 @@ const LeaguesList = () => {
               </InputAdornment>
             ),
             endAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
+              <>
+                {searchLeagueValue.length > 0 && (
+                  <InputAdornment position="end">
+                    <ClearIcon
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => setSearchLeagueValue('')}
+                    />
+                  </InputAdornment>
+                )}
+              </>
             ),
           }}
         />
