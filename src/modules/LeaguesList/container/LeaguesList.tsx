@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -18,7 +18,7 @@ import {
   getUserLeaguesList,
 } from 'shared/store/leagues/selectors'
 import useCheckDesktopScreen from 'shared/hooks/useCheckDesktopScreen'
-import { LoadingStatus } from 'shared/types'
+import { IUserLeaguesList, LoadingStatus } from 'shared/types'
 import {
   SearchContainer,
   ContentWindow,
@@ -33,6 +33,10 @@ const LeaguesList = () => {
   const userLeagueList = useSelector(getUserLeaguesList)
   const removeLeagueStatus = useSelector(getRemoveLeagueStatus)
   const [leagueToRemove, setLeagueToRemove] = useState<number | null>(null)
+  const [searchLeagueValue, setSearchLeagueValue] = useState('')
+  const [filteredLeaguesList, setFilteredLeaguesList] = useState<
+    IUserLeaguesList[]
+  >([])
 
   useEffect(() => {
     dispatch(fetchAllLeaguesList())
@@ -59,6 +63,17 @@ const LeaguesList = () => {
     }
   }
 
+  useEffect(() => {
+    const filteredList =
+      userLeagueList?.filter((league) =>
+        league.league_name
+          .toLowerCase()
+          .includes(searchLeagueValue.toLowerCase())
+      ) ?? []
+
+    setFilteredLeaguesList(filteredList)
+  }, [userLeagueList, searchLeagueValue])
+
   return (
     <PageAfterLogin>
       <SearchContainer>
@@ -68,9 +83,16 @@ const LeaguesList = () => {
           size="small"
           type="text"
           fullWidth
+          value={searchLeagueValue}
+          onChange={(event) => setSearchLeagueValue(event.target.value)}
           InputProps={{
             disableUnderline: true,
             startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+            endAdornment: (
               <InputAdornment position="start">
                 <SearchIcon />
               </InputAdornment>
@@ -93,10 +115,16 @@ const LeaguesList = () => {
 
       <ContentWindow>
         {userLeagueList && userLeagueList.length ? (
-          <ListOfTables
-            tablesList={userLeagueList}
-            handleRemoveFn={handleSetLeagueToRemoveClick}
-          />
+          <>
+            {filteredLeaguesList.length > 0 ? (
+              <ListOfTables
+                tablesList={filteredLeaguesList}
+                handleRemoveFn={handleSetLeagueToRemoveClick}
+              />
+            ) : (
+              <NoDataView primaryText="No results found." />
+            )}
+          </>
         ) : (
           <NoDataView
             primaryText="You didn't add any tables yet."
