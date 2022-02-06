@@ -200,30 +200,55 @@ const props: Components = {
         '&&&&': {
           marginTop: 0,
           height: 'auto',
-          paddingRight: '1rem',
-          marginRight: '0.8rem',
+
+          '&.MuiInputAdornment-positionStart': {
+            paddingRight: '1rem',
+            marginRight: '0.8rem',
+
+            '& >svg': {
+              width: '2.5rem',
+              height: '2.5rem',
+            },
+          },
+
+          '&.MuiInputAdornment-positionEnd': {
+            paddingLeft: '1rem',
+            marginLeft: '0.8rem',
+
+            '& >svg': {
+              width: '2rem',
+              height: '2rem',
+            },
+          },
 
           fontSize: '1.4rem',
           borderRight: `0.1rem solid ${'grey'}`,
-
-          '& >svg': {
-            width: '2.5rem',
-            height: '2.5rem',
-          },
 
           '&.MuiInputAdornment-sizeSmall': {
             borderRightWidth: 0,
             paddingRight: '0',
             marginRight: 0,
 
-            '& >svg': {
-              width: '3.5rem',
-              height: '3.5rem',
-            },
-
             [breakpoints.up('md')]: {
-              paddingRight: '1rem',
-              marginRight: '0.8rem',
+              '&.MuiInputAdornment-positionStart': {
+                paddingRight: '1rem',
+                marginRight: '0.8rem',
+
+                '& >svg': {
+                  width: '3.5rem',
+                  height: '3.5rem',
+                },
+              },
+
+              '&.MuiInputAdornment-positionEnd': {
+                paddingLeft: '1rem',
+                marginLeft: '0.8rem',
+
+                '& >svg': {
+                  width: '2rem',
+                  height: '2rem',
+                },
+              },
             },
           },
         },
