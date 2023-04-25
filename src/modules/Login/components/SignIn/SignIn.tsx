@@ -33,8 +33,11 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
 
   const schema = yup
     .object({
-      email: yup.string().required(),
-      passwd: yup.string().required(),
+      email: yup
+        .string()
+        .email('Incorrect e-mail')
+        .required('Field is required'),
+      passwd: yup.string().required('Field is required'),
     })
     .required()
 
@@ -54,11 +57,11 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
     if (!loginSuccess) {
       setError('email', {
         type: 'server',
-        message: 'Wrong login or password',
+        message: 'Wrong e-mail or password',
       })
       setError('passwd', {
         type: 'server',
-        message: 'Wrong login or password',
+        message: 'Wrong e-mail or password',
       })
     } else clearErrors('email')
   }, [loginSuccess])
@@ -70,7 +73,7 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
     }
 
     await dispatch(login(payload))
-    history.push('/')
+    history.push('/leagues')
   }
 
   return (
@@ -109,7 +112,7 @@ const SignIn: React.FC<ISignIn> = ({ viewChangeFn }) => {
           }}
         />
         <FormErrorMessage>
-          {(errors.email || errors.passwd) && 'Wrong login or password'}
+          {(errors.email || errors.passwd) && 'Wrong e-mail or password'}
         </FormErrorMessage>
         <Button variant="contained" type="submit" fullWidth>
           Sign In

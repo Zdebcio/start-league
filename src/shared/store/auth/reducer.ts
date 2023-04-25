@@ -1,6 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { LoadingStatus } from 'shared/types'
-import { login, registration } from './actions'
+import { LoadingStatus, RegistrationErrors } from 'shared/types'
+import {
+  login,
+  registration,
+  clearRegistrationStatus,
+  setRegistrationErrors,
+} from './actions'
 
 interface State {
   something: string
@@ -8,6 +13,8 @@ interface State {
   error?: string | null
   loginSuccess: boolean
   registerSuccess: boolean
+  registerStatus: LoadingStatus
+  registrationErrors: RegistrationErrors | null
 }
 
 const initialState: State = {
@@ -15,7 +22,9 @@ const initialState: State = {
   loading: LoadingStatus.Idle,
   loginSuccess: true,
   registerSuccess: true,
+  registerStatus: LoadingStatus.Idle,
   error: null,
+  registrationErrors: null,
 }
 
 export default createReducer(initialState, (builder) =>
@@ -23,32 +32,48 @@ export default createReducer(initialState, (builder) =>
     .addCase(login.pending, (state) => ({
       ...state,
     }))
-    .addCase(login.fulfilled, (state, action) => {
+    .addCase(login.fulfilled, (state) => {
       return {
         ...state,
         loginSuccess: true,
       }
     })
-    .addCase(login.rejected, (state, action) => {
+    .addCase(login.rejected, (state) => {
       return {
         ...state,
-        registerSuccess: false,
+        loginSuccess: false,
       }
     })
     .addCase(registration.pending, (state) => ({
       ...state,
+      registerStatus: LoadingStatus.Pending,
     }))
-    .addCase(registration.fulfilled, (state, action) => {
+    .addCase(registration.fulfilled, (state) => {
       return {
         ...state,
         registerSuccess: true,
+        registerStatus: LoadingStatus.Succeeded,
       }
     })
-    .addCase(registration.rejected, (state, action) => {
-      console.log(state, action)
+    .addCase(registration.rejected, (state) => {
       return {
         ...state,
         registerSuccess: false,
+        registerStatus: LoadingStatus.Failed,
+      }
+    })
+    .addCase(clearRegistrationStatus, (state) => {
+      return {
+        ...state,
+        registerSuccess: true,
+        registerStatus: LoadingStatus.Idle,
+        registrationErrors: null,
+      }
+    })
+    .addCase(setRegistrationErrors, (state, action) => {
+      return {
+        ...state,
+        registrationErrors: action.payload,
       }
     })
 )

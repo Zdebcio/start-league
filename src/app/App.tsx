@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { BrowserRouter, Redirect, Switch } from 'react-router-dom'
 import { publicRoutes, privateRoutes } from 'shared/routes'
 import PrivateRoute from 'shared/routes/components/PrivateRoute'
 import PublicRoute from 'shared/routes/components/PublicRoute'
@@ -7,10 +7,11 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { Container } from './App.style'
 
 const inputBaselineStyles = <CssBaseline />
+const basename = document.querySelector('base')?.getAttribute('href') ?? '/'
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       {inputBaselineStyles}
       <Container>
         <Switch>
@@ -31,6 +32,7 @@ const App: React.FC = () => {
               component={route.component}
             />
           ))}
+          <Redirect to="/leagues" />
         </Switch>
       </Container>
     </BrowserRouter>
